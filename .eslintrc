@@ -1,0 +1,148 @@
+{
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
+  },
+  "plugins": [
+    "import"
+  ],
+  "env": {
+    "node": true,
+    "browser": true
+  },
+  "root": true,
+  "globals": {},
+  "extends": [
+    "eslint:recommended",
+    "kentcdodds",
+    "airbnb"
+  ],
+  "rules": {
+    "babel/camelcase": 0,
+    "no-nonoctal-decimal-escape": 0,
+    "semi": [
+      2,
+      "never"
+    ],
+    "brace-style": [
+      2,
+      "1tbs",
+      {
+        "allowSingleLine": true
+      }
+    ],
+    "camelcase": [
+      2,
+      {
+        "allow": ["\\w*((Query)|(Mutation)_)\\w*"]
+      }
+    ],
+    "comma-style": [
+      2,
+      "last"
+    ],
+    "curly": 2,
+    "eqeqeq": 2,
+    "func-names": 2,
+    "space-before-function-paren": [
+      "error",
+      "never"
+    ],
+    "guard-for-in": 2,
+    "wrap-iife": 2,
+    "no-undef": 2,
+    "new-cap": 2,
+    "quotes": [
+      2,
+      "single"
+    ],
+    "no-trailing-spaces": 2,
+    "comma-dangle": [
+      2,
+      "never"
+    ],
+    "max-len": [
+      2,
+      {
+        "code": 120,
+        "tabWidth": 2,
+        "ignoreComments": true,
+        "ignoreUrls": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true
+      }
+    ],
+    "no-underscore-dangle": 0,
+    "strict": 0,
+    "no-shadow": 0,
+    "no-var": 2,
+    "no-useless-rename": 2,
+    "no-new-object": 2,
+    "no-array-constructor": 2,
+    "array-callback-return": 0,
+    "no-param-reassign": 0,
+    "no-unused-vars": 1,
+    "global-require": 0,
+    "prefer-spread": 1,
+    "prefer-arrow-callback": 2,
+    "prefer-const": 1,
+    "import/prefer-default-export": 0,
+    "import/no-unresolved": 0,
+    "import/extensions": 0,
+    "no-console": [
+      1,
+      {
+        "allow": ["warn", "error"]
+      }
+    ],
+    "no-extend-native": 2,
+    "function-paren-newline": [
+      2,
+      "multiline"
+    ],
+    "object-curly-newline": [
+      "error",
+      {
+        "multiline": true,
+        "minProperties": 3,
+        "consistent": true
+      }
+    ],
+    "import/no-dynamic-require": 2,
+    "no-nested-ternary": 0,
+    "no-use-before-define": 0,
+    "import/no-extraneous-dependencies": [
+    "error",
+      {
+        "devDependencies": true,
+        "optionalDependencies": false,
+        "peerDependencies": false
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["*.ts","*.tsx"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint"],
+      "extends": [
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+      ],
+      "rules": {
+        "@typescript-eslint/ban-tslint-comment": 0,
+        "@typescript-eslint/no-unnecessary-type-constraint": 0,
+        "@typescript-eslint/no-use-before-define": "warn",
+        "@typescript-eslint/type-annotation-spacing": "error",
+        "@typescript-eslint/explicit-module-boundary-types": 0,
+        "@typescript-eslint/no-empty-function": 0,
+        "@typescript-eslint/no-explicit-any": 1,
+        "@typescript-eslint/no-unused-vars": 1
+      }
+    }
+  ]
+}

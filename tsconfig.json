@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "strict": false,
+    "noImplicitReturns": false,
+    "noImplicitAny": false,
+    "module": "es2020",
+    "moduleResolution": "node",
+    "strictNullChecks": true,
+    "target": "es6",
+    "allowJs": true,
+    "baseUrl": ".",
+    "lib": ["WebWorker", "ES2020", "ScriptHost", "DOM"]
+  },
+  "include": [
+    "src/ts/*.ts",
+    "src/ts/**/*.ts"
+  ]
+}

@@ -1,0 +1,57 @@
+:root {
+  --body-font: Arial, Helvetica, sans-serif;
+}
+
+.large-text {
+  font-family: var(--body-font);
+  font-weight: 900;
+  font-size: 120px;
+  line-height: 161px;
+}
+
+p,
+.body-md {
+  font-family: var(--body-font);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.body-lg {
+  font-family: var(--body-font);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+h1,
+.h1 {
+  font-family: var(--body-font);
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 85px;
+}
+
+h2,
+.h2 {
+  font-family: var(--body-font);
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 64px;
+}
+
+h3,
+.h3 {
+  font-family: var(--body-font);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 42px;
+}
+
+h4,
+.h4 {
+  font-family: var(--body-font);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+}

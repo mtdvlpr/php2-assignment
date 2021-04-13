@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="code-style">
+<description>The code style for this assignment
+</description>
+<rule ref="Generic.Classes.DuplicateClassName"/>
+<rule ref="Generic.CodeAnalysis.EmptyStatement"/>
+<rule ref="Generic.CodeAnalysis.ForLoopWithTestFunctionCall"/>
+<rule ref="Generic.CodeAnalysis.JumbledIncrementer"/>
+<rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
+<rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
+<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+<rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
+<rule ref="Generic.Commenting.Todo"/>
+<rule ref="Generic.Commenting.Fixme"/>
+<rule ref="Generic.ControlStructures.InlineControlStructure"/>
+<rule ref="Generic.Files.ByteOrderMark"/>
+<rule ref="Generic.Files.LineEndings"/>
+<rule ref="Generic.Formatting.DisallowMultipleStatements"/>
+<rule ref="Generic.Formatting.NoSpaceAfterCast"/>
+<rule ref="Generic.Functions.OpeningFunctionBraceBsdAllman"/>
+<rule ref="Generic.NamingConventions.ConstructorName"/>
+<rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
+<rule ref="Generic.PHP.DeprecatedFunctions"/>
+<rule ref="Generic.WhiteSpace.DisallowTabIndent"/>
+<rule ref="Generic.WhiteSpace.ScopeIndent">
+    <properties>
+        <property name="indent" value="2"/>
+        <property name="exact" value="false"/>
+    </properties>
+</rule>
+<rule ref="MySource.PHP.EvalObjectFactory"/>
+<rule ref="PEAR.Classes.ClassDeclaration">
+    <properties>
+        <property name="indent" value="2"/>
+    </properties>
+</rule>
+<rule ref="PEAR.Commenting.ClassComment"/>
+<rule ref="PEAR.Functions.FunctionCallSignature">
+    <properties>
+        <property name="indent" value="2"/>
+    </properties>
+</rule>
+<rule ref="PEAR.WhiteSpace.ScopeClosingBrace">
+    <properties>
+        <property name="indent" value="2"/>
+    </properties>
+</rule>
+<rule ref="PSR2.ControlStructures.SwitchDeclaration">
+    <properties>
+        <property name="indent" value="2"/>
+    </properties>
+</rule>
+<rule ref="Squiz.WhiteSpace.LanguageConstructSpacing"/>
+<rule ref="Squiz.WhiteSpace.LogicalOperatorSpacing"/>
+<rule ref="Squiz.WhiteSpace.ObjectOperatorSpacing"/>
+<rule ref="Squiz.WhiteSpace.OperatorSpacing"/>
+<rule ref="Squiz.WhiteSpace.ScopeKeywordSpacing"/>
+<rule ref="Squiz.WhiteSpace.SemicolonSpacing"/>
+</ruleset>

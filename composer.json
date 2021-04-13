@@ -1,0 +1,13 @@
+{
+  "require-dev": {
+    "phpmd/phpmd" : "@stable",
+    "overtrue/phplint": "^2.3"
+  },
+  "require": {
+    "mollie/mollie-api-php": "^2.0",
+    "fpdf/fpdf": "^1.82",
+    "chillerlan/php-qrcode": "^4.3",
+    "phpmailer/phpmailer": "^6.3",
+    "sentry/sdk": "^3.1"
+  }
+}

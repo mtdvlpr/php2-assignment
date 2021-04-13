@@ -1,0 +1,8 @@
+*.ts    eol=lf
+*.scss  eol=lf
+*.php   eol=lf
+*.css   eol=lf
+*.js    eol=lf
+*.json  eol=lf
+*.svg   eol=lf
+*.conf  eol=lf

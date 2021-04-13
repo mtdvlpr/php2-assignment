@@ -1,0 +1,7 @@
+services:
+  webserver:
+    restart: always
+
+  php-fpm:
+    restart: always
+
