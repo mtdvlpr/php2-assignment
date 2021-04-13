@@ -23,7 +23,7 @@ class MovieArticle
 
             echo "
               <section class='movie' onclick='$target'>
-                <h3>$title</h3>
+                <h1 class='h4'>$title</h1>
                 <img src='$img' alt='$title'/>
               </section>
             ";

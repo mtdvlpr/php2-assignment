@@ -2,6 +2,10 @@
 session_start();
 require_once __DIR__ . '/templateEngine.php';
 
+// Controllers
+require_once __DIR__ . '/../controller/movieController.php';
+require_once __DIR__ . '/../controller/userController.php';
+
 // Models
 require_once __DIR__ . '/../model/article.php';
 require_once __DIR__ . '/../model/form.php';
@@ -16,10 +20,14 @@ require_once __DIR__ . '/components/field.php';
 class router
 {
   private string $activePath;
+  private MovieController $movieController;
+  private UserController $userController;
 
   public function __construct()
   {
     $this->activePath = $this->getPath();
+    $this->movieController = new MovieController();
+    $this->userController = new UserController();
   }
 
   /**
@@ -44,12 +52,12 @@ class router
    */
   public function handleRoute()
   {
+    $isLoggedIn = isset($_SESSION["login"]);
     $templateEngine = new templateEngine(__DIR__ . '/templates');
 
     switch ($this->activePath) {
       case '/':
       case '/index.php':
-        $isLoggedIn = isset($_SESSION["login"]);
         echo $templateEngine->render(
           'main.php',
           [
@@ -93,8 +101,7 @@ class router
           'main.php',
           [
             "title" => "Home",
-            "styles" => ['form'],
-            "scripts" => ['captcha'],
+            "captcha" => true,
             "asideArticles" => [
               ArticleModel::get('about'),
               ArticleModel::get('collection')
@@ -139,7 +146,6 @@ class router
                   )
                 ],
                 'send',
-                'Send',
                 true
               )
             ]
@@ -182,18 +188,18 @@ class router
                   )
                 ],
                 'search',
-                'Search',
                 false,
                 null,
                 null,
                 'get'
               ),
-              $this->movieController->getMovieArticle()
+              $this->movieController->getCollection($_GET['title'] ?? '', $_GET['orderby'] ?? 'id')
             ]
           ]
         );
         break;
 
+      //TODO: make movie page
       case (preg_match("/\/collection\/(.*)/i", $this->activePath, $matches) ? true : false):
         break;
 
@@ -201,23 +207,59 @@ class router
         echo $templateEngine->render(
           'main.php',
           [
-            "title" => "Home",
-            "asideArticles" => [
-              ArticleModel::get('about'),
-              ArticleModel::get('contact')
-            ],
+            "title" => "Sign up",
+            "asideArticles" => [ArticleModel::get('about')],
             "mainArticles" => [
-              new ArticleModel(
-                'Welcome!',
-                "How great that you're visiting our website! We want you to be able to enjoy the rich culture of the movie industry.",
-                $isLoggedIn ? null : '<a href="/register">Create an account</a> to get a more complete experience. With an account you can do, see and interact more!'
-              ),
-              ArticleModel::get('collection')
+              new FormModel(
+                'Sign up',
+                [
+                  new Field(
+                    new FieldModel(
+                      'Username',
+                      'email',
+                      'username',
+                      'example@gmail.com',
+                      'email'
+                    )
+                  ),
+                  new Field(
+                    new FieldModel(
+                      'Name',
+                      'name',
+                      'name',
+                      'Francesco de Bernardo'
+                    )
+                  ),
+                  new Field(
+                    new FieldModel(
+                      'Password',
+                      'pass',
+                      'password',
+                      'SecretPassword123!',
+                      'password'
+                    )
+                    ),
+                  new Field(
+                    new FieldModel(
+                      'Confirm password',
+                      'confirmpass',
+                      'confirm',
+                      'SecretPassword123!',
+                      'password'
+                    )
+                  )
+                ],
+                'Sign up',
+                true,
+                null,
+                'Already have an account? <a href="/login">Log in</a>.'
+              )
             ]
           ]
         );
         break;
 
+      //TODO: Make verify page
       case '/verify':
         echo $templateEngine->render(
           'main.php',
@@ -243,23 +285,42 @@ class router
         echo $templateEngine->render(
           'main.php',
           [
-            "title" => "Home",
-            "asideArticles" => [
-              ArticleModel::get('about'),
-              ArticleModel::get('contact')
-            ],
+            "title" => "Log in",
+            "asideArticles" => [ArticleModel::get('about')],
             "mainArticles" => [
-              new ArticleModel(
-                'Welcome!',
-                "How great that you're visiting our website! We want you to be able to enjoy the rich culture of the movie industry.",
-                $isLoggedIn ? null : '<a href="/register">Create an account</a> to get a more complete experience. With an account you can do, see and interact more!'
-              ),
-              ArticleModel::get('collection')
+              new FormModel(
+                'Log in',
+                [
+                  new Field(
+                    new FieldModel(
+                      'Username',
+                      'email',
+                      'username',
+                      'example@gmail.com',
+                      'email'
+                    )
+                    ),
+                  new Field(
+                    new FieldModel(
+                      'Password',
+                      'pass',
+                      'password',
+                      'SecretPassword123!',
+                      'password'
+                    )
+                  )
+                ],
+                'Log in',
+                false,
+                null,
+                "Don't have an account yet? <a href='/signup'>Sign up</a>.;Forgot password? <a href='/forgot'>Request new password</a>."
+              )
             ]
           ]
         );
         break;
 
+      //TODO: Make logout functionality
       case '/logout':
         echo $templateEngine->render(
           'main.php',
@@ -285,23 +346,42 @@ class router
         echo $templateEngine->render(
           'main.php',
           [
-            "title" => "Home",
-            "asideArticles" => [
-              ArticleModel::get('about'),
-              ArticleModel::get('contact')
-            ],
+            "title" => "Forgot password?",
+            "asideArticles" => [ArticleModel::get('about')],
             "mainArticles" => [
-              new ArticleModel(
-                'Welcome!',
-                "How great that you're visiting our website! We want you to be able to enjoy the rich culture of the movie industry.",
-                $isLoggedIn ? null : '<a href="/register">Create an account</a> to get a more complete experience. With an account you can do, see and interact more!'
-              ),
-              ArticleModel::get('collection')
+              new FormModel(
+                'Forgot password?',
+                [
+                  new Field(
+                    new FieldModel(
+                      'Email Address',
+                      'email',
+                      'email',
+                      'example@gmail.com',
+                      'email'
+                    )
+                  ),
+                  new Field(
+                    new FieldModel(
+                      'Confirm email',
+                      'confirmemail',
+                      'confirm',
+                      'example@gmail.com',
+                      'email'
+                    )
+                  )
+                ],
+                'Send email',
+                false,
+                'A new password will be sent to your email address.',
+                "Don't have an account yet? <a href='/signup'>Sign up</a>."
+              )
             ]
           ]
         );
         break;
 
+      //TODO: Make account page
       case '/account':
         echo $templateEngine->render(
           'main.php',
@@ -323,6 +403,7 @@ class router
         );
         break;
 
+      //TODO: Make admin page
       case '/admin':
         echo $templateEngine->render(
           'main.php',

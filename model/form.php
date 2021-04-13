@@ -9,8 +9,7 @@ class FormModel extends ArticleModel
   public function __construct(
     string $title,
     private array $fields,
-    private string $submitName,
-    private string $submitValue,
+    private string $submit,
     private bool $hasCaptcha,
     ?string $content = null,
     ?string $extraContent = null,
@@ -36,35 +35,19 @@ class FormModel extends ArticleModel
   }
 
   /**
-   * Get the value of submitName
+   * Get the value of submit
    */
-  public function getSubmitName(): string
+  public function getSubmit(): string
   {
-    return $this->submitName;
+    return $this->submit;
   }
 
   /**
-   * Set the value of submitName
+   * Set the value of submit
    */
-  public function setSubmitName(string $submitName): void
+  public function setSubmit(string $submit): void
   {
-    $this->submitName = $submitName;
-  }
-
-  /**
-   * Get the value of submitValue
-   */
-  public function getSubmitValue(): string
-  {
-    return $this->submitValue;
-  }
-
-  /**
-   * Set the value of submitValue
-   */
-  public function setSubmitValue(string $submitValue): void
-  {
-    $this->submitValue = $submitValue;
+    $this->submit = $submit;
   }
 
   /**

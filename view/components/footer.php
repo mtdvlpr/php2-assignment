@@ -23,6 +23,7 @@ class Footer
         <a href='https://www.termsfeed.com/live/e8346890-0635-4127-920e-55f9a9bda7dc' target='_blank'>Privacy Policy</a>
         <h1 class='h4'><small>Copyright &copy; $date <strong>Movies For You</strong></small></h1>
       </footer>
+      <script src='https://www.google.com/recaptcha/api.js' async defer></script>
     ";
   }
 }

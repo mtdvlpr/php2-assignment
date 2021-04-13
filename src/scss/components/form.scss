@@ -65,7 +65,7 @@
     height: 200px;
   }
 
-  input[type='submit'] {
+  .submit {
     background-color: #4caf50;
     color: white;
     font-family: 'Trebuchet MS';
@@ -112,27 +112,27 @@ form > div > div {
 .form-container .responsive,
 .responsive .col-20,
 .responsive .col-60,
-.responsive .row input[type='submit'] {
+.responsive .row .submit {
   width: 100%;
 }
 
-.responsive .row input[type='submit'] {
+.responsive .row .submit {
   display: block;
   margin-top: 20px;
   background-color: red;
 }
 
-.responsive .row input[type='submit']:hover {
+.responsive .row .submit:hover {
   background-color: #d10000;
 }
 
-.responsive .row input[type='submit'].green {
+.responsive .row .submit.green {
   display: block;
   margin-top: 20px;
   background-color: #4caf50;
 }
 
-.responsive .row input[type='submit'].green:hover {
+.responsive .row .submit.green:hover {
   background-color: #45a049;
 }
 
@@ -141,11 +141,11 @@ form > div > div {
   .form-container,
   .col-20,
   .col-60,
-  .form-container input[type='submit'] {
+  .form-container .submit {
     width: 100%;
   }
 
-  .form-container input[type='submit'] {
+  .form-container .submit {
     display: block;
     margin-top: 20px;
   }

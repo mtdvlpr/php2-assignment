@@ -18,14 +18,15 @@ class MovieDB extends BaseDB
      */
     public function getMovies(string $title = "", string $orderBy = "id"): array
     {
-        return $this->executeQuery("SELECT id, title, release_date, director, category, runtime, score, `image` FROM movies WHERE title LIKE ? ORDER BY $orderBy", ["%$title%"]);
+        if ($orderBy != 'title' && $orderBy != 'score') {
+          $orderBy = 'id';
+        }
 
-        $query = 'SELECT id, title, release_date, director, category, runtime, score, `image` FROM movies WHERE title LIKE ? ORDER BY ?';
-
+        $query = "SELECT id, title, release_date, director, category, runtime, score, `image` FROM movies WHERE title LIKE ? ORDER BY $orderBy";
         $result = $this->executeQueryList(
           $query,
-          'ss',
-          [$title, $orderBy]
+          's',
+          ["%$title%"]
         );
 
       $movies = [];

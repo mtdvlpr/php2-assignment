@@ -1,6 +1,5 @@
 <?php
-include './view.php';
-
+//TODO: Move these functions to the proper place
 class controller
 {
     private $salt;
@@ -12,10 +11,6 @@ class controller
     public function __construct()
     {
         $this->salt = '$6$rounds=7000$fishandchips$';
-        $this->view = new view();
-        $this->user_DAO = new user_DAO();
-        $this->movie_DAO = new movie_DAO();
-        $this->contact_DAO = new contact_DAO();
     }
 
     /**

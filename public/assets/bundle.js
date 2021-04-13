@@ -37,7 +37,7 @@ eval("const inputs = document.querySelectorAll('.inputpic');\r\nArray.prototype.
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _inputValidation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./inputValidation */ \"./src/ts/inputValidation.ts\");\n/* harmony import */ var _inputValidation__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_inputValidation__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _menu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./menu */ \"./src/ts/menu.ts\");\n/* harmony import */ var _menu__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_menu__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _scrollBtn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./scrollBtn */ \"./src/ts/scrollBtn.ts\");\n/* harmony import */ var _scrollBtn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_scrollBtn__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _fileUpload__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fileUpload */ \"./src/ts/fileUpload.ts\");\n/* harmony import */ var _fileUpload__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_fileUpload__WEBPACK_IMPORTED_MODULE_3__);\n/* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../scss/main.scss */ \"./src/scss/main.scss\");\n\r\n\r\n\r\n\r\n// Styling\r\n\r\n\n\n//# sourceURL=webpack://php2-assignment/./src/ts/index.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _inputValidation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./inputValidation */ \"./src/ts/inputValidation.ts\");\n/* harmony import */ var _inputValidation__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_inputValidation__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _menu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./menu */ \"./src/ts/menu.ts\");\n/* harmony import */ var _menu__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_menu__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _scrollBtn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./scrollBtn */ \"./src/ts/scrollBtn.ts\");\n/* harmony import */ var _scrollBtn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_scrollBtn__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _fileUpload__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fileUpload */ \"./src/ts/fileUpload.ts\");\n/* harmony import */ var _fileUpload__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_fileUpload__WEBPACK_IMPORTED_MODULE_3__);\n/* harmony import */ var _nav__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./nav */ \"./src/ts/nav.ts\");\n/* harmony import */ var _nav__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_nav__WEBPACK_IMPORTED_MODULE_4__);\n/* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../scss/main.scss */ \"./src/scss/main.scss\");\n\r\n\r\n\r\n\r\n\r\n// Styling\r\n\r\n\n\n//# sourceURL=webpack://php2-assignment/./src/ts/index.ts?");
 
 /***/ }),
 
@@ -58,6 +58,16 @@ eval("const email = document.getElementById('email');\r\nconst confirmEmail = do
 /***/ (() => {
 
 eval("var _a;\r\n(_a = document.getElementById('menu-icon')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {\r\n    const nav = document.getElementById('myTopNav');\r\n    if (nav != null && nav.className === 'topnav') {\r\n        nav.className += ' responsive';\r\n    }\r\n    else if (nav != null) {\r\n        nav.className = 'topnav';\r\n    }\r\n});\r\n\n\n//# sourceURL=webpack://php2-assignment/./src/ts/menu.ts?");
+
+/***/ }),
+
+/***/ "./src/ts/nav.ts":
+/*!***********************!*\
+  !*** ./src/ts/nav.ts ***!
+  \***********************/
+/***/ (() => {
+
+eval("function changeActivePage(target) {\r\n    // Remove the .active class from each item\r\n    document.querySelectorAll('#main-nav .active').forEach((element) => {\r\n        element.classList.remove('active');\r\n    });\r\n    // Add .active class to target item\r\n    document.querySelectorAll('#main-nav a').forEach((element) => {\r\n        if (element.getAttribute('href') === target) {\r\n            element.classList.add('active');\r\n        }\r\n    });\r\n}\r\nchangeActivePage(window.location.pathname);\r\n\n\n//# sourceURL=webpack://php2-assignment/./src/ts/nav.ts?");
 
 /***/ }),
 

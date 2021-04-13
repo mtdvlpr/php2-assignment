@@ -13,9 +13,9 @@ class Nav
     {
         $dynamicMenu = $this->getDynamicMenu($role, $name, $img);
         echo /*html*/"
-            <nav id='myTopnav'>
-                <a href='/' class='active'>Home</a>
-                <a href='about'>About Us</a>
+            <nav id='main-nav'>
+                <a href='/'>Home</a>
+                <a href='/about'>About Us</a>
                 <a href='/contact'>Contact Us</a>
                 <a href='/collection'>Our Collection</a>
                 $dynamicMenu

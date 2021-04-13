@@ -66,7 +66,7 @@ class FieldModel
   /**
    * Get the value of placeholder
    */
-  public function getPlaceholder(): string
+  public function getPlaceholder(): string | null
   {
     return $this->placeholder;
   }

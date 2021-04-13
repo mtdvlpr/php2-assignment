@@ -16,21 +16,18 @@ class Form
         $title = $this->form->getTitle();
         $content = $this->form->getContent();
         $fields = $this->form->getFields();
-        $submitName = $this->form->getSubmitName();
-        $submitValue = $this->form->getSubmitValue();
+        $submit = $this->form->getSubmit();
         $extraContent = $this->form->getExtraContent();
         $method = $this->form->getMethod();
         $hasCaptcha = $this->form->getHasCaptcha();
 
         echo "
             <article class='form-container'>
-                <header>
-                    <h2>$title</h2>";
-                    if ($content != null)  {
-                        echo "<p>$content</p>";
-                    }
-        echo "  </header>
-                <form method='$method' autocomplete='off' enctype='multipart/form-data'>";
+              <h1 class='h3'>$title</h1>";
+              if ($content != null)  {
+                  echo "<p>$content</p>";
+              }
+        echo "<form method='$method' autocomplete='off' enctype='multipart/form-data'>";
 
         foreach ($fields as $field) {
             $field->render();
@@ -49,7 +46,7 @@ class Form
 
         echo "
                     <div class='row'>
-                        <input type='submit' name='$submitName' value='$submitValue'>
+                        <button class='submit'>$submit</button>
                     </div>
                 </form>
             </article>
