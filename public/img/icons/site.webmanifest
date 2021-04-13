@@ -1,0 +1,19 @@
+{
+    "name": "Movies For You",
+    "short_name": "Movies For You",
+    "icons": [
+        {
+            "src": "/img/icons/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/img/icons/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#209cee",
+    "background_color": "#209cee",
+    "display": "standalone"
+}

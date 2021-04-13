@@ -1,0 +1,38 @@
+/* Message boxes */
+p.info,
+p.success,
+p.warning,
+p.error {
+  display: table;
+  padding: 10px;
+  border-radius: 0.5em;
+  margin: 10px auto;
+}
+
+p.info {
+  color: #00529b;
+  background-color: #bde5f8;
+}
+
+p.success {
+  color: #4f8a10;
+  background-color: #dff2bf;
+}
+
+p.warning {
+  color: #9f6000;
+  background-color: #feefb3;
+}
+
+p.error {
+  color: #d8000c;
+  background-color: #ffd2d2;
+}
+
+p.info i,
+p.success i,
+p.warning i,
+p.error i {
+  margin-right: 5px;
+  font-size: 1em;
+}
