@@ -43,11 +43,11 @@ class router
     switch ($this->activePath) {
       case '/':
       case '/index.php':
-        // TODO: Show homepage
+        echo 'This is the homepage of the assignment.';
         break;
 
       default:
-        // TODO: Show error 404 page
+        echo 'Page not found...';
         break;
     }
   }

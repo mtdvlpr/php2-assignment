@@ -1,1 +1,5 @@
-This is the main entry for the application.
+<?php
+  require_once '../view/router.php';
+
+  $router = new router();
+  $router->handleRoute();
