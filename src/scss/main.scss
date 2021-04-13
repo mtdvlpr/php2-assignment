@@ -3,3 +3,15 @@
 @import './base/grid';
 @import './base/variables';
 @import './base/typography';
+
+// Components
+@import './components/nav.scss';
+//@import './components/login.scss';
+@import './components/message.scss';
+@import './components/table.scss';
+@import './components/form.scss';
+@import './components/article.scss';
+
+// Pages
+@import './pages/mainPage.scss';
+@import './pages/accounts.scss';

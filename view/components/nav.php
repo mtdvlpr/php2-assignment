@@ -1,11 +1,11 @@
 <?php
 
 /**
- * The view component for an article on the website.
+ * The view component for the navigation bar of the website.
  */
 class Nav
 {
-    public function __construct() 
+    public function __construct()
     {
     }
 
@@ -19,7 +19,7 @@ class Nav
                 <a href='/contact'>Contact Us</a>
                 <a href='/collection'>Our Collection</a>
                 $dynamicMenu
-                <a class='icon' onclick='showMenu()'><img src='/img/menu.svg' alt='Menu'></a>
+                <a id='menu-icon' class='icon'><img src='/img/menu.svg' alt='Menu'></a>
             </nav>
         ";
     }

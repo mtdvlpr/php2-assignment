@@ -19,7 +19,7 @@ class Article
 
         echo "
             <article>
-                <h2>$title</h2>
+                <h1 class='h4'>$title</h2>
                 <img src='/img/icons/favicon.ico' alt='Logo'/>
                 <p>$content</p>
         ";

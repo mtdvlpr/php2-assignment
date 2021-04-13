@@ -1,0 +1,9 @@
+.accounts {
+  @media screen and (max-width: 900px) {
+    main > aside {
+      display: block;
+      width: 100%;
+      padding: 0;
+    }
+  }
+}

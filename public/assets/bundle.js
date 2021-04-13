@@ -7,7 +7,6 @@
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
 /******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/scss/main.scss":
@@ -16,7 +15,18 @@
   \****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://php2-assignment/./src/scss/main.scss?");
+
+/***/ }),
+
+/***/ "./src/ts/fileUpload.ts":
+/*!******************************!*\
+  !*** ./src/ts/fileUpload.ts ***!
+  \******************************/
+/***/ (() => {
+
+eval("const inputs = document.querySelectorAll('.inputpic');\r\nArray.prototype.forEach.call(inputs, (input) => {\r\n    const label = input.nextElementSibling;\r\n    if (label != null) {\r\n        const labelVal = label.innerHTML;\r\n        input.addEventListener('change', (e) => {\r\n            var _a;\r\n            let fileName = '';\r\n            fileName = (_a = input.value.split('\\\\').pop()) !== null && _a !== void 0 ? _a : 'file';\r\n            const span = label.querySelector('span');\r\n            if (fileName && span != null)\r\n                span.innerHTML = fileName;\r\n            else\r\n                label.innerHTML = labelVal;\r\n        });\r\n    }\r\n});\r\n\n\n//# sourceURL=webpack://php2-assignment/./src/ts/fileUpload.ts?");
 
 /***/ }),
 
@@ -26,7 +36,38 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
   \*************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/main.scss */ \"./src/scss/main.scss\");\n// Styling\r\n\r\n\n\n//# sourceURL=webpack://php2-assignment/./src/ts/index.ts?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _inputValidation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./inputValidation */ \"./src/ts/inputValidation.ts\");\n/* harmony import */ var _inputValidation__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_inputValidation__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _menu__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./menu */ \"./src/ts/menu.ts\");\n/* harmony import */ var _menu__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_menu__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _scrollBtn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./scrollBtn */ \"./src/ts/scrollBtn.ts\");\n/* harmony import */ var _scrollBtn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_scrollBtn__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _fileUpload__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./fileUpload */ \"./src/ts/fileUpload.ts\");\n/* harmony import */ var _fileUpload__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_fileUpload__WEBPACK_IMPORTED_MODULE_3__);\n/* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../scss/main.scss */ \"./src/scss/main.scss\");\n\r\n\r\n\r\n\r\n// Styling\r\n\r\n\n\n//# sourceURL=webpack://php2-assignment/./src/ts/index.ts?");
+
+/***/ }),
+
+/***/ "./src/ts/inputValidation.ts":
+/*!***********************************!*\
+  !*** ./src/ts/inputValidation.ts ***!
+  \***********************************/
+/***/ (() => {
+
+eval("const email = document.getElementById('email');\r\nconst confirmEmail = document.getElementById('confirmemail');\r\nconst password = document.getElementById('pass');\r\nconst confirmPassword = document.getElementById('confirmpass');\r\nfunction validateInputs(input, confirm) {\r\n    if (input.value !== confirm.value) {\r\n        confirm.setCustomValidity('Values do not match.');\r\n        confirm.style.backgroundColor = '#fff6f6';\r\n        confirm.style.color = 'red';\r\n    }\r\n    else {\r\n        confirm.setCustomValidity('');\r\n        confirm.style.backgroundColor = 'white';\r\n        confirm.style.color = 'black';\r\n    }\r\n}\r\nif (email != null && confirmEmail != null) {\r\n    email.addEventListener('change', () => {\r\n        validateInputs(email, confirmEmail);\r\n    });\r\n    confirmEmail.addEventListener('keyup', () => {\r\n        validateInputs(email, confirmEmail);\r\n    });\r\n}\r\nif (password != null && confirmPassword != null) {\r\n    password.addEventListener('change', () => {\r\n        validateInputs(password, confirmPassword);\r\n    });\r\n    confirmPassword.addEventListener('keyup', () => {\r\n        validateInputs(password, confirmPassword);\r\n    });\r\n}\r\n\n\n//# sourceURL=webpack://php2-assignment/./src/ts/inputValidation.ts?");
+
+/***/ }),
+
+/***/ "./src/ts/menu.ts":
+/*!************************!*\
+  !*** ./src/ts/menu.ts ***!
+  \************************/
+/***/ (() => {
+
+eval("var _a;\r\n(_a = document.getElementById('menu-icon')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {\r\n    const nav = document.getElementById('myTopNav');\r\n    if (nav != null && nav.className === 'topnav') {\r\n        nav.className += ' responsive';\r\n    }\r\n    else if (nav != null) {\r\n        nav.className = 'topnav';\r\n    }\r\n});\r\n\n\n//# sourceURL=webpack://php2-assignment/./src/ts/menu.ts?");
+
+/***/ }),
+
+/***/ "./src/ts/scrollBtn.ts":
+/*!*****************************!*\
+  !*** ./src/ts/scrollBtn.ts ***!
+  \*****************************/
+/***/ (() => {
+
+eval("var _a;\r\n/* Scroll back button */\r\nconst scrollBtn = document.getElementById('scrollbtn');\r\nif (scrollBtn != null) {\r\n    window.addEventListener('scroll', () => {\r\n        if (document.body.scrollTop > 350 || document.documentElement.scrollTop > 350) {\r\n            scrollBtn.style.display = 'block';\r\n            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 110) {\r\n                scrollBtn.style.position = 'absolute';\r\n                scrollBtn.style.bottom = '160px';\r\n            }\r\n            else {\r\n                scrollBtn.style.position = 'fixed';\r\n                scrollBtn.style.bottom = '40px';\r\n            }\r\n        }\r\n        else {\r\n            scrollBtn.style.display = 'none';\r\n        }\r\n    });\r\n}\r\n(_a = document.getElementById('scrollbtn')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {\r\n    document.body.scrollTop = 0;\r\n    document.documentElement.scrollTop = 0;\r\n});\r\n\n\n//# sourceURL=webpack://php2-assignment/./src/ts/scrollBtn.ts?");
 
 /***/ })
 
@@ -56,6 +97,35 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scs
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports

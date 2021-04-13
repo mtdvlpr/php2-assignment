@@ -1,0 +1,152 @@
+/* .form */
+.form-container {
+  width: 100%;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+  padding: 20px;
+  margin-top: 20px;
+  color: black;
+
+  p {
+    text-align: center;
+    font-size: 15px;
+  }
+
+  /* Label column */
+  .col-20 {
+    float: left;
+    width: 20%;
+    margin-top: 6px;
+
+    label {
+      padding: 12px 12px 12px 0;
+      display: inline-block;
+
+      span {
+        font-size: 10px;
+      }
+    }
+  }
+
+  /* Textarea column */
+  .col-60 {
+    float: left;
+    width: 60%;
+    margin-top: 6px;
+  }
+
+  /* Clear floats after the columns */
+  .row::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+
+  input[type='text'],
+  input[type='password'],
+  input[type='email'],
+  input[type='number'],
+  textarea,
+  select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    background-color: white;
+
+    &:focus {
+      border: 1px solid #4d90fe;
+      outline: none;
+    }
+  }
+
+  textarea {
+    height: 200px;
+  }
+
+  input[type='submit'] {
+    background-color: #4caf50;
+    color: white;
+    font-family: 'Trebuchet MS';
+    padding: 12px 20px;
+    border: none;
+    margin-top: 1px;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+
+    &:hover {
+      background-color: #45a049;
+    }
+  }
+}
+
+// Captcha
+form > div > div {
+  margin: 0 auto;
+}
+
+.inputpic {
+  width: .1px;
+  height: .1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputpic + label {
+  font-weight: bold;
+  color: black;
+  display: inline;
+}
+
+.inputpic:focus + label,
+.inputpic + label:hover {
+  color: #209cee;
+  cursor: pointer;
+}
+
+/* Responsive layout for small .form-containers */
+.form-container .responsive,
+.responsive .col-20,
+.responsive .col-60,
+.responsive .row input[type='submit'] {
+  width: 100%;
+}
+
+.responsive .row input[type='submit'] {
+  display: block;
+  margin-top: 20px;
+  background-color: red;
+}
+
+.responsive .row input[type='submit']:hover {
+  background-color: #d10000;
+}
+
+.responsive .row input[type='submit'].green {
+  display: block;
+  margin-top: 20px;
+  background-color: #4caf50;
+}
+
+.responsive .row input[type='submit'].green:hover {
+  background-color: #45a049;
+}
+
+/* Responsive layout */
+@media screen and (max-width: 705px) {
+  .form-container,
+  .col-20,
+  .col-60,
+  .form-container input[type='submit'] {
+    width: 100%;
+  }
+
+  .form-container input[type='submit'] {
+    display: block;
+    margin-top: 20px;
+  }
+}
