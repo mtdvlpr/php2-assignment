@@ -5,8 +5,7 @@
 class templateEngine
 {
   public function __construct(
-  private string $templateFolder,
-  private array $parameters = []
+  private string $templateFolder
   )
   {
     $this->templateFolder = rtrim($templateFolder, '/').'/';

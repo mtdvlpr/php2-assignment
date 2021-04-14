@@ -58,41 +58,41 @@ class UserDB extends BaseDB
    *
    * @return array The result of the query in the form of an associative array
    */
-  public function getUser(string $searchUsername, string $hash = ''): userModel|null
+  public function getUser(string $searchUsername, string $hash = ''): userModel | null
   {
-      $query = 'SELECT id, `name`, username, `password`, is_active, `role`, profile_picture, `hash`
-          FROM users
-          WHERE username = ?
-            AND `hash` LIKE ?';
+    $query = 'SELECT id, `name`, username, `password`, is_active, `role`, profile_picture, `hash`
+        FROM users
+        WHERE username = ?
+          AND `hash` LIKE ?';
 
-      $this->executeQuery(
-        $query,
-        'ss',
-        [$searchUsername, "%$hash%"],
-        $id,
-        $name,
-        $username,
-        $password,
-        $isActive,
-        $role,
-        $profilePicture,
-        $hash
-      );
+    $this->executeQuery(
+      $query,
+      'ss',
+      [$searchUsername, "%$hash%"],
+      $id,
+      $name,
+      $username,
+      $password,
+      $isActive,
+      $role,
+      $profilePicture,
+      $hash
+    );
 
-      if ($id == null) {
-        return null;
-      }
+    if ($id == null) {
+      return null;
+    }
 
-      return new UserModel(
-        $id,
-        $name,
-        $username,
-        $password,
-        $profilePicture,
-        $role,
-        $isActive,
-        $hash
-      );
+    return new UserModel(
+      $id,
+      $name,
+      $username,
+      $password,
+      $profilePicture,
+      $role,
+      $isActive,
+      $hash
+    );
   }
 
   /**

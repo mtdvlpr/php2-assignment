@@ -34,7 +34,8 @@ class MainController
       ];
   }
 
-  public function getAboutPage(?UserModel $user) {
+  public function getAboutPage(?UserModel $user): array
+  {
     return [
       "title" => "About Us",
       "user" => $user,
@@ -50,7 +51,8 @@ class MainController
     ];
   }
 
-  public function getContactPage(?UserModel $user) {
+  public function getContactPage(?UserModel $user) : array
+  {
     return [
       "title" => "Home",
       "user" => $user,

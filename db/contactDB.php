@@ -20,6 +20,7 @@ class ContactDB extends BaseDB
       $this->executeQuery(
         'INSERT INTO contact_information (email_address, `name`, `subject`, `message`) VALUES (?, ?, ?, ?)',
         'ssss',
-        [$email, $name, $subject, $message]);
+        [$email, $name, $subject, $message]
+      );
   }
 }

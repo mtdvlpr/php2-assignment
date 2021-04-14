@@ -7,8 +7,9 @@ require_once __DIR__ . '/../../model/movie.php';
 class Movie
 {
   public function __construct(
-    private MovieModel $movie
-  ) {
+  private MovieModel $movie
+  )
+  {
   }
 
   public function render(): void
