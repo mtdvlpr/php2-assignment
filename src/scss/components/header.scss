@@ -1,0 +1,16 @@
+header {
+  padding: 30px;
+  margin: 10px 10px 0 10px;
+
+  img {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  header {
+    img {
+      width: 90%;
+    }
+  }
+}

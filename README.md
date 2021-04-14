@@ -2,10 +2,10 @@
 The PHP2 assignment of InHolland.
 
 ## Getting Started
-This part helps you get started with the Haarlem Festival Project. Please follow it carefully, and don't hesitate to reach out if you have any questions.
+This part helps you get started with the PHP2 assignment. Please follow it carefully, and don't hesitate to reach out if you have any questions.
 
 ### Prerequisites
-To get started we expect you to have the following things installed:
+To get started I expect you to have the following things installed:
 - Node JS (14 or later) [Download Node](https://nodejs.org/en/)
 - Docker engine v1.13 or higher. Your OS provided package might be a little old, if you encounter problems, do upgrade. See [https://docs.docker.com/engine/installation](https://docs.docker.com/engine/installation)
 - Docker compose v1.12 or higher. See [docs.docker.com/compose/install](https://docs.docker.com/compose/install/)
@@ -50,7 +50,7 @@ This will watch for changes to the typescript and SCSS files, and automatically 
 docker-compose up -d
 ```
 
-You can access your application via **`localhost`**, if you're running the containers directly, or through **``** when run on a vm. nginx and mailhog both respond to any hostname, in case you want to add your own hostname on your `/etc/hosts`
+You can access your application via **`localhost`**, if you're running the containers directly.
 
 Service|Address outside containers
 ------|---------
@@ -70,16 +70,14 @@ For more information about the docker environment see [DOCKER.md](./DOCKER.md)
 This is the codebase for the PHP2 assignment, this section contains more information in regards to the codebase.
 
 ### Techniques
-For the Haarlem festival we use several techniques, the main ones are listed here:
+For this assignment I several techniques, the main ones are listed here:
 - TypeScript
 - SCSS
 - PHP 8
-- MYSQL 8
 
 ### Folder structure
 ```sh
 haarlem-festival-php/
-├── .env                # The environment variables for the back-end
 ├── .vscode             # Files related to the behavior of VSCode
 ├── webpack.config.js   # The build config for the project
 ├── phpdocker           # Docker container configs
@@ -97,4 +95,3 @@ haarlem-festival-php/
 └── views             # The View layer of the MVC pattern.
   └── components      # Components for the views
 ```
-

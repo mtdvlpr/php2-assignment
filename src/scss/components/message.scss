@@ -1,11 +1,10 @@
-/* Message boxes */
 p.info,
 p.success,
 p.warning,
 p.error {
   display: table;
   padding: 10px;
-  border-radius: 0.5em;
+  border-radius: .5em;
   margin: 10px auto;
 }
 

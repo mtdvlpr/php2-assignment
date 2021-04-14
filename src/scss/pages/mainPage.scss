@@ -1,15 +1,5 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
-/* header */
-header {
-  padding: 30px;
-  margin: 10px 10px 0 10px;
-
-  img {
-    width: 50%;
-  }
-}
-
 .content {
   padding-bottom: 150px;
 }
@@ -29,25 +19,6 @@ aside {
   padding-right: 10px;
 }
 
-.movie {
-  display: inline-block;
-  width: 49.5%;
-  cursor: pointer;
-  background-color: white;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  min-height: 300px;
-
-  img {
-    max-width: 100%;
-    height: 200px;
-  }
-
-  &:hover {
-    background-color: #d0d0d0;
-  }
-}
-
 /* Clear floats after the columns */
 main::after {
   content: '';
@@ -55,56 +26,8 @@ main::after {
   clear: both;
 }
 
-p span {
-  float: left;
-}
-
-/* Scroll back button */
-#scrollbtn {
-  display: none;
-  position: fixed;
-  bottom: 40px;
-  right: 20px;
-  z-index: 99;
-  width: 50px;
-  height: 50px;
-  cursor: pointer;
-  opacity: .7;
-
-  &:hover {
-    opacity: 1;
-  }
-}
-
-/* Footer */
-footer {
-  width: 100%;
-  height: 120px;
-  position: absolute;
-  bottom: 0;
-  color: white;
-  padding: 20px;
-  background: black;
-
-  h3 {
-    margin-bottom: 0;
-  }
-
-  a {
-    color: #ccc;
-
-    &:hover {
-      color: white;
-    }
-  }
-}
-
 /* Responsive content */
 @media screen and (max-width: 900px) {
-  body > header img {
-    width: 90%;
-  }
-
   .leftcolumn {
     width: 100%;
     padding: 0;
@@ -112,16 +35,5 @@ footer {
 
   aside {
     display: none;
-  }
-
-  article,
-  form {
-    padding: 2%;
-    margin: 20px 10px 0 10px;
-    width: calc(100% - 20px) !important;
-  }
-
-  .movie {
-    width: 100%;
   }
 }
