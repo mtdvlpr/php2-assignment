@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../db/movieDB.php';
 require_once __DIR__ . '/../model/movieArticle.php';
+require_once __DIR__ . '/../model/user.php';
 
 class MovieController
 {
@@ -11,8 +12,64 @@ class MovieController
     $this->movieDB = new MovieDB();
   }
 
-  public function getCollection(string $title = '', string $orderBy = 'id')
+  public function getCollectionPage(?userModel $user, string $title = '', string $orderBy = 'id'): array
   {
-    return new MovieArticleModel($this->movieDB->getMovies($title, $orderBy));
+    return [
+      "title" => "Our Collection",
+      "user" => $user,
+      "asideArticles" => [
+        ArticleModel::get('about'),
+        ArticleModel::get('contact')
+      ],
+      "mainArticles" => [
+        new FormModel(
+          'Our Collection',
+          [
+            new Field(
+              new FieldModel(
+                'Search by title',
+                'title',
+                'title',
+                'Star Wars',
+                'text',
+                false
+              )
+            ),
+            new Field(
+              new FieldModel(
+                'Order by',
+                'title;score',
+                'orderby',
+                null,
+                'radio',
+                false
+              )
+            )
+          ],
+          'search',
+          false,
+          null,
+          '',
+          null,
+          'get'
+        ),
+        new MovieArticleModel($this->movieDB->getMovies($title, $orderBy))
+      ]
+    ];
+  }
+
+  public function getMoviePage(?UserModel $user ,int $id): array
+  {
+    $movie = $this->movieDB->getMovieById($id);
+
+    return [
+      "title" => $movie->getTitle(),
+      "user" => $user,
+      "asideArticles" => [
+        ArticleModel::get('about'),
+        ArticleModel::get('contact')
+      ],
+      "mainArticles" => [$movie]
+    ];
   }
 }

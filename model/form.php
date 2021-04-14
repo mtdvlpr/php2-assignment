@@ -12,8 +12,9 @@ class FormModel extends ArticleModel
   private string $submit,
   private bool $hasCaptcha,
     ?string $content = null,
+  private string $contentClass = '',
     ?string $extraContent = null,
-  private string $method = 'post'
+  private string $method = 'post',
   )
   {
     parent::__construct($title, $content, $extraContent);
@@ -81,5 +82,21 @@ class FormModel extends ArticleModel
   public function setMethod(string $method): void
   {
     $this->method = $method;
+  }
+
+  /**
+   * Get the value of contentClass
+   */
+  public function getContentClass(): string
+  {
+    return $this->contentClass;
+  }
+
+  /**
+   * Set the value of coontentClass
+   */
+  public function setContentClass(string $extraClass): void
+  {
+    $this->contentClass = $contentClass;
   }
 }

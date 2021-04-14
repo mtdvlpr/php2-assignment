@@ -21,9 +21,10 @@ class MovieArticle
       $title = $movie->getTitle();
       $img = $movie->getImage();
       $target = "window.location.href='/collection/$id'";
+      $onclick = 'onclick="' . $target . '"';
 
         echo "
-              <section class='movie' onclick='$target'>
+              <section class='movie' $onclick>
                 <h1 class='h4'>$title</h1>
                 <img src='$img' alt='$title'/>
               </section>

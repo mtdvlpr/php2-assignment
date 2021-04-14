@@ -16,6 +16,7 @@ class Form
   {
       $title = $this->form->getTitle();
       $content = $this->form->getContent();
+      $contentClass = $this->form->getContentClass();
       $fields = $this->form->getFields();
       $submit = $this->form->getSubmit();
       $extraContent = $this->form->getExtraContent();
@@ -26,7 +27,7 @@ class Form
             <article class='form-container'>
               <h1 class='h3'>$title</h1>";
     if ($content != null)  {
-      echo "<p>$content</p>";
+      echo "<p$contentClass>$content</p>";
     }
       echo "<form method='$method' autocomplete='off' enctype='multipart/form-data'>";
 
@@ -44,10 +45,10 @@ class Form
     if ($hasCaptcha) {
         echo '<div class="g-recaptcha" data-sitekey="6Lenh-MZAAAAANqwKEkTjSNDy6Q7XnreHObxUM1V"></div>';
     }
-
+      $submitName = $method == 'post' ? " name='submit'" : '';
       echo "
                     <div class='row'>
-                        <button class='submit'>$submit</button>
+                        <button class='submit'$submitName>$submit</button>
                     </div>
                 </form>
             </article>

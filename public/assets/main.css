@@ -404,7 +404,7 @@ nav {
   nav a {
     float: left;
     display: block;
-    color: #ffffff;
+    color: #fff;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -421,9 +421,7 @@ nav {
   nav .profilepic {
     border-radius: 50%;
     width: 26px;
-    height: 26px;
-    margin-top: -2px;
-    margin-bottom: -8px; }
+    height: 26px; }
   nav .dropdown {
     float: right;
     overflow: hidden;
@@ -505,14 +503,13 @@ nav {
     width: 100%;
     margin: 0; } }
 
-/* Message boxes */
 p.info,
 p.success,
 p.warning,
 p.error {
   display: table;
   padding: 10px;
-  border-radius: 0.5em;
+  border-radius: .5em;
   margin: 10px auto; }
 
 p.info {
@@ -538,9 +535,8 @@ p.error i {
   margin-right: 5px;
   font-size: 1em; }
 
-/* Table */
 table {
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 98%;
   color: black;
@@ -618,7 +614,6 @@ table {
   .form-container .submit {
     background-color: #4caf50;
     color: white;
-    font-family: 'Trebuchet MS';
     padding: 12px 20px;
     border: none;
     margin-top: 1px;
@@ -692,13 +687,66 @@ article {
 .moviearticle {
   background-color: transparent;
   padding: 0; }
+  .moviearticle .movie {
+    display: inline-block;
+    width: 49.5%;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    min-height: 300px; }
+    .moviearticle .movie img {
+      max-width: 100%;
+      height: 200px; }
+    .moviearticle .movie:hover {
+      background-color: #d0d0d0; }
 
-/* header */
+@media screen and (max-width: 900px) {
+  article,
+  form {
+    padding: 2%;
+    margin: 20px 10px 0 10px;
+    width: calc(100% - 20px) !important; }
+  .moviearticle .movie {
+    width: 100%; } }
+
+footer {
+  width: 100%;
+  height: 120px;
+  position: absolute;
+  bottom: 0;
+  color: white;
+  padding: 20px;
+  background: black; }
+  footer h3 {
+    margin-bottom: 0; }
+  footer a {
+    color: #ccc; }
+    footer a:hover {
+      color: white; }
+
+#scrollbtn {
+  display: none;
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+  z-index: 99;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  opacity: .7; }
+  #scrollbtn:hover {
+    opacity: 1; }
+
 header {
   padding: 30px;
   margin: 10px 10px 0 10px; }
   header img {
     width: 50%; }
+
+@media screen and (max-width: 900px) {
+  header img {
+    width: 90%; } }
 
 .content {
   padding-bottom: 150px; }
@@ -716,75 +764,19 @@ aside {
   padding-left: 20px;
   padding-right: 10px; }
 
-.movie {
-  display: inline-block;
-  width: 49.5%;
-  cursor: pointer;
-  background-color: white;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  min-height: 300px; }
-  .movie img {
-    max-width: 100%;
-    height: 200px; }
-  .movie:hover {
-    background-color: #d0d0d0; }
-
 /* Clear floats after the columns */
 main::after {
   content: '';
   display: table;
   clear: both; }
 
-p span {
-  float: left; }
-
-/* Scroll back button */
-#scrollbtn {
-  display: none;
-  position: fixed;
-  bottom: 40px;
-  right: 20px;
-  z-index: 99;
-  width: 50px;
-  height: 50px;
-  cursor: pointer;
-  opacity: .7; }
-  #scrollbtn:hover {
-    opacity: 1; }
-
-/* Footer */
-footer {
-  width: 100%;
-  height: 120px;
-  position: absolute;
-  bottom: 0;
-  color: white;
-  padding: 20px;
-  background: black; }
-  footer h3 {
-    margin-bottom: 0; }
-  footer a {
-    color: #ccc; }
-    footer a:hover {
-      color: white; }
-
 /* Responsive content */
 @media screen and (max-width: 900px) {
-  body > header img {
-    width: 90%; }
   .leftcolumn {
     width: 100%;
     padding: 0; }
   aside {
-    display: none; }
-  article,
-  form {
-    padding: 2%;
-    margin: 20px 10px 0 10px;
-    width: calc(100% - 20px) !important; }
-  .movie {
-    width: 100%; } }
+    display: none; } }
 
 @media screen and (max-width: 900px) {
   .accounts main > aside {

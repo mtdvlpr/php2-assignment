@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__ . '/../../model/user.php';
 /**
  * The view component for the navigation bar of the website.
  */
@@ -9,22 +9,27 @@ class Nav
   {
   }
 
-  public function render(int $role = -1, ?string $name = null, ?string $img = null): void
+  public function render(?UserModel $user): void
   {
-      $dynamicMenu = $this->getDynamicMenu($role, $name, $img);
-      echo /*html*/"
-            <nav id='main-nav'>
-                <a href='/'>Home</a>
-                <a href='/about'>About Us</a>
-                <a href='/contact'>Contact Us</a>
-                <a href='/collection'>Our Collection</a>
-                $dynamicMenu
-                <a id='menu-icon' class='icon'><img src='/img/menu.svg' alt='Menu'></a>
-            </nav>
-        ";
+    $dynamicMenu = null;
+    if  ($user == null) {
+      $dynamicMenu = $this->getDynamicMenu(-1);
+    } else {
+      $dynamicMenu = $this->getDynamicMenu($user->getRole(), $user->getName(), $user->getProfilePicture());
+    }
+    echo /*html*/"
+      <nav id='main-nav'>
+          <a href='/'>Home</a>
+          <a href='/about'>About Us</a>
+          <a href='/contact'>Contact Us</a>
+          <a href='/collection'>Our Collection</a>
+          $dynamicMenu
+          <a id='menu-icon' class='icon'><img src='/img/menu.svg' alt='Menu'></a>
+      </nav>
+    ";
   }
 
-  private function getDynamicMenu(int $role, ?string $name, ?string $img): string
+  private function getDynamicMenu(int $role, ?string $name = null, ?string $img = null): string
   {
     switch($role) {
       case -1:

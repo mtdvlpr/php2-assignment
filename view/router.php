@@ -5,6 +5,7 @@ require_once __DIR__ . '/templateEngine.php';
 // Controllers
 require_once __DIR__ . '/../controller/movieController.php';
 require_once __DIR__ . '/../controller/userController.php';
+require_once __DIR__ . '/../controller/mainController.php';
 
 // Models
 require_once __DIR__ . '/../model/article.php';
@@ -22,12 +23,14 @@ class router
   private string $activePath;
   private MovieController $movieController;
   private UserController $userController;
+  private MainController $mainController;
 
   public function __construct()
   {
     $this->activePath = $this->getPath();
     $this->movieController = new MovieController();
     $this->userController = new UserController();
+    $this->mainController = new MainController();
   }
 
   /**
@@ -52,211 +55,60 @@ class router
    */
   public function handleRoute()
   {
-    $isLoggedIn = isset($_SESSION["login"]);
+    $user = isset($_SESSION["login"]) ? unserialize($_SESSION['login']) : null;
     $templateEngine = new templateEngine(__DIR__ . '/templates');
 
     switch ($this->activePath) {
+      // ─── GENERAL ─────────────────────────────────────────────────────
       case '/':
       case '/index.php':
         echo $templateEngine->render(
           'main.php',
-          [
-            "title" => "Home",
-            "asideArticles" => [
-              ArticleModel::get('about'),
-              ArticleModel::get('contact')
-            ],
-            "mainArticles" => [
-              new ArticleModel(
-                'Welcome!',
-                "How great that you're visiting our website! We want you to be able to enjoy the rich culture of the movie industry.",
-                $isLoggedIn ? null : '<a href="/register">Create an account</a> to get a more complete experience. With an account you can do, see and interact more!'
-              ),
-              ArticleModel::get('collection')
-            ]
-          ]
+          $this->mainController->getHomepage($user)
         );
         break;
 
       case '/about':
         echo $templateEngine->render(
           'main.php',
-          [
-            "title" => "About Us",
-            "asideArticles" => [
-              ArticleModel::get('collection')
-            ],
-            "mainArticles" => [
-              new ArticleModel(
-                'Who Are We?',
-                "We are a company dedicated to providing everyone with a variety of amazing movies!"
-              )
-            ]
-          ]
+          $this->mainController->getAboutPage($user)
         );
         break;
 
       case '/contact':
         echo $templateEngine->render(
           'main.php',
-          [
-            "title" => "Home",
-            "captcha" => true,
-            "asideArticles" => [
-              ArticleModel::get('about'),
-              ArticleModel::get('collection')
-            ],
-            "mainArticles" => [
-              new FormModel(
-                'Contact Us',
-                [
-                  new Field(
-                    new FieldModel(
-                      'Email Address',
-                      'email',
-                      'email',
-                      'example@gmail.com',
-                      'email'
-                    )
-                  ),
-                  new Field(
-                    new FieldModel(
-                      'Name',
-                      'name',
-                      'name',
-                      'Francisco de Bernardo'
-                    )
-                  ),
-                  new Field(
-                    new FieldModel(
-                      'Subject',
-                      'subject',
-                      'subject',
-                      'Homepage layout'
-                    )
-                  ),
-                  new Field(
-                    new FieldModel(
-                      'Message',
-                      'msg',
-                      'msg',
-                      'I love it!!!',
-                      'textarea'
-                    )
-                  )
-                ],
-                'send',
-                true
-              )
-            ]
-          ]
+          $this->mainController->getContactPage($user)
         );
         break;
 
+      // ─── MOVIES ─────────────────────────────────────────────────────
       case '/collection':
         echo $templateEngine->render(
           'main.php',
-          [
-            "title" => "Home",
-            "asideArticles" => [
-              ArticleModel::get('about'),
-              ArticleModel::get('contact')
-            ],
-            "mainArticles" => [
-              new FormModel(
-                'Our Collection',
-                [
-                  new Field(
-                    new FieldModel(
-                      'Search by title',
-                      'title',
-                      'title',
-                      'Star Wars',
-                      'text',
-                      false
-                    )
-                  ),
-                  new Field(
-                    new FieldModel(
-                      'Order by',
-                      'title;score',
-                      'orderby',
-                      null,
-                      'radio',
-                      false
-                    )
-                  )
-                ],
-                'search',
-                false,
-                null,
-                null,
-                'get'
-              ),
-              $this->movieController->getCollection($_GET['title'] ?? '', $_GET['orderby'] ?? 'id')
-            ]
-          ]
+          $this->movieController->getCollectionPage($user, $_GET['title'] ?? '', $_GET['orderby'] ?? 'id')
         );
         break;
 
       //TODO: make movie page
       case (preg_match("/\/collection\/(.*)/i", $this->activePath, $matches) ? true : false):
-        break;
-
-      case '/signup':
         echo $templateEngine->render(
           'main.php',
-          [
-            "title" => "Sign up",
-            "asideArticles" => [ArticleModel::get('about')],
-            "mainArticles" => [
-              new FormModel(
-                'Sign up',
-                [
-                  new Field(
-                    new FieldModel(
-                      'Username',
-                      'email',
-                      'username',
-                      'example@gmail.com',
-                      'email'
-                    )
-                  ),
-                  new Field(
-                    new FieldModel(
-                      'Name',
-                      'name',
-                      'name',
-                      'Francesco de Bernardo'
-                    )
-                  ),
-                  new Field(
-                    new FieldModel(
-                      'Password',
-                      'pass',
-                      'password',
-                      'SecretPassword123!',
-                      'password'
-                    )
-                    ),
-                  new Field(
-                    new FieldModel(
-                      'Confirm password',
-                      'confirmpass',
-                      'confirm',
-                      'SecretPassword123!',
-                      'password'
-                    )
-                  )
-                ],
-                'Sign up',
-                true,
-                null,
-                'Already have an account? <a href="/login">Log in</a>.'
-              )
-            ]
-          ]
+          $this->movieController->getMoviePage($user, $matches[1])
         );
+        break;
+
+      // ─── USER ─────────────────────────────────────────────────────
+      case '/signup':
+        if ($user != null) {
+          header('Location: /');
+        } else {
+          echo $templateEngine->render(
+            'main.php',
+            $this->userController->getSignUpPage()
+          );
+        }
+
         break;
 
       //TODO: Make verify page
@@ -273,7 +125,7 @@ class router
               new ArticleModel(
                 'Welcome!',
                 "How great that you're visiting our website! We want you to be able to enjoy the rich culture of the movie industry.",
-                $isLoggedIn ? null : '<a href="/register">Create an account</a> to get a more complete experience. With an account you can do, see and interact more!'
+                $user != null ? null : '<a href="/register">Create an account</a> to get a more complete experience. With an account you can do, see and interact more!'
               ),
               ArticleModel::get('collection')
             ]
@@ -282,102 +134,25 @@ class router
         break;
 
       case '/login':
-        echo $templateEngine->render(
-          'main.php',
-          [
-            "title" => "Log in",
-            "asideArticles" => [ArticleModel::get('about')],
-            "mainArticles" => [
-              new FormModel(
-                'Log in',
-                [
-                  new Field(
-                    new FieldModel(
-                      'Username',
-                      'email',
-                      'username',
-                      'example@gmail.com',
-                      'email'
-                    )
-                    ),
-                  new Field(
-                    new FieldModel(
-                      'Password',
-                      'pass',
-                      'password',
-                      'SecretPassword123!',
-                      'password'
-                    )
-                  )
-                ],
-                'Log in',
-                false,
-                null,
-                "Don't have an account yet? <a href='/signup'>Sign up</a>.;Forgot password? <a href='/forgot'>Request new password</a>."
-              )
-            ]
-          ]
-        );
+        if ($user != null) {
+          header('Location: /');
+        } else {
+          echo $templateEngine->render(
+            'main.php',
+            isset($_POST['submit']) ? $this->userController->getLoginPage($_POST['username'], $_POST['password']) : $this->userController->getLoginPage()
+          );
+        }
         break;
 
-      //TODO: Make logout functionality
       case '/logout':
-        echo $templateEngine->render(
-          'main.php',
-          [
-            "title" => "Home",
-            "asideArticles" => [
-              ArticleModel::get('about'),
-              ArticleModel::get('contact')
-            ],
-            "mainArticles" => [
-              new ArticleModel(
-                'Welcome!',
-                "How great that you're visiting our website! We want you to be able to enjoy the rich culture of the movie industry.",
-                $isLoggedIn ? null : '<a href="/register">Create an account</a> to get a more complete experience. With an account you can do, see and interact more!'
-              ),
-              ArticleModel::get('collection')
-            ]
-          ]
-        );
+        unset($_SESSION['login']);
+        header('Location: /');
         break;
 
       case '/forgot':
         echo $templateEngine->render(
           'main.php',
-          [
-            "title" => "Forgot password?",
-            "asideArticles" => [ArticleModel::get('about')],
-            "mainArticles" => [
-              new FormModel(
-                'Forgot password?',
-                [
-                  new Field(
-                    new FieldModel(
-                      'Email Address',
-                      'email',
-                      'email',
-                      'example@gmail.com',
-                      'email'
-                    )
-                  ),
-                  new Field(
-                    new FieldModel(
-                      'Confirm email',
-                      'confirmemail',
-                      'confirm',
-                      'example@gmail.com',
-                      'email'
-                    )
-                  )
-                ],
-                'Send email',
-                false,
-                'A new password will be sent to your email address.',
-                "Don't have an account yet? <a href='/signup'>Sign up</a>."
-              )
-            ]
-          ]
+          $this->userController->getForgotPage()
         );
         break;
 
@@ -395,7 +170,7 @@ class router
               new ArticleModel(
                 'Welcome!',
                 "How great that you're visiting our website! We want you to be able to enjoy the rich culture of the movie industry.",
-                $isLoggedIn ? null : '<a href="/register">Create an account</a> to get a more complete experience. With an account you can do, see and interact more!'
+                $user != null ? null : '<a href="/register">Create an account</a> to get a more complete experience. With an account you can do, see and interact more!'
               ),
               ArticleModel::get('collection')
             ]
@@ -417,7 +192,7 @@ class router
               new ArticleModel(
                 'Welcome!',
                 "How great that you're visiting our website! We want you to be able to enjoy the rich culture of the movie industry.",
-                $isLoggedIn ? null : '<a href="/register">Create an account</a> to get a more complete experience. With an account you can do, see and interact more!'
+                $user != null ? null : '<a href="/register">Create an account</a> to get a more complete experience. With an account you can do, see and interact more!'
               ),
               ArticleModel::get('collection')
             ]

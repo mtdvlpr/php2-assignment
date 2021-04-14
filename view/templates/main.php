@@ -5,6 +5,7 @@
   include_once __DIR__ . '/../components/movieArticle.php';
   include_once __DIR__ . '/../components/footer.php';
   include_once __DIR__ . '/../components/header.php';
+  include_once __DIR__ . '/../components/movie.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,16 +23,7 @@
   <section class="content">
     <?php
     $nav = new Nav();
-
-    if (isset($_SESSION["login"])) {
-      $nav->render(
-        $_SESSION["login"]["role"],
-        $_SESSION["login"]["name"],
-        $_SESSION["login"]["img"]
-      );
-    } else {
-      $nav->render();
-    }
+    $nav->render($user);
     ?>
     <main>
       <aside>
