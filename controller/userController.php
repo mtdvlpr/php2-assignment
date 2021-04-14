@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../db/userDB.php';
 require_once __DIR__ . '/../model/user.php';
+require_once __DIR__ . '/../model/mailer.php';
 
 class UserController
 {
@@ -62,7 +63,12 @@ class UserController
                 $this->userDB->addUser($name, $username, crypt($password, $this->salt), $hash, 0);
 
                 // Send verification mail
-                mail("$username", "Account Verification", "Dear $name,\n\nThank you for creating an account!\n\nClick this link to activate your account:\nhttp://www.643622.infhaarlem.nl/verify?email=$username&hash=$hash&new=none\n\nKind regards,\n\n\n643622.infhaarlem.nl", 'From:noreply@643622.infhaarlem.nl');
+                $mailer = new Mailer();
+                $mailer->sendMail(
+                  subject: "Account Verification",
+                  body: "Dear $name,<br><br>Thank you for creating an account!<br><br><a href='http://www.643622.infhaarlem.nl/verify?email=$username&hash=$hash&new=none'>Verify your account</a><br><br>Kind regards,<br><br><br>The Movies For You team",
+                  address: $username
+                );
 
                 // Show user feedback
                 $content = "Your account was successfully created. Check your email to activate it.";
@@ -130,8 +136,7 @@ class UserController
           'Sign up',
           true,
           $content,
-          $contentClass,
-          'Already have an account? <a href="/login">Log in</a>.'
+          $contentClass
         )
       ]
     ];
@@ -156,8 +161,9 @@ class UserController
           if ($user == null) {
             $content = "The user $username was not found.";
           }
-          else if (!$user->isActive()) {
-            $content = 'This account has not been activated yet.';
+          else if (!$user->getIsActive()) {
+            $content = 'This account has not been activated yet. Check your email to active it.';
+            $contentClass = ' class="warning"';
           } else if (!$user->checkPassword(crypt($password, $this->salt))) {
             $content = 'Your password is incorrect.';
           } else {
@@ -208,8 +214,61 @@ class UserController
     ];
   }
 
-  public function getForgotPage(): array
+  public function getForgotPage(?string $email = null, ?string $confirm = null): array
   {
+    $content = null;
+    $contentClass = ' class="error"';
+
+    // Validate login attempt if there is one
+    if ($email != null) {
+      if (empty($email) || empty($confirm)) {
+        $content = 'Please fill in both fields.';
+        $contentClass = ' class="warning"';
+      } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $content = "$email is not a valid email address.";
+      } else if ($email != $confirm) {
+        $content = "The confirmed email doesn't match the email you entered.";
+      } else {
+        try {
+          $user = $this->userDB->getUser($email);
+          if ($user == null) {
+            $content = "The user $email was not found.";
+          } else if (!$user->getIsActive()) {
+            $content = 'This account has not been activated yet. Check your email to active it.';
+            $contentClass = ' class="warning"';
+          } else {
+
+            // Generate new password
+            $newPassword = "";
+            $characters = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890";
+
+            for ($i = 0; $i < 8; $i++) {
+              $position = rand(0, 61);
+              $newPassword .= substr($characters, $position, 1);
+            }
+
+            // Update the database
+            $user->setPassword(crypt($newPassword, $this->salt));
+            $this->userDB->updateUser($user);
+
+            // Send email
+            $mailer = new Mailer();
+            $mailer->sendMail(
+              subject: "New Password",
+              body: "Dear user,<br><br>You have forgotten your password, so we made a new one for you!<br><br>Your new password is: $newPassword<br><br>Kind regards,<br><br><br>The Movies For You team",
+              address: $email
+            );
+
+            // Give user feedback
+            $content = "A new password has been sent to your email address.";
+            $contentClass = ' class="success"';
+          }
+        } catch (Exception $error) {
+          $content = $error->getMessage();
+        }
+      }
+    }
+
     return [
       "title" => "Forgot password?",
       "user" => null,
@@ -239,8 +298,8 @@ class UserController
           ],
           'Send email',
           false,
-          'A new password will be sent to your email address.',
-          '',
+          $content,
+          $contentClass,
           "Don't have an account yet? <a href='/signup'>Sign up</a>."
         )
       ]

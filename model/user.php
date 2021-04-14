@@ -9,7 +9,7 @@ class UserModel
   private string $profilePicture = '/img/fillerface.png',
   private int $role = 0,
   private bool $isActive = false,
-  private ?string $hash = null
+  private string $hash = ''
   )
   {
   }
@@ -57,6 +57,22 @@ class UserModel
   public function getUsername(): string
   {
     return $this->username;
+  }
+
+  /**
+   * Set the value of password
+   */
+  public function setPassword(string $password): void
+  {
+    $this->password = $password;
+  }
+
+  /**
+   * Get the value of password
+   */
+  public function getPassword(): string
+  {
+    return $this->password;
   }
 
   /**

@@ -90,7 +90,6 @@ class router
         );
         break;
 
-      //TODO: make movie page
       case (preg_match("/\/collection\/(.*)/i", $this->activePath, $matches) ? true : false):
         echo $templateEngine->render(
           'main.php',
@@ -152,7 +151,7 @@ class router
       case '/forgot':
         echo $templateEngine->render(
           'main.php',
-          $this->userController->getForgotPage()
+          isset($_POST['submit']) ? $this->userController->getForgotPage($_POST['email'], $_POST['confirm']) : $this->userController->getForgotPage()
         );
         break;
 

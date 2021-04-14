@@ -19,16 +19,7 @@ include_once __DIR__ . '/components/header.php';
   <section class="content">
     <?php
     $nav = new Nav();
-
-    if (isset($_SESSION["login"])) {
-      $nav->render(
-        $_SESSION["login"]["role"],
-        $_SESSION["login"]["name"],
-        $_SESSION["login"]["img"]
-      );
-    } else {
-      $nav->render();
-    }
+    $nav->render(isset($_SESSION['login']) ? unserialize($_SESSION['login']) : null);
     ?>
     <main>
       <section class="leftcolumn" style='width: 99%'>
