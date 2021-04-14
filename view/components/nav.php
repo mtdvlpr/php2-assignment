@@ -5,14 +5,14 @@
  */
 class Nav
 {
-    public function __construct()
-    {
-    }
+  public function __construct()
+  {
+  }
 
-    public function render(int $role = -1, ?string $name = null, ?string $img = null): void
-    {
-        $dynamicMenu = $this->getDynamicMenu($role, $name, $img);
-        echo /*html*/"
+  public function render(int $role = -1, ?string $name = null, ?string $img = null): void
+  {
+      $dynamicMenu = $this->getDynamicMenu($role, $name, $img);
+      echo /*html*/"
             <nav id='main-nav'>
                 <a href='/'>Home</a>
                 <a href='/about'>About Us</a>
@@ -22,15 +22,15 @@ class Nav
                 <a id='menu-icon' class='icon'><img src='/img/menu.svg' alt='Menu'></a>
             </nav>
         ";
-    }
+  }
 
-    private function getDynamicMenu(int $role, ?string $name, ?string $img): string
-    {
-        switch($role) {
-            case -1:
-                return /*html*/'<a href="/login" style="float:right">Log in</a>';
-            case 0:
-                return /*html*/"
+  private function getDynamicMenu(int $role, ?string $name, ?string $img): string
+  {
+    switch($role) {
+      case -1:
+        return /*html*/'<a href="/login" style="float:right">Log in</a>';
+      case 0:
+        return /*html*/"
                     <ul class='dropdown'>
                         <button class='dropbtn'>
                             $name
@@ -43,8 +43,8 @@ class Nav
                         </li>
                     </ul>
                 ";
-            default:
-                return /*html*/"
+      default:
+        return /*html*/"
                     <ul class='dropdown'>
                         <button class='dropbtn'>
                             $name
@@ -58,6 +58,6 @@ class Nav
                         </li>
                     </ul>
                 ";
-        }
     }
+  }
 }

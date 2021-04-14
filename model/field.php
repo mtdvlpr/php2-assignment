@@ -6,13 +6,14 @@
 class FieldModel
 {
   public function __construct(
-    private string $label,
-    private string $id,
-    private string $name,
-    private ?string $placeholder = null,
-    private string $type = 'text',
-    private bool $required = true
-  ) {
+  private string $label,
+  private string $id,
+  private string $name,
+  private ?string $placeholder = null,
+  private string $type = 'text',
+  private bool $required = true
+  )
+  {
   }
 
   /**

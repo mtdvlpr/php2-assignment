@@ -8,13 +8,14 @@ class FormModel extends ArticleModel
 {
   public function __construct(
     string $title,
-    private array $fields,
-    private string $submit,
-    private bool $hasCaptcha,
+  private array $fields,
+  private string $submit,
+  private bool $hasCaptcha,
     ?string $content = null,
     ?string $extraContent = null,
-    private string $method = 'post'
-  ) {
+  private string $method = 'post'
+  )
+  {
     parent::__construct($title, $content, $extraContent);
   }
 
