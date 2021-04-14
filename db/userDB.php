@@ -4,22 +4,23 @@ require_once __DIR__ . '/../model/user.php';
 
 class UserDB extends BaseDB
 {
-    public function __construct()
-    {}
+  public function __construct()
+  {
+  }
 
     /**
      * Get a selection of users from the database
      *
      * @return UserModel[] An array of users.
      */
-    public function getUsers(
+  public function getUsers(
       int $role = 1,
       string $name = '',
       string $username = '',
       string $registrationDate = ''
     ): array
-    {
-        $query = 'SELECT id, `name`, username, `password`, is_active, `role`, profile_picture
+  {
+      $query = 'SELECT id, `name`, username, `password`, is_active, `role`, profile_picture
           FROM users
           WHERE `role` < ?
             AND `name` LIKE ?
@@ -27,28 +28,28 @@ class UserDB extends BaseDB
             AND registration_date LIKE ?
         ';
 
-        $result = $this->executeQueryList(
-          $query,
-          'isss',
-          [$role, $name, $username, $registrationDate]
-        );
+      $result = $this->executeQueryList(
+        $query,
+        'isss',
+        [$role, $name, $username, $registrationDate]
+      );
 
-        $users = [];
+      $users = [];
 
-        foreach ($result->fetch_all(MYSQLI_ASSOC) as $row) {
-          $users[] = new UserModel(
-            $row['id'],
-            $row['name'],
-            $row['username'],
-            $row['password'],
-            $row['profile_picture'],
-            $row['role'],
-            $row['is_active']
-          );
-        }
-
-        return $users;
+    foreach ($result->fetch_all(MYSQLI_ASSOC) as $row) {
+      $users[] = new UserModel(
+        $row['id'],
+        $row['name'],
+        $row['username'],
+        $row['password'],
+        $row['profile_picture'],
+        $row['role'],
+        $row['is_active']
+      );
     }
+
+      return $users;
+  }
 
     /**
      * Select a specific user based on it's username/email
@@ -57,38 +58,38 @@ class UserDB extends BaseDB
      *
      * @return array The result of the query in the form of an associative array
      */
-    public function getUser(string $username, string $hash = ''): userModel
-    {
-        $query = 'SELECT id, `name`, username, `password`, is_active, `role`, profile_picture, `hash`
+  public function getUser(string $username, string $hash = ''): userModel
+  {
+      $query = 'SELECT id, `name`, username, `password`, is_active, `role`, profile_picture, `hash`
           FROM users
           WHERE username = ?
             AND `hash` LIKE ?';
 
-        $this->executeQuery(
-          $query,
-          'ss',
-          [$username, $hash],
-          $id,
-          $name,
-          $username,
-          $password,
-          $isActive,
-          $role,
-          $profilePicture,
-          $hash
-        );
+      $this->executeQuery(
+        $query,
+        'ss',
+        [$username, $hash],
+        $id,
+        $name,
+        $username,
+        $password,
+        $isActive,
+        $role,
+        $profilePicture,
+        $hash
+      );
 
-        return new UserModel(
-          $id,
-          $name,
-          $username,
-          $password,
-          $profilePicture,
-          $role,
-          $isActive,
-          $hash
-        );
-    }
+      return new UserModel(
+        $id,
+        $name,
+        $username,
+        $password,
+        $profilePicture,
+        $role,
+        $isActive,
+        $hash
+      );
+  }
 
     /**
      * Add a user to the database
@@ -101,10 +102,10 @@ class UserDB extends BaseDB
      *
      * @return array The result of the query in the form of an associative array
      */
-    public function addUser(string $name, string $username, string $password, string $hash = '', int $isActive = 1): void
-    {
-        $this->executeMutation('INSERT INTO users (`name`, username, `password`, registration_date, is_active, query_date, `hash`) VALUES (?, ?, ?, ?, ?, ?, ?)', 'sssssss', [$name, $username, $password, date("Y-m-d H:i:s"), $isActive, date("Y-m-d"), $hash]);
-    }
+  public function addUser(string $name, string $username, string $password, string $hash = '', int $isActive = 1): void
+  {
+      $this->executeMutation('INSERT INTO users (`name`, username, `password`, registration_date, is_active, query_date, `hash`) VALUES (?, ?, ?, ?, ?, ?, ?)', 'sssssss', [$name, $username, $password, date("Y-m-d H:i:s"), $isActive, date("Y-m-d"), $hash]);
+  }
 
     // TODO: updateUser()
 
@@ -113,8 +114,8 @@ class UserDB extends BaseDB
      *
      * @param string $username The username/email of the user
      */
-    public function deleteUser(string $username): void
-    {
-        $this->executeMutation('DELETE FROM users WHERE username = ?', 's', [$username]);
-    }
+  public function deleteUser(string $username): void
+  {
+      $this->executeMutation('DELETE FROM users WHERE username = ?', 's', [$username]);
+  }
 }

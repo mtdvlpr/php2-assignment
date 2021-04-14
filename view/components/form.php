@@ -6,50 +6,51 @@ require_once __DIR__ . '/../../model/form.php';
  */
 class Form
 {
-    public function __construct(
-        private formModel $form
-    ) {
-    }
+  public function __construct(
+  private formModel $form
+    )
+  {
+  }
 
-    public function render(): void
-    {
-        $title = $this->form->getTitle();
-        $content = $this->form->getContent();
-        $fields = $this->form->getFields();
-        $submit = $this->form->getSubmit();
-        $extraContent = $this->form->getExtraContent();
-        $method = $this->form->getMethod();
-        $hasCaptcha = $this->form->getHasCaptcha();
+  public function render(): void
+  {
+      $title = $this->form->getTitle();
+      $content = $this->form->getContent();
+      $fields = $this->form->getFields();
+      $submit = $this->form->getSubmit();
+      $extraContent = $this->form->getExtraContent();
+      $method = $this->form->getMethod();
+      $hasCaptcha = $this->form->getHasCaptcha();
 
-        echo "
+      echo "
             <article class='form-container'>
               <h1 class='h3'>$title</h1>";
-              if ($content != null)  {
-                  echo "<p>$content</p>";
-              }
-        echo "<form method='$method' autocomplete='off' enctype='multipart/form-data'>";
+    if ($content != null)  {
+      echo "<p>$content</p>";
+    }
+      echo "<form method='$method' autocomplete='off' enctype='multipart/form-data'>";
 
-        foreach ($fields as $field) {
-            $field->render();
-        }
+    foreach ($fields as $field) {
+        $field->render();
+    }
 
-        if ($extraContent != null) {
-            $lines = explode(';', $extraContent);
-            foreach ($lines as $line) {
-                echo "<p>$line</p>";
-            }
-        }
+    if ($extraContent != null) {
+        $lines = explode(';', $extraContent);
+      foreach ($lines as $line) {
+          echo "<p>$line</p>";
+      }
+    }
 
-        if ($hasCaptcha) {
-            echo '<div class="g-recaptcha" data-sitekey="6Lenh-MZAAAAANqwKEkTjSNDy6Q7XnreHObxUM1V"></div>';
-        }
+    if ($hasCaptcha) {
+        echo '<div class="g-recaptcha" data-sitekey="6Lenh-MZAAAAANqwKEkTjSNDy6Q7XnreHObxUM1V"></div>';
+    }
 
-        echo "
+      echo "
                     <div class='row'>
                         <button class='submit'>$submit</button>
                     </div>
                 </form>
             </article>
         ";
-    }
+  }
 }
