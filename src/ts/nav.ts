@@ -1,3 +1,10 @@
+document.getElementById('menu-icon')?.addEventListener('click', () => {
+  const nav = document.getElementById('main-nav')
+  if (nav != null) {
+    nav.classList.toggle('responsive')
+  }
+})
+
 function changeActivePage(target: string) {
   // Remove the .active class from each item
   document.querySelectorAll('#main-nav .active').forEach((element) => {

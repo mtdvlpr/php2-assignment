@@ -13,7 +13,7 @@ class Footer
   {
     $date = date('Y');
     echo /*html*/"
-      <img id='scrollbtn' src='/img/scrollBack.svg' alt='Scroll Back' />
+      <img id='scroll-btn' src='/img/scrollBack.svg' alt='Scroll Back' />
       <footer>
         <a href='/'>Home</a> |
         <a href='/about'>About Us</a> |

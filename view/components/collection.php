@@ -1,22 +1,22 @@
 <?php
-require_once __DIR__ . '/../../model/movieArticle.php';
+require_once __DIR__ . '/../../model/collection.php';
 
 /**
- * The view component for a movie article on the website.
+ * The view component for a collection of movies on the website.
  */
-class MovieArticle
+class Collection
 {
   public function __construct(
-  private MovieArticleModel $movieArticle
+  private CollectionModel $collection
     )
   {
   }
 
   public function render(): void
   {
-      echo "<article class='moviearticle'>";
+      echo "<article class='collection-article'>";
 
-    foreach ($this->movieArticle->getMovies() as $movie) {
+    foreach ($this->collection->getMovies() as $movie) {
       $id = $movie->getId();
       $title = $movie->getTitle();
       $img = $movie->getImage();

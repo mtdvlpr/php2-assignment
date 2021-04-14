@@ -169,6 +169,7 @@ class UserController
           'Send email',
           false,
           'A new password will be sent to your email address.',
+          '',
           "Don't have an account yet? <a href='/signup'>Sign up</a>."
         )
       ]

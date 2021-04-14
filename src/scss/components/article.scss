@@ -5,7 +5,7 @@ article {
   border-radius: 5px;
 }
 
-.moviearticle {
+.collection-article {
   background-color: transparent;
   padding: 0;
 
@@ -37,7 +37,7 @@ article {
     width: calc(100% - 20px) !important;
   }
 
-  .moviearticle {
+  .collection-article {
     .movie {
       width: 100%;
     }

@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../db/movieDB.php';
-require_once __DIR__ . '/../model/movieArticle.php';
+require_once __DIR__ . '/../model/collection.php';
 require_once __DIR__ . '/../model/user.php';
 
 class MovieController
@@ -53,7 +53,7 @@ class MovieController
           null,
           'get'
         ),
-        new MovieArticleModel($this->movieDB->getMovies($title, $orderBy))
+        new CollectionModel($this->movieDB->getMovies($title, $orderBy))
       ]
     ];
   }

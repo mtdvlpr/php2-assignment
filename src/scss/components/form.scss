@@ -7,11 +7,6 @@
   margin-top: 20px;
   color: black;
 
-  p {
-    text-align: center;
-    font-size: 15px;
-  }
-
   /* Label column */
   .col-20 {
     float: left;
@@ -65,6 +60,31 @@
     height: 200px;
   }
 
+  .input-pic {
+    width: .1px;
+    height: .1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+
+    + label {
+      font-weight: bold;
+      color: black;
+      display: inline;
+    }
+
+    &:focus + label,
+    + label:hover {
+      color: #209cee;
+      cursor: pointer;
+    }
+  }
+
+  form > div > div {
+    margin: 0 auto;
+  }
+
   .submit {
     background-color: #4caf50;
     color: white;
@@ -79,60 +99,31 @@
       background-color: #45a049;
     }
   }
-}
 
-// Captcha
-form > div > div {
-  margin: 0 auto;
-}
+  &.responsive {
+    &,
+    .col-20,
+    .col-60 {
+      width: 100%;
+    }
 
-.inputpic {
-  width: .1px;
-  height: .1px;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: -1;
-}
+    .submit {
+      margin-top: 20px;
+      background-color: red;
 
-.inputpic + label {
-  font-weight: bold;
-  color: black;
-  display: inline;
-}
+      &:hover {
+        background-color: #d10000;
+      }
 
-.inputpic:focus + label,
-.inputpic + label:hover {
-  color: #209cee;
-  cursor: pointer;
-}
+      &.green {
+        background-color: #4caf50;
 
-/* Responsive layout for small .form-containers */
-.form-container .responsive,
-.responsive .col-20,
-.responsive .col-60,
-.responsive .row .submit {
-  width: 100%;
-}
-
-.responsive .row .submit {
-  display: block;
-  margin-top: 20px;
-  background-color: red;
-}
-
-.responsive .row .submit:hover {
-  background-color: #d10000;
-}
-
-.responsive .row .submit.green {
-  display: block;
-  margin-top: 20px;
-  background-color: #4caf50;
-}
-
-.responsive .row .submit.green:hover {
-  background-color: #45a049;
+        &:hover {
+          background-color: #45a049;
+        }
+      }
+    }
+  }
 }
 
 /* Responsive layout */
@@ -145,7 +136,6 @@ form > div > div {
   }
 
   .form-container .submit {
-    display: block;
     margin-top: 20px;
   }
 }

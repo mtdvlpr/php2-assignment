@@ -6,6 +6,11 @@ p.error {
   padding: 10px;
   border-radius: .5em;
   margin: 10px auto;
+
+  i {
+    margin-right: 5px;
+    font-size: 1em;
+  }
 }
 
 p.info {
@@ -26,12 +31,4 @@ p.warning {
 p.error {
   color: #d8000c;
   background-color: #ffd2d2;
-}
-
-p.info i,
-p.success i,
-p.warning i,
-p.error i {
-  margin-right: 5px;
-  font-size: 1em;
 }

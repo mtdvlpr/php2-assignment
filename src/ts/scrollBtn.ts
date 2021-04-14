@@ -1,5 +1,5 @@
 /* Scroll back button */
-const scrollBtn = document.getElementById('scrollbtn')
+const scrollBtn = document.getElementById('scroll-btn')
 if (scrollBtn != null) {
   window.addEventListener('scroll', () => {
     if (document.body.scrollTop > 350 || document.documentElement.scrollTop > 350) {
@@ -17,7 +17,7 @@ if (scrollBtn != null) {
   })
 }
 
-document.getElementById('scrollbtn')?.addEventListener('click', () => {
+document.getElementById('scroll-btn')?.addEventListener('click', () => {
   document.body.scrollTop = 0
   document.documentElement.scrollTop = 0
 })

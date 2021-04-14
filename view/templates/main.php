@@ -2,7 +2,7 @@
   include_once __DIR__ . '/../components/nav.php';
   include_once __DIR__ . '/../components/article.php';
   include_once __DIR__ . '/../components/form.php';
-  include_once __DIR__ . '/../components/movieArticle.php';
+  include_once __DIR__ . '/../components/collection.php';
   include_once __DIR__ . '/../components/footer.php';
   include_once __DIR__ . '/../components/header.php';
   include_once __DIR__ . '/../components/movie.php';

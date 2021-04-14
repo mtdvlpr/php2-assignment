@@ -418,7 +418,7 @@ nav {
     color: white; }
   nav .icon {
     display: none; }
-  nav .profilepic {
+  nav .profile-pic {
     border-radius: 50%;
     width: 26px;
     height: 26px; }
@@ -427,7 +427,7 @@ nav {
     overflow: hidden;
     margin: 0;
     padding: 0; }
-    nav .dropdown .dropbtn {
+    nav .dropdown .drop-btn {
       font-size: 17px;
       border: none;
       outline: none;
@@ -458,50 +458,47 @@ nav {
           background-color: #ddd;
           color: black;
           border-radius: 5px; }
-
-/* Hover layout */
-.dropdown:hover .dropbtn {
-  background-color: #104e77; }
-
-.dropdown:hover .dropdown-content {
-  display: block; }
+    nav .dropdown:hover .drop-btn {
+      background-color: #104e77; }
+    nav .dropdown:hover .dropdown-content {
+      display: block; }
 
 /* Responsive navbar */
 @media screen and (max-width: 1048px) {
-  nav a:not(:first-child),
-  .dropdown .dropbtn {
-    display: none; }
-  nav a.icon {
+  nav a#menu-icon {
     float: right;
     display: block;
     height: 48px; }
+  nav a:not(:first-child),
+  nav .dropdown .drop-btn {
+    display: none; }
   nav.responsive {
     position: relative; }
-  nav.responsive .icon {
-    position: absolute;
-    height: 48px;
-    right: 0;
-    top: 0; }
-  nav.responsive a,
-  nav.responsive p {
-    float: none;
-    display: block;
-    text-align: center; }
-  nav.responsive .dropdown {
-    float: none; }
-  nav.responsive .dropdown-content {
-    position: relative;
-    width: 100%; }
-  nav.responsive .dropdown .dropbtn {
-    display: block;
-    width: 100%;
-    text-align: center; }
-  nav.responsive input[type='text'] {
-    float: none;
-    display: inline;
-    padding: 8px;
-    width: 100%;
-    margin: 0; } }
+    nav.responsive .icon {
+      position: absolute;
+      height: 48px;
+      right: 0;
+      top: 0; }
+    nav.responsive a,
+    nav.responsive p {
+      float: none;
+      display: block;
+      text-align: center; }
+    nav.responsive .dropdown {
+      float: none; }
+      nav.responsive .dropdown .drop-btn {
+        display: block;
+        width: 100%;
+        text-align: center; }
+      nav.responsive .dropdown .dropdown-content {
+        position: relative;
+        width: 100%; }
+    nav.responsive input[type='text'] {
+      float: none;
+      display: inline;
+      padding: 8px;
+      width: 100%;
+      margin: 0; } }
 
 p.info,
 p.success,
@@ -511,6 +508,12 @@ p.error {
   padding: 10px;
   border-radius: .5em;
   margin: 10px auto; }
+  p.info i,
+  p.success i,
+  p.warning i,
+  p.error i {
+    margin-right: 5px;
+    font-size: 1em; }
 
 p.info {
   color: #00529b;
@@ -527,13 +530,6 @@ p.warning {
 p.error {
   color: #d8000c;
   background-color: #ffd2d2; }
-
-p.info i,
-p.success i,
-p.warning i,
-p.error i {
-  margin-right: 5px;
-  font-size: 1em; }
 
 table {
   font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
@@ -569,9 +565,6 @@ table {
   /* Label column */
   /* Textarea column */
   /* Clear floats after the columns */ }
-  .form-container p {
-    text-align: center;
-    font-size: 15px; }
   .form-container .col-20 {
     float: left;
     width: 20%;
@@ -611,6 +604,23 @@ table {
       outline: none; }
   .form-container textarea {
     height: 200px; }
+  .form-container .input-pic {
+    width: .1px;
+    height: .1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1; }
+    .form-container .input-pic + label {
+      font-weight: bold;
+      color: black;
+      display: inline; }
+    .form-container .input-pic:focus + label,
+    .form-container .input-pic + label:hover {
+      color: #209cee;
+      cursor: pointer; }
+  .form-container form > div > div {
+    margin: 0 auto; }
   .form-container .submit {
     background-color: #4caf50;
     color: white;
@@ -622,50 +632,19 @@ table {
     float: right; }
     .form-container .submit:hover {
       background-color: #45a049; }
-
-form > div > div {
-  margin: 0 auto; }
-
-.inputpic {
-  width: .1px;
-  height: .1px;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: -1; }
-
-.inputpic + label {
-  font-weight: bold;
-  color: black;
-  display: inline; }
-
-.inputpic:focus + label,
-.inputpic + label:hover {
-  color: #209cee;
-  cursor: pointer; }
-
-/* Responsive layout for small .form-containers */
-.form-container .responsive,
-.responsive .col-20,
-.responsive .col-60,
-.responsive .row .submit {
-  width: 100%; }
-
-.responsive .row .submit {
-  display: block;
-  margin-top: 20px;
-  background-color: red; }
-
-.responsive .row .submit:hover {
-  background-color: #d10000; }
-
-.responsive .row .submit.green {
-  display: block;
-  margin-top: 20px;
-  background-color: #4caf50; }
-
-.responsive .row .submit.green:hover {
-  background-color: #45a049; }
+  .form-container.responsive,
+  .form-container.responsive .col-20,
+  .form-container.responsive .col-60 {
+    width: 100%; }
+  .form-container.responsive .submit {
+    margin-top: 20px;
+    background-color: red; }
+    .form-container.responsive .submit:hover {
+      background-color: #d10000; }
+    .form-container.responsive .submit.green {
+      background-color: #4caf50; }
+      .form-container.responsive .submit.green:hover {
+        background-color: #45a049; }
 
 /* Responsive layout */
 @media screen and (max-width: 705px) {
@@ -675,7 +654,6 @@ form > div > div {
   .form-container .submit {
     width: 100%; }
   .form-container .submit {
-    display: block;
     margin-top: 20px; } }
 
 article {
@@ -684,10 +662,10 @@ article {
   margin-top: 20px;
   border-radius: 5px; }
 
-.moviearticle {
+.collection-article {
   background-color: transparent;
   padding: 0; }
-  .moviearticle .movie {
+  .collection-article .movie {
     display: inline-block;
     width: 49.5%;
     cursor: pointer;
@@ -695,10 +673,10 @@ article {
     border-radius: 5px;
     margin-bottom: 10px;
     min-height: 300px; }
-    .moviearticle .movie img {
+    .collection-article .movie img {
       max-width: 100%;
       height: 200px; }
-    .moviearticle .movie:hover {
+    .collection-article .movie:hover {
       background-color: #d0d0d0; }
 
 @media screen and (max-width: 900px) {
@@ -707,7 +685,7 @@ article {
     padding: 2%;
     margin: 20px 10px 0 10px;
     width: calc(100% - 20px) !important; }
-  .moviearticle .movie {
+  .collection-article .movie {
     width: 100%; } }
 
 footer {
@@ -718,14 +696,12 @@ footer {
   color: white;
   padding: 20px;
   background: black; }
-  footer h3 {
-    margin-bottom: 0; }
   footer a {
     color: #ccc; }
     footer a:hover {
       color: white; }
 
-#scrollbtn {
+#scroll-btn {
   display: none;
   position: fixed;
   bottom: 40px;
@@ -735,7 +711,7 @@ footer {
   height: 50px;
   cursor: pointer;
   opacity: .7; }
-  #scrollbtn:hover {
+  #scroll-btn:hover {
     opacity: 1; }
 
 header {

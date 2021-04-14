@@ -37,9 +37,9 @@ class Nav
       case 0:
         return /*html*/"
                     <ul class='dropdown'>
-                        <button class='dropbtn'>
+                        <button class='drop-btn'>
                             $name
-                            <img src='$img' alt='Profile Picture' class='profilepic'/>
+                            <img src='$img' alt='Profile Picture' class='profile-pic'/>
                             <i class='fa fa-caret-down'></i>
                         </button>
                         <li class='dropdown-content'>
@@ -51,9 +51,9 @@ class Nav
       default:
         return /*html*/"
                     <ul class='dropdown'>
-                        <button class='dropbtn'>
+                        <button class='drop-btn'>
                             $name
-                            <img src='$img' alt='Profile Picture' class='profilepic'/>
+                            <img src='$img' alt='Profile Picture' class='profile-pic'/>
                             <i class='fa fa-caret-down'></i>
                         </button>
                         <li class='dropdown-content'>

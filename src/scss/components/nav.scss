@@ -32,7 +32,7 @@ nav {
     display: none;
   }
 
-  .profilepic {
+  .profile-pic {
     border-radius: 50%;
     width: 26px;
     height: 26px;
@@ -45,7 +45,7 @@ nav {
     margin: 0;
     padding: 0;
 
-    .dropbtn {
+    .drop-btn {
       font-size: 17px;
       border: none;
       outline: none;
@@ -83,69 +83,74 @@ nav {
         }
       }
     }
+
+    &:hover {
+      .drop-btn {
+        background-color: #104e77;
+      }
+
+      .dropdown-content {
+        display: block;
+      }
+    }
   }
-}
-
-/* Hover layout */
-.dropdown:hover .dropbtn {
-  background-color: #104e77;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
 }
 
 /* Responsive navbar */
 @media screen and (max-width: 1048px) {
-  nav a:not(:first-child),
-  .dropdown .dropbtn {
-    display: none;
-  }
+  nav {
+    a {
+      &#menu-icon {
+        float: right;
+        display: block;
+        height: 48px;
+      }
+    }
 
-  nav a.icon {
-    float: right;
-    display: block;
-    height: 48px;
-  }
+    a:not(:first-child),
+    .dropdown .drop-btn {
+      display: none;
+    }
 
-  nav.responsive {
-    position: relative;
-  }
+    &.responsive {
+      position: relative;
 
-  nav.responsive .icon {
-    position: absolute;
-    height: 48px;
-    right: 0;
-    top: 0;
-  }
+      .icon {
+        position: absolute;
+        height: 48px;
+        right: 0;
+        top: 0;
+      }
 
-  nav.responsive a,
-  nav.responsive p {
-    float: none;
-    display: block;
-    text-align: center;
-  }
+      a,
+      p {
+        float: none;
+        display: block;
+        text-align: center;
+      }
 
-  nav.responsive .dropdown {
-    float: none;
-  }
+      .dropdown {
+        float: none;
 
-  nav.responsive .dropdown-content {
-    position: relative;
-    width: 100%;
-  }
+        .drop-btn {
+          display: block;
+          width: 100%;
+          text-align: center;
+        }
 
-  nav.responsive .dropdown .dropbtn {
-    display: block;
-    width: 100%;
-    text-align: center;
-  }
+        .dropdown-content {
+          position: relative;
+          width: 100%;
+        }
+      }
 
-  nav.responsive input[type='text'] {
-    float: none;
-    display: inline;
-    padding: 8px;
-    width: 100%;
-    margin: 0;
+      input[type='text'] {
+        float: none;
+        display: inline;
+        padding: 8px;
+        width: 100%;
+        margin: 0;
+      }
+    }
   }
 }
