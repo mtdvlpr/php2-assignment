@@ -27,6 +27,12 @@ class Form
             <article class='form-container'>
               <h1 class='h3'>$title</h1>";
     if ($content != null)  {
+      $content = match($contentClass) {
+        ' class="error"' => '<i class="fa fa-times-circle"></i> ' . $content,
+        ' class="warning"' => '<i class="fa fa-warning"></i> ' . $content,
+        ' class="success"' => '<i class="fa fa-check"></i> ' . $content,
+        default => $content
+      };
       echo "<p$contentClass>$content</p>";
     }
       echo "<form method='$method' autocomplete='off' enctype='multipart/form-data'>";
@@ -48,7 +54,7 @@ class Form
       $submitName = $method == 'post' ? " name='submit'" : '';
       echo "
                     <div class='row'>
-                        <button class='submit'$submitName>$submit</button>
+                        <button type='submit' class='submit'$submitName>$submit</button>
                     </div>
                 </form>
             </article>

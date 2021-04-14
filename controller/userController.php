@@ -305,4 +305,17 @@ class UserController
       ]
     ];
   }
+
+  public function getAccountsPage(userModel $user): array
+  {
+    return [
+      "title" => "Your Account",
+      "user" => $user,
+      "updateFeedback" => "Empty fields will remain unchanged",
+      "updateClass" => '',
+      "pictureFeedback" => null,
+      "removeFeedback" => null,
+      "removeClass" => ' class="error"'
+    ];
+  }
 }
