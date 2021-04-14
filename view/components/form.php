@@ -35,15 +35,15 @@ class Form
         $field->render();
     }
 
-    if ($extraContent != null) {
-        $lines = explode(';', $extraContent);
-      foreach ($lines as $line) {
-          echo "<p>$line</p>";
-      }
-    }
-
     if ($hasCaptcha) {
         echo '<div class="g-recaptcha" data-sitekey="6Lenh-MZAAAAANqwKEkTjSNDy6Q7XnreHObxUM1V"></div>';
+    }
+
+    if ($extraContent != null) {
+      $lines = explode(';', $extraContent);
+      foreach ($lines as $line) {
+        echo "<p>$line</p>";
+      }
     }
       $submitName = $method == 'post' ? " name='submit'" : '';
       echo "

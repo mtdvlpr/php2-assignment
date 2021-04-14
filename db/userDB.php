@@ -58,7 +58,7 @@ class UserDB extends BaseDB
      *
      * @return array The result of the query in the form of an associative array
      */
-  public function getUser(string $searchUsername, string $hash = ''): userModel
+  public function getUser(string $searchUsername, string $hash = ''): userModel|null
   {
       $query = 'SELECT id, `name`, username, `password`, is_active, `role`, profile_picture, `hash`
           FROM users
@@ -80,7 +80,7 @@ class UserDB extends BaseDB
       );
 
       if ($id == null) {
-        throw new Exception("The user $searchUsername was not found.");
+        return null;
       }
 
       return new UserModel(

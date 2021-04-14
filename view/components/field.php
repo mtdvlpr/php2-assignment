@@ -85,6 +85,14 @@ class Field
                 ";
         break;
 
+      case 'password':
+        echo "<input type='$type' id='$id' name='$name' minlength='8' placeholder='$placeholder'";
+        if ($isRequired) {
+          echo " required";
+        }
+        echo ">";
+        break;
+
       default:
           echo "<input type='$type' id='$id' name='$name' placeholder='$placeholder'";
 

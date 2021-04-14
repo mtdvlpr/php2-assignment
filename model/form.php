@@ -93,9 +93,9 @@ class FormModel extends ArticleModel
   }
 
   /**
-   * Set the value of coontentClass
+   * Set the value of contentClass
    */
-  public function setContentClass(string $extraClass): void
+  public function setContentClass(string $contentClass): void
   {
     $this->contentClass = $contentClass;
   }

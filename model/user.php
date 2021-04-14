@@ -2,7 +2,7 @@
 class UserModel
 {
   public function __construct(
-    private int $id,
+    private int $id = -1,
     private string $name,
     private string $username,
     private string $password,

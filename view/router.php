@@ -105,7 +105,7 @@ class router
         } else {
           echo $templateEngine->render(
             'main.php',
-            $this->userController->getSignUpPage()
+            isset($_POST['submit']) ? $this->userController->getSignUpPage($_POST['username'], $_POST['name'], $_POST['password'], $_POST['confirm'], $_POST['g-recaptcha-response']) : $this->userController->getSignUpPage()
           );
         }
 
