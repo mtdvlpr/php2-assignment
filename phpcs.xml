@@ -34,7 +34,6 @@
         <property name="indent" value="2"/>
     </properties>
 </rule>
-<rule ref="PEAR.Commenting.ClassComment"/>
 <rule ref="PEAR.Functions.FunctionCallSignature">
     <properties>
         <property name="indent" value="2"/>
