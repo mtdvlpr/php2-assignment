@@ -2,15 +2,16 @@
 class MovieModel
 {
   public function __construct(
-    private int $id,
-    private string $title,
-    private string $director,
-    private string $category,
-    private string $releaseDate,
-    private int $runtime,
-    private float $score,
-    private string $image
-  ) {
+  private int $id,
+  private string $title,
+  private string $director,
+  private string $category,
+  private string $releaseDate,
+  private int $runtime,
+  private float $score,
+  private string $image
+  )
+  {
   }
 
   /**

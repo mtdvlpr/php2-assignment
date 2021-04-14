@@ -4,9 +4,9 @@ require_once __DIR__ . '/../model/movie.php';
 
 class MovieDB extends BaseDB
 {
-    public function __construct()
-    {
-    }
+  public function __construct()
+  {
+  }
 
     /**
      * Get movies from the database
@@ -16,37 +16,37 @@ class MovieDB extends BaseDB
      *
      * @return array The result of the query in the form of an associative array
      */
-    public function getMovies(string $title = "", string $orderBy = "id"): array
-    {
-        if ($orderBy != 'title' && $orderBy != 'score') {
-          $orderBy = 'id';
-        }
-
-        $query = "SELECT id, title, release_date, director, category, runtime, score, `image` FROM movies WHERE title LIKE ? ORDER BY $orderBy";
-        $result = $this->executeQueryList(
-          $query,
-          's',
-          ["%$title%"]
-        );
-
-      $movies = [];
-
-      foreach ($result->fetch_all(MYSQLI_ASSOC) as $row)
-      {
-        $movies[] = new MovieModel(
-          $row['id'],
-          $row['title'],
-          $row['director'],
-          $row['category'],
-          $row['release_date'],
-          $row['runtime'],
-          $row['score'],
-          $row['image']
-        );
-      }
-
-      return $movies;
+  public function getMovies(string $title = "", string $orderBy = "id"): array
+  {
+    if ($orderBy != 'title' && $orderBy != 'score') {
+      $orderBy = 'id';
     }
+
+      $query = "SELECT id, title, release_date, director, category, runtime, score, `image` FROM movies WHERE title LIKE ? ORDER BY $orderBy";
+      $result = $this->executeQueryList(
+        $query,
+        's',
+        ["%$title%"]
+      );
+
+    $movies = [];
+
+    foreach ($result->fetch_all(MYSQLI_ASSOC) as $row)
+    {
+      $movies[] = new MovieModel(
+        $row['id'],
+        $row['title'],
+        $row['director'],
+        $row['category'],
+        $row['release_date'],
+        $row['runtime'],
+        $row['score'],
+        $row['image']
+      );
+    }
+
+    return $movies;
+  }
 
     /**
      * Select a specific movie based on it's id
@@ -55,33 +55,33 @@ class MovieDB extends BaseDB
      *
      * @return array The result of the query in the form of an associative array
      */
-    public function getMovieById(int $id): MovieModel
-    {
-        $query = "SELECT id, title, release_date, director, category, runtime, score, `image` FROM movies WHERE id = ?";
+  public function getMovieById(int $id): MovieModel
+  {
+      $query = "SELECT id, title, release_date, director, category, runtime, score, `image` FROM movies WHERE id = ?";
 
-        $this->executeQuery(
-          $query,
-          'i',
-          [$id],
-          $id,
-          $title,
-          $releaseDate,
-          $director,
-          $category,
-          $runtime,
-          $score,
-          $image
-        );
+      $this->executeQuery(
+        $query,
+        'i',
+        [$id],
+        $id,
+        $title,
+        $releaseDate,
+        $director,
+        $category,
+        $runtime,
+        $score,
+        $image
+      );
 
-        return new MovieModel(
-          $id,
-          $title,
-          $director,
-          $category,
-          $releaseDate,
-          $runtime,
-          $score,
-          $image
-        );
-    }
+      return new MovieModel(
+        $id,
+        $title,
+        $director,
+        $category,
+        $releaseDate,
+        $runtime,
+        $score,
+        $image
+      );
+  }
 }

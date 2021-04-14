@@ -6,9 +6,9 @@
 class ArticleModel
 {
   public function __construct(
-    private string $title,
-    private ?string $content,
-    private ?string $extraContent = null
+  private string $title,
+  private ?string $content,
+  private ?string $extraContent = null
   )
   {
   }
@@ -22,7 +22,7 @@ class ArticleModel
           'Do not hesitate to <a href="/contact">contact us</a> for any questions, remarks or anything else.'
         );
 
-      case  'about':
+      case 'about':
         return new self(
           'Movies For You',
           'We are dedicated to providing you with all the best movies!<br><a href="/about">Learn more</a>.'
