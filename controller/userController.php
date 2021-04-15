@@ -368,7 +368,7 @@ class UserController
     if ($confirmEmail != $user->getUsername()) {
       return "You entered the wrong email address.";
     } else if ($user->checkPassword(crypt($confirmPassword, $this->salt))) {
-      $this->userDB->deleteUser($user->getUsername());
+      $this->userDB->deleteUser($user->getId());
       unset($_SESSION["login"]);
       header('Location: /');
     } else {

@@ -18,11 +18,13 @@ include_once __DIR__ . '/../components/header.php';
   $header = new Header();
   $header->render();
   ?>
+
   <section class="content">
     <?php
     $nav = new Nav();
     $nav->render($user, true);
     ?>
+
     <main>
       <section class="leftcolumn">
         <article>

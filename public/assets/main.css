@@ -542,6 +542,11 @@ table {
   table th {
     border: 1px solid #ddd;
     padding: 8px; }
+    table td .profile-pic,
+    table th .profile-pic {
+      border-radius: 50%;
+      width: 26px;
+      height: 26px; }
   table th {
     padding-top: 12px;
     padding-bottom: 12px;

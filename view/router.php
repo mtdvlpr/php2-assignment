@@ -6,6 +6,7 @@ require_once __DIR__ . '/templateEngine.php';
 require_once __DIR__ . '/../controller/movieController.php';
 require_once __DIR__ . '/../controller/userController.php';
 require_once __DIR__ . '/../controller/mainController.php';
+require_once __DIR__ . '/../controller/adminController.php';
 
 // Models
 require_once __DIR__ . '/../model/article.php';
@@ -24,6 +25,7 @@ class router
   private MovieController $movieController;
   private UserController $userController;
   private MainController $mainController;
+  private AdminController $adminController;
 
   public function __construct()
   {
@@ -31,6 +33,7 @@ class router
     $this->movieController = new MovieController();
     $this->userController = new UserController();
     $this->mainController = new MainController();
+    $this->adminController = new AdminController();
   }
 
   /**
@@ -205,26 +208,17 @@ class router
         }
         break;
 
-      //TODO: Make admin page
       case '/admin':
-        echo $templateEngine->render(
-          'main.php',
-          [
-            "title" => "Home",
-            "asideArticles" => [
-              ArticleModel::get('about'),
-              ArticleModel::get('contact')
-            ],
-            "mainArticles" => [
-              new ArticleModel(
-                'Welcome!',
-                "How great that you're visiting our website! We want you to be able to enjoy the rich culture of the movie industry.",
-                $user != null ? null : '<a href="/register">Create an account</a> to get a more complete experience. With an account you can do, see and interact more!'
-              ),
-              ArticleModel::get('collection')
-            ]
-          ]
-        );
+        if ($user == null) {
+          header('Location: /');
+        } else if ($user->getRole() < 1) {
+          require_once __DIR__ . '/../public/403.shtml';
+        } else {
+          echo $templateEngine->render(
+            'admin.php',
+            $this->adminController->getAdminPage($user)
+          );
+        }
         break;
 
       default:

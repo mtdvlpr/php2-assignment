@@ -14,7 +14,7 @@ class UserDB extends BaseDB
    * @return UserModel[] An array of users.
    */
   public function getUsers(
-      int $role = 2,
+      int $role = 3,
       string $name = '',
       string $username = '',
       string $registrationDate = ''
@@ -31,7 +31,7 @@ class UserDB extends BaseDB
       $result = $this->executeQueryList(
         $query,
         'isss',
-        [$role, $name, $username, $registrationDate]
+        [$role, "%$name%", "%$username%", "%$registrationDate%"]
       );
 
       $users = [];
@@ -138,10 +138,10 @@ class UserDB extends BaseDB
   /**
    * Delete a user
    *
-   * @param string $username The username/email of the user
+   * @param int $id The id of the user
    */
-  public function deleteUser(string $username): void
+  public function deleteUser(int $id): void
   {
-      $this->executeMutation('DELETE FROM users WHERE username = ?', 's', [$username]);
+      $this->executeMutation('DELETE FROM users WHERE `id` = ?', 'i', [$id]);
   }
 }

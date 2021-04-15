@@ -85,6 +85,16 @@ class Field
                 ";
         break;
 
+      case 'select':
+        echo "<option value=''>Select Username</option>";
+
+        foreach ($this->field->getComboList() as $user) {
+          $value = $user->getId();
+          $text = $user->getUsername();
+          echo "<option value='$value'>$text</option>";
+        }
+        break;
+
       case 'password':
         echo "<input type='$type' id='$id' name='$name' minlength='8' placeholder='$placeholder'";
         if ($isRequired) {

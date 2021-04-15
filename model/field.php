@@ -11,7 +11,8 @@ class FieldModel
   private string $name,
   private ?string $placeholder = null,
   private string $type = 'text',
-  private bool $required = true
+  private bool $required = true,
+  private ?array $comboList = null
   )
   {
   }
@@ -110,5 +111,21 @@ class FieldModel
   public function setRequired(bool $required): void
   {
     $this->required = $required;
+  }
+
+  /**
+   * Get the value of comboList
+   */
+  public function getComboList(): null | array
+  {
+    return $this->comboList;
+  }
+
+  /**
+   * Set the value of comboList
+   */
+  public function setComboList(?array $comboList): void
+  {
+    $this->comboList = $comboList;
   }
 }

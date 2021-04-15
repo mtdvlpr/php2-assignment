@@ -27,7 +27,7 @@ class MainController
         new ArticleModel(
           'Welcome!',
           "How great that you're visiting our website! We want you to be able to enjoy the rich culture of the movie industry.",
-          $user == null ? null : '<a href="/register">Create an account</a> to get a more complete experience. With an account you can do, see and interact more!'
+          $user != null ? null : '<a href="/register">Create an account</a> to get a more complete experience. With an account you can do, see and interact more!'
         ),
         ArticleModel::get('collection')
       ]
