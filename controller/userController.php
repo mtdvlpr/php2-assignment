@@ -443,9 +443,9 @@ class UserController
   private function validateNewEmail(userModel $user, string $newEmail): string
   {
     if (!filter_var($newEmail, FILTER_VALIDATE_EMAIL)) {
-      return '<p class="error"><i class="fa fa-times-circle"></i> You entered an invalid email address.</p>;';
+      return "<p class='error'><i class='fa fa-times-circle'></i> $newEmail is not a valid email address.</p>;";
     } else if ($this->userDB->getUser($newEmail) != null) {
-      return "<p class='error'><i class='fa fa-times-circle'></i> A user with given email already exists.</p>;";
+      return "<p class='error'><i class='fa fa-times-circle'></i> A user already exists for $newEmail.</p>;";
     } else {
       $oldUsername = $user->getUsername();
       $hash = md5(rand(0, 1000));

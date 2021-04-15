@@ -21,7 +21,7 @@ include_once __DIR__ . '/../components/header.php';
   <section class="content">
     <?php
     $nav = new Nav();
-    $nav->render($user);
+    $nav->render($user, true);
     ?>
     <main>
       <section class="leftcolumn">

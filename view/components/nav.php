@@ -9,13 +9,13 @@ class Nav
   {
   }
 
-  public function render(?UserModel $user): void
+  public function render(?UserModel $user, bool $isAccountPage = false): void
   {
     $dynamicMenu = null;
     if  ($user == null) {
       $dynamicMenu = $this->getDynamicMenu(-1);
     } else {
-      $dynamicMenu = $this->getDynamicMenu($user->getRole(), $user->getName(), $user->getProfilePicture());
+      $dynamicMenu = $this->getDynamicMenu($user->getRole(), $user->getName(), $user->getProfilePicture(), $isAccountPage);
     }
     echo /*html*/"
       <nav id='main-nav'>
@@ -29,14 +29,15 @@ class Nav
     ";
   }
 
-  private function getDynamicMenu(int $role, ?string $name = null, ?string $img = null): string
+  private function getDynamicMenu(int $role, ?string $name = null, ?string $img = null, bool $isAccountPage = false): string
   {
+    $dropdownClass = $isAccountPage ? 'dropdown active' : 'dropdown';
     switch($role) {
       case -1:
         return /*html*/'<a href="/login" style="float:right">Log in</a>';
       case 0:
         return /*html*/"
-                    <ul class='dropdown'>
+                    <ul class='$dropdownClass'>
                         <button class='drop-btn'>
                             $name
                             <img src='$img' alt='Profile Picture' class='profile-pic'/>
@@ -50,7 +51,7 @@ class Nav
                 ";
       default:
         return /*html*/"
-                    <ul class='dropdown'>
+                    <ul class='$dropdownClass'>
                         <button class='drop-btn'>
                             $name
                             <img src='$img' alt='Profile Picture' class='profile-pic'/>
