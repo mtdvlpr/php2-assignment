@@ -155,14 +155,52 @@ class router
         );
         break;
 
-      //TODO: Make account page
       case '/account':
         if ($user == null) {
           header('Location: /');
         } else {
+          $context = $this->userController->getAccountsPage($user);
+
+          // If update profile was clicked
+          if (isset($_POST['update'])) {
+            $updatedUser = new UserModel(
+              $_POST['name'],
+              $_POST['email'],
+              $_POST['newPass']
+            );
+
+            $context = $this->userController->getAccountsPage(
+              $user,
+              false,
+              null,
+              $_POST['oldPass'],
+              $updatedUser,
+              $_POST['confirm'],
+              $_FILES
+            );
+          }
+
+          // If Remove picture was clicked
+          else if (isset($_POST['removePic'])) {
+            $context = $this->userController->getAccountsPage(
+              $user,
+              true
+            );
+          }
+
+          // If Remove account was clicked
+          else if (isset($_POST['removeAccount'])) {
+            $context = $this->userController->getAccountsPage(
+              $user,
+              false,
+              $_POST['usname'],
+              $_POST['password']
+            );
+          }
+
           echo $templateEngine->render(
             'account.php',
-            $this->userController->getAccountsPage($user)
+            $context
           );
         }
         break;

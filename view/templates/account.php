@@ -31,7 +31,11 @@ include_once __DIR__ . '/../components/header.php';
         </article>
         <article class="form-container">
           <h1 class='h3'>Change Account</h1>
-          <?php echo "<p$updateClass>$updateFeedback</p>"; ?>
+          <?php
+            foreach (explode(';', $updateFeedback) as $line) {
+              echo $line;
+            }
+          ?>
           <form method="post" autocomplete="off" enctype="multipart/form-data">
             <section class="row">
               <section class="col-20">
@@ -95,7 +99,7 @@ include_once __DIR__ . '/../components/header.php';
           <h2 class='h4'>Remove Profile Picture</h2>
           <?php
           if ($pictureFeedback != null) {
-            echo "<p class='success'><i class='fa fa-check'></i> $pictureFeedback</p>";
+            echo "<p$pictureClass>$pictureFeedback</p>";
           }
           ?>
           <form method="post">

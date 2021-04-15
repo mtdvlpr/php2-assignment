@@ -306,16 +306,167 @@ class UserController
     ];
   }
 
-  public function getAccountsPage(userModel $user): array
+  public function getAccountsPage(
+    userModel $user,
+    bool $removePicture = false,
+    ?string $confirmEmail = null,
+    ?string $confirmPassword = null,
+    ?UserModel $updatedUser = null,
+    ?string $confirmNewPass = null,
+    ?array $fileArray = null
+  ): array
   {
+    $updateFeedback = '<p>Empty fields will remain unchanged.</p>';
+    $pictureFeedback = null;
+    $pictureClass = ' class="success"';
+    $removeFeedback = null;
+    $removeClass = ' class="error"';
+
+    // Remove picture
+    if ($removePicture) {
+      if ($user->getProfilePicture() !== "/img/fillerface.png") {
+        // Remove old picture
+        unlink(__DIR__ . '/../public' . $user->getProfilePicture());
+
+        // Set new picture and update database and session
+        $user->setProfilePicture('/img/fillerface.png');
+        $this->userDB->updateUser($user);
+        $_SESSION["login"] = serialize($user);
+      }
+      $pictureFeedback = 'Your profile picture has been removed.';
+    }
+
+    // Remove account
+    else if ($confirmEmail != null) {
+      if ($confirmEmail != $user->getUsername()) {
+        $removeFeedback = "You entered the wrong email address.";
+      } else if ($user->checkPassword(crypt($confirmPassword, $this->salt))) {
+          $this->user_DAO->deleteUser($confirmEmail);
+          unset($_SESSION["login"]);
+          header('Location: /');
+      } else {
+        $removeFeedback = "You entered the wrong password.";
+      }
+    }
+
+    // Update account
+    else if ($updatedUser != null) {
+      if (empty($confirmPassword)) {
+        $updateFeedback = '<p class="warning"><i class="fa fa-warning"></i> Please enter your current password.</p>';
+      } else if (!$user->checkPassword(crypt($confirmPassword, $this->salt))) {
+        $updateFeedback = '<p class="error"><i class="fa fa-times-circle"></i> You entered the wrong current password.</p>';
+      } else {
+        $updateUser = false;
+        $updateFeedback = '';
+
+        // Validate new email address
+        $newEmail = $updatedUser->getUsername();
+        if (!empty($newEmail) && $newEmail != $user->getUsername()) {
+          if (!filter_var($newEmail, FILTER_VALIDATE_EMAIL)) {
+            $updateFeedback .= '<p class="error"><i class="fa fa-times-circle"></i> You entered an invalid email address.</p>;';
+          } else if ($this->userDB->getUser($newEmail) != null) {
+            $updateFeedback .= "<p class='error'><i class='fa fa-times-circle'></i> A user with given email already exists.</p>;";
+          } else {
+            $oldUsername = $user->getUsername();
+            $hash = md5(rand(0, 1000));
+            $user->setHash($hash);
+
+            try {
+              // Send notification mail to old address
+              $mailer = new Mailer();
+              $mailer->sendMail(
+                subject: "Email Address Changed",
+                body: "Dear user,<br><br>The email address linked to your account has been changed to: $newEmail.<br><br>If this was not you, please contact us: http://www.643622.infhaarlem.nl/contact<br><br>Kind regards,<br><br><br>The Movies For You team",
+                address: $oldUsername
+              );
+
+              // Send verification mail to new address
+              $mailer = new Mailer();
+              $mailer->sendMail(
+                subject: "New Email Verification",
+                body: "Dear user,<br><br>You want to change the email address linked to your account.<br><br>Click this link to activate your new email:<br>http://www.643622.infhaarlem.nl/verify?email=$oldUsername&hash=$hash&new=$newEmail<br><br>Kind regards,<br><br><br>The Movies For You team",
+                address: $newEmail
+              );
+
+              $updateFeedback .= '<p class="success"><i class="fa fa-check"></i> An email has been sent to your new email address for verification.</p>;';
+            } catch (Exception $error) {
+              $msg = $error->getMessage();
+              $updateFeedback .= "<p class='error'><i class='fa fa-times-circle'></i> Something went wrong while sending an email: $msg</p>;";
+            }
+          }
+        }
+
+        // Validate new name
+        $name = $updatedUser->getName();
+        if (!empty($name) && $name != $user->getName()) {
+          if (preg_match('~[0-9]~', $name) === 1) {
+            $updateFeedback .= "<p class='error'><i class='fa fa-times-circle'></i> $name is not a valid name.</p>;";
+          } else {
+            $updateUser = true;
+            $user->setName($name);
+            $updateFeedback .= '<p class="success"><i class="fa fa-check"></i> Your name has been changed successfully.</p>;';
+          }
+        }
+
+        // Validate new password
+        $pass = $updatedUser->getPassword();
+        if (!empty($pass) && $pass != $user->getPassword()) {
+          if (strlen($pass) < 8) {
+            $updateFeedback .= '<p class="error"><i class="fa fa-times-circle"></i> Your new password should have a length of 8 or more.</p>;';
+          } else if ($pass != $confirmNewPass) {
+            $updateFeedback .= '<p class="error"><i class="fa fa-times-circle"></i> The confirmed new password does not match the new password.</p>;';
+          } else {
+            $updateUser = true;
+            $user->setPassword(crypt($pass, $this->salt));
+            $updateFeedback .= '<p class="success"><i class="fa fa-check"></i> Your password has been changed.</p>;';
+          }
+        }
+
+        // Validate new profile picture
+        if (!empty($fileArray["pic"]["name"])) {
+          $targetDir = "img/uploads/";
+          $fileName = basename($fileArray["pic"]["name"]);
+          $targetFilePath = $targetDir . $fileName;
+          $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+          $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
+
+          if (!in_array($fileType, $allowTypes)) {
+            $updateFeedback .= '<p class="error"><i class="fa fa-times-circle"></i> Sorry, only JPG, JPEG, PNG & GIF files are allowed.</p>;';
+          } else if (file_exists($targetFilePath)) {
+            $updateFeedback .= "<p class='error'><i class='fa fa-times-circle'></i> $fileName already exists. Change the name and try again.</p>;";
+          } else if (move_uploaded_file($fileArray["pic"]["tmp_name"], $targetFilePath)) {
+            if ($user->getProfilePicture() !== "/img/fillerface.png") {
+              unlink(__DIR__ . '/../public' . $user->getProfilePicture());
+            }
+
+            $updateUser = true;
+            $user->setProfilePicture('/' . $targetFilePath);
+            $updateFeedback .= '<p class="success"><i class="fa fa-check"></i> Your profile picture has been updated.</p>;';
+          } else {
+            $updateFeedback .= "<p class='error'><i class='fa fa-times-circle'></i> There was an error while uploading your new profile picture.</p>;";
+          }
+        }
+
+        // If one or more changes have been validated successfully, update user
+        if ($updateUser) {
+          try {
+            $this->userDB->updateUser($user);
+            $_SESSION['login'] = serialize($user);
+          } catch (Exception $error) {
+            $updateFeedback = '<p class="error"><i class="fa fa-times-circle"></i> Something went wrong while updating your account.</p>';
+          }
+        }
+      }
+    }
+
     return [
       "title" => "Your Account",
       "user" => $user,
-      "updateFeedback" => "Empty fields will remain unchanged",
-      "updateClass" => '',
-      "pictureFeedback" => null,
-      "removeFeedback" => null,
-      "removeClass" => ' class="error"'
+      "updateFeedback" => $updateFeedback,
+      "pictureFeedback" => $pictureFeedback,
+      "pictureClass" => $pictureClass,
+      "removeFeedback" => $removeFeedback,
+      "removeClass" => $removeClass
     ];
   }
 }

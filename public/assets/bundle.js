@@ -26,7 +26,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extr
   \******************************/
 /***/ (() => {
 
-eval("const inputs = document.querySelectorAll('.inputpic');\r\nArray.prototype.forEach.call(inputs, (input) => {\r\n    const label = input.nextElementSibling;\r\n    if (label != null) {\r\n        const labelVal = label.innerHTML;\r\n        input.addEventListener('change', (e) => {\r\n            var _a;\r\n            let fileName = '';\r\n            fileName = (_a = input.value.split('\\\\').pop()) !== null && _a !== void 0 ? _a : 'file';\r\n            const span = label.querySelector('span');\r\n            if (fileName && span != null)\r\n                span.innerHTML = fileName;\r\n            else\r\n                label.innerHTML = labelVal;\r\n        });\r\n    }\r\n});\r\n\n\n//# sourceURL=webpack://php2-assignment/./src/ts/fileUpload.ts?");
+eval("const inputs = document.querySelectorAll('.input-pic');\r\nArray.prototype.forEach.call(inputs, (input) => {\r\n    const label = input.nextElementSibling;\r\n    if (label != null) {\r\n        const labelVal = label.innerHTML;\r\n        input.addEventListener('change', (e) => {\r\n            var _a;\r\n            let fileName = '';\r\n            fileName = (_a = input.value.split('\\\\').pop()) !== null && _a !== void 0 ? _a : 'file';\r\n            const span = label.querySelector('span');\r\n            if (fileName && span != null)\r\n                span.innerHTML = fileName;\r\n            else\r\n                label.innerHTML = labelVal;\r\n        });\r\n    }\r\n});\r\n\n\n//# sourceURL=webpack://php2-assignment/./src/ts/fileUpload.ts?");
 
 /***/ }),
 

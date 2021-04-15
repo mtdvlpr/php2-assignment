@@ -38,13 +38,13 @@ class UserDB extends BaseDB
 
     foreach ($result->fetch_all(MYSQLI_ASSOC) as $row) {
       $users[] = new UserModel(
-        $row['id'],
         $row['name'],
         $row['username'],
         $row['password'],
         $row['profile_picture'],
         $row['role'],
-        $row['is_active']
+        $row['is_active'],
+        $row['id']
       );
     }
 
@@ -84,13 +84,13 @@ class UserDB extends BaseDB
     }
 
     return new UserModel(
-      $id,
       $name,
       $username,
       $password,
       $profilePicture,
       $role,
       $isActive,
+      $id,
       $hash
     );
   }

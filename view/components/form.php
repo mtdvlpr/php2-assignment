@@ -14,18 +14,17 @@ class Form
 
   public function render(): void
   {
-      $title = $this->form->getTitle();
-      $content = $this->form->getContent();
-      $contentClass = $this->form->getContentClass();
-      $fields = $this->form->getFields();
-      $submit = $this->form->getSubmit();
-      $extraContent = $this->form->getExtraContent();
-      $method = $this->form->getMethod();
-      $hasCaptcha = $this->form->getHasCaptcha();
+    $title = $this->form->getTitle();
+    $content = $this->form->getContent();
+    $contentClass = $this->form->getContentClass();
+    $fields = $this->form->getFields();
+    $submit = $this->form->getSubmit();
+    $extraContent = $this->form->getExtraContent();
+    $method = $this->form->getMethod();
+    $hasCaptcha = $this->form->getHasCaptcha();
 
-      echo "
-            <article class='form-container'>
-              <h1 class='h3'>$title</h1>";
+    echo "<article class='form-container'><h1 class='h3'>$title</h1>";
+
     if ($content != null)  {
       $content = match($contentClass) {
         ' class="error"' => '<i class="fa fa-times-circle"></i> ' . $content,
@@ -35,29 +34,29 @@ class Form
       };
       echo "<p$contentClass>$content</p>";
     }
-      echo "<form method='$method' autocomplete='off' enctype='multipart/form-data'>";
+
+    echo "<form method='$method' autocomplete='off' enctype='multipart/form-data'>";
 
     foreach ($fields as $field) {
-        $field->render();
+      $field->render();
     }
 
     if ($hasCaptcha) {
-        echo '<div class="g-recaptcha" data-sitekey="6Lenh-MZAAAAANqwKEkTjSNDy6Q7XnreHObxUM1V"></div>';
+      echo '<div class="g-recaptcha" data-sitekey="6Lenh-MZAAAAANqwKEkTjSNDy6Q7XnreHObxUM1V"></div>';
     }
 
     if ($extraContent != null) {
-      $lines = explode(';', $extraContent);
-      foreach ($lines as $line) {
+      foreach (explode(';', $extraContent) as $line) {
         echo "<p>$line</p>";
       }
     }
-      $submitName = $method == 'post' ? " name='submit'" : '';
-      echo "
-                    <div class='row'>
-                        <button type='submit' class='submit'$submitName>$submit</button>
-                    </div>
-                </form>
-            </article>
-        ";
+
+    $submitName = $method == 'post' ? " name='submit'" : '';
+    echo "<div class='row'>
+            <button type='submit' class='submit'$submitName>$submit</button>
+          </div>
+        </form>
+      </article>
+    ";
   }
 }

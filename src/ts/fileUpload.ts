@@ -1,4 +1,4 @@
-const inputs = document.querySelectorAll('.inputpic')
+const inputs = document.querySelectorAll('.input-pic')
 Array.prototype.forEach.call(inputs, (input: HTMLInputElement) => {
   const label = input.nextElementSibling
 
