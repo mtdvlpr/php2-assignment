@@ -30,9 +30,9 @@ class Form
         ' class="error"' => '<i class="fa fa-times-circle"></i> ' . $content,
         ' class="warning"' => '<i class="fa fa-warning"></i> ' . $content,
         ' class="success"' => '<i class="fa fa-check"></i> ' . $content,
-        default => $content
+      default => $content
       };
-      echo "<p$contentClass>$content</p>";
+        echo "<p$contentClass>$content</p>";
     }
 
     echo "<form method='$method' autocomplete='off' enctype='multipart/form-data'>";
