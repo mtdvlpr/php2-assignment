@@ -32,9 +32,9 @@ include_once __DIR__ . '/../components/header.php';
         <article class="form-container">
           <h1 class='h3'>Change Account</h1>
           <?php
-            foreach (explode(';', $updateFeedback) as $line) {
-              echo $line;
-            }
+          foreach (explode(';', $updateFeedback) as $line) {
+            echo $line;
+          }
           ?>
           <form method="post" autocomplete="off" enctype="multipart/form-data">
             <section class="row">
