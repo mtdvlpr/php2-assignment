@@ -335,7 +335,7 @@ class UserController
 
     // Update account
     else if ($updatedUser != null) {
-      $updateFeedback = $this->updateAccount($user, $updatedUser, $confirmPassword, $confirmNewPass);
+      $updateFeedback = $this->updateAccount($user, $updatedUser, $confirmPassword, $confirmNewPass, $fileArray);
     }
 
     return [
@@ -376,7 +376,7 @@ class UserController
     }
   }
 
-  private function updateAccount(userModel $user, userModel $updatedUser, string $confirmPassword, string $confirmNewPass): string
+  private function updateAccount(userModel $user, userModel $updatedUser, string $confirmPassword, string $confirmNewPass, array $fileArray): string
   {
     // Validate current password
     $updateFeedback = '';
