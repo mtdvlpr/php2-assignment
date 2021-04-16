@@ -44,6 +44,15 @@ private static $installed = array (
       ),
       'reference' => NULL,
     ),
+    'abraham/twitteroauth' => 
+    array (
+      'pretty_version' => '2.0.1',
+      'version' => '2.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'af6d0ba772731d4f83524fccb24281fe6149ef43',
+    ),
     'chillerlan/php-qrcode' => 
     array (
       'pretty_version' => '4.3.0',
