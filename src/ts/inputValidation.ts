@@ -4,6 +4,8 @@ const confirmEmail = document.getElementById('confirmemail')
 const password = document.getElementById('pass')
 const confirmPassword = document.getElementById('confirmpass')
 
+const nameInput = document.getElementById('name')
+
 function validateInputs(input: HTMLInputElement, confirm: HTMLInputElement) {
   if (input.value !== confirm.value) {
     confirm.setCustomValidity('Values do not match.')
@@ -13,6 +15,19 @@ function validateInputs(input: HTMLInputElement, confirm: HTMLInputElement) {
     confirm.setCustomValidity('')
     confirm.style.backgroundColor = 'white'
     confirm.style.color = 'black'
+  }
+}
+
+function validateName(input: HTMLInputElement) {
+  const pattern = new RegExp(/\d/)
+  if (pattern.exec(input.value) == null) {
+    input.setCustomValidity('')
+    input.style.backgroundColor = 'white'
+    input.style.color = 'black'
+  } else {
+    input.setCustomValidity('Name should not contain numbers.')
+    input.style.backgroundColor = '#fff6f6'
+    input.style.color = 'red'
   }
 }
 
@@ -33,5 +48,15 @@ if (password != null && confirmPassword != null) {
 
   confirmPassword.addEventListener('keyup', () => {
     validateInputs(password as HTMLInputElement, confirmPassword as HTMLInputElement)
+  })
+}
+
+if (nameInput != null) {
+  nameInput.addEventListener('change', () => {
+    validateName(nameInput as HTMLInputElement)
+  })
+
+  nameInput.addEventListener('keyup', () => {
+    validateName(nameInput as HTMLInputElement)
   })
 }

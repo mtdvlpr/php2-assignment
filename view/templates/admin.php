@@ -76,10 +76,10 @@ $selectOptions = new Field($field);
             </section>
             <section class="row">
               <section class="col-20">
-                <label for="name2">New Name</label>
+                <label for="name">New Name</label>
               </section>
               <section class="col-60">
-                <input type="text" id="name2" name="name" placeholder="Francesco de Bernardo">
+                <input type="text" id="name" name="name" placeholder="Francesco de Bernardo">
               </section>
             </section>
             <section class="row">
@@ -156,10 +156,10 @@ $selectOptions = new Field($field);
             </section>
             <section class="row">
               <section class="col-20">
-                <label for="name">Name</label>
+                <label for="name2">Name</label>
               </section>
               <section class="col-60">
-                <input type="text" id="name" name="name" placeholder="Francesco de Bernardo" required>
+                <input type="text" id="name2" name="name" placeholder="Francesco de Bernardo" required>
               </section>
             </section>
             <section class="row">

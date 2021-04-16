@@ -117,7 +117,6 @@ class router
         echo $templateEngine->render(
           'main.php',
           $this->userController->getVerifyPage(
-            $user,
             $_GET["email"] ?? '',
             $_GET["hash"] ?? '',
             $_GET["new"] ?? '',

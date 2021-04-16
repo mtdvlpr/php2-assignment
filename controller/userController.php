@@ -208,7 +208,6 @@ class UserController
   }
 
   public function getVerifyPage(
-    ?userModel $user,
     string $email,
     string $hash,
     string $new,
