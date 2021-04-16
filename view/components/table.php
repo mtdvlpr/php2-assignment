@@ -20,16 +20,23 @@ class Table
             <th>Username</th>
             <th>Name</th>
             <th>Active</th>
-            <th><abbr title='0 = user, 1 = admin, 2 = superadmin'>Role</abbr></th>
+            <th>Role</th>
+            <th>Reg. date</th>
           </tr>
     ";
 
+    // For each user, echo the table row with user data
     foreach ($this->table->getUsers() as $user) {
       $src = $user->getProfilePicture();
       $username = $user->getUsername();
       $name = $user->getName();
-      $active = $user->getIsActive();
-      $role = $user->getRole();
+      $active = $user->getIsActive() ? 'Yes' : 'No';
+      $registrationDate = date('d-m-Y', strtotime($user->getRegistrationDate()));
+      $role = match ($user->getRole()) {
+        0 => 'User',
+        1 => 'Admin',
+        2 => 'Superadmin'
+      };
 
       echo "
         <tr>
@@ -38,6 +45,7 @@ class Table
           <td class='notranslate'>$name</td>
           <td>$active</td>
           <td>$role</td>
+          <td>$registrationDate</td>
         </tr>
       ";
     }

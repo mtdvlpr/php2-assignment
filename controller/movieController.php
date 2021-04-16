@@ -46,7 +46,7 @@ class MovieController
               )
             )
           ],
-          'search',
+          'Search',
           false,
           null,
           '',

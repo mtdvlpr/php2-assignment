@@ -65,7 +65,7 @@ class Field
         break;
       case 'file':
           echo "
-                    <input type='$type' id='$id' name='$name' class='inputpic'>
+                    <input type='$type' id='$id' name='$name' class='input-pic'>
                     <label for='pic'><span>Choose a file...</span></label>
                 ";
         break;
@@ -93,6 +93,11 @@ class Field
           $text = $user->getUsername();
           echo "<option value='$value'>$text</option>";
         }
+        break;
+
+      case 'date':
+        $today = date('Y-m-d');
+        echo "<input type='$type' id='$id' name='$name' max='$today' placeholder='$placeholder'>";
         break;
 
       case 'password':

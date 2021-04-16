@@ -160,7 +160,7 @@ class router
 
       case '/account':
         if ($user == null) {
-          header('Location: /');
+          header('Location: /login');
         } else {
           $context = $this->userController->getAccountsPage($user);
 
@@ -210,13 +210,13 @@ class router
 
       case '/admin':
         if ($user == null) {
-          header('Location: /');
+          header('Location: /login');
         } else if ($user->getRole() < 1) {
           require_once __DIR__ . '/../public/403.shtml';
         } else {
           echo $templateEngine->render(
             'admin.php',
-            $this->adminController->getAdminPage($user)
+            $this->adminController->getAdminPage($user, $_GET['searchMail'] ?? '', $_GET['searchName'] ?? '', $_GET['regDate'] ?? '')
           );
         }
         break;

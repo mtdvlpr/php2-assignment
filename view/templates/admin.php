@@ -1,7 +1,7 @@
 <?php
 include_once __DIR__ . '/../components/nav.php';
 include_once __DIR__ . '/../components/table.php';
-include_once __DIR__ . '/../components/field.php';
+include_once __DIR__ . '/../components/form.php';
 include_once __DIR__ . '/../components/footer.php';
 include_once __DIR__ . '/../components/header.php';
 
@@ -29,10 +29,12 @@ $selectOptions = new Field($field);
 
     <main>
       <section class="leftcolumn">
+        <?php
+          $searchForm = new Form($form);
+          $searchForm->render();
+        ?>
         <article>
-          <header>
-            <h1 class='h3'>User List</h1>
-          </header>
+          <h1 class='h3'>User List</h1>
           <?php
           $table = new Table($tableModel);
           $table->render();
@@ -112,7 +114,7 @@ $selectOptions = new Field($field);
       </section>
       <aside>
         <article class="form-container responsive">
-          <h1 class='h3'>Admin Actions</h1>
+          <h1 class='h3'>Superadmin Actions</h1>
           <hr>
           <form method="post">
             <h2 class='h4'>Change Role</h2>

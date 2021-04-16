@@ -8,10 +8,14 @@ class UserModel
   private string $profilePicture = '/img/fillerface.png',
   private int $role = 0,
   private bool $isActive = false,
+  private string $registrationDate = '',
   private int $id = -1,
   private string $hash = ''
   )
   {
+    if ($this->registrationDate == '') {
+      $this->registrationDate = date('Y-m-d');
+    }
   }
 
   public function checkPassword(string $password): bool
@@ -145,5 +149,13 @@ class UserModel
   public function setHash(string $hash): void
   {
     $this->hash = $hash;
+  }
+
+  /**
+   * Get the value of registrationDate
+   */
+  public function getRegistrationDate(): string | null
+  {
+    return $this->registrationDate;
   }
 }

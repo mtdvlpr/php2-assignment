@@ -14,27 +14,27 @@ class UserDB extends BaseDB
    * @return UserModel[] An array of users.
    */
   public function getUsers(
-      int $role = 3,
-      string $name = '',
-      string $username = '',
-      string $registrationDate = ''
-    ): array
+    int $role = 3,
+    string $name = '',
+    string $username = '',
+    string $registrationDate = ''
+  ): array
   {
-      $query = 'SELECT id, `name`, username, `password`, is_active, `role`, profile_picture
-          FROM users
-          WHERE `role` < ?
-            AND `name` LIKE ?
-            AND username LIKE ?
-            AND registration_date LIKE ?
-        ';
+    $query = 'SELECT id, `name`, username, `password`, is_active, `role`, profile_picture, registration_date
+      FROM users
+      WHERE `role` < ?
+        AND `name` LIKE ?
+        AND username LIKE ?
+        AND registration_date LIKE ?
+      ';
 
-      $result = $this->executeQueryList(
-        $query,
-        'isss',
-        [$role, "%$name%", "%$username%", "%$registrationDate%"]
-      );
+    $result = $this->executeQueryList(
+      $query,
+      'isss',
+      [$role, "%$name%", "%$username%", "%$registrationDate%"]
+    );
 
-      $users = [];
+    $users = [];
 
     foreach ($result->fetch_all(MYSQLI_ASSOC) as $row) {
       $users[] = new UserModel(
@@ -44,11 +44,12 @@ class UserDB extends BaseDB
         $row['profile_picture'],
         $row['role'],
         $row['is_active'],
+        $row['registration_date'],
         $row['id']
       );
     }
 
-      return $users;
+    return $users;
   }
 
   /**
@@ -60,10 +61,10 @@ class UserDB extends BaseDB
    */
   public function getUser(string $searchUsername, string $hash = ''): userModel | null
   {
-    $query = 'SELECT id, `name`, username, `password`, is_active, `role`, profile_picture, `hash`
-        FROM users
-        WHERE username = ?
-          AND `hash` LIKE ?';
+    $query = 'SELECT id, `name`, username, `password`, is_active, `role`, profile_picture, `hash`, registration_date
+      FROM users
+      WHERE username = ?
+        AND `hash` LIKE ?';
 
     $this->executeQuery(
       $query,
@@ -76,7 +77,8 @@ class UserDB extends BaseDB
       $isActive,
       $role,
       $profilePicture,
-      $hash
+      $hash,
+      $registrationDate
     );
 
     if ($id == null) {
@@ -90,6 +92,7 @@ class UserDB extends BaseDB
       $profilePicture,
       $role,
       $isActive,
+      $registrationDate,
       $id,
       $hash
     );
@@ -104,9 +107,9 @@ class UserDB extends BaseDB
    * @param string $hash A long string to make sure the user has access to the email given
    * @param int $isActive If the user is created by the admin, the account is immediately activated
    */
-  public function addUser(string $name, string $username, string $password, string $hash = '', int $isActive = 1): void
+  public function addUser(string $name, string $username, string $password, string $hash = '', bool $isActive = true): void
   {
-      $this->executeMutation('INSERT INTO users (`name`, username, `password`, registration_date, is_active, query_date, `hash`) VALUES (?, ?, ?, ?, ?, ?, ?)', 'sssssss', [$name, $username, $password, date("Y-m-d H:i:s"), $isActive, date("Y-m-d"), $hash]);
+    $this->executeMutation('INSERT INTO users (`name`, username, `password`, registration_date, is_active, query_date, `hash`) VALUES (?, ?, ?, ?, ?, ?, ?)', 'sssssss', [$name, $username, $password, date("Y-m-d"), $isActive, date("Y-m-d"), $hash]);
   }
 
   /**

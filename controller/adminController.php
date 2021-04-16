@@ -13,11 +13,11 @@ class AdminController
     $this->userDB = new UserDB();
   }
 
-  public function getAdminPage(UserModel $user): array
+  public function getAdminPage(UserModel $user, string $searchMail = '', string $searchName = '', string $regDate = ''): array
   {
     return [
       "user" => $user,
-      "tableModel" => new TableModel($this->userDB->getUsers()),
+      "tableModel" => new TableModel($this->userDB->getUsers(3, $searchName, $searchMail, $regDate)),
       "field" => new FieldModel(
         '',
         '',
@@ -26,6 +26,47 @@ class AdminController
         'select',
         true,
         $this->userDB->getUsers($user->getRole())
+      ),
+      "form" => new FormModel(
+        'Search user',
+        [
+          new Field(
+            new FieldModel(
+              'Username',
+              'searchMail',
+              'searchMail',
+              'example@gmail.com',
+              'text',
+              false
+            )
+          ),
+          new Field(
+            new FieldModel(
+              'Name',
+              'searchName',
+              'searchName',
+              'Francesco',
+              'text',
+              false
+            )
+            ),
+          new Field(
+            new FieldModel(
+              'Registration date',
+              'regDate',
+              'regDate',
+              'yyyy-mm-dd',
+              'date',
+              false
+            )
+          )
+        ],
+        'Search',
+        false,
+        null,
+        '',
+        null,
+        'get'
       )
     ];
   }
