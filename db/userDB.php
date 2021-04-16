@@ -4,8 +4,11 @@ require_once __DIR__ . '/../model/user.php';
 
 class UserDB extends BaseDB
 {
+  private string $salt;
+
   public function __construct()
   {
+    $this->salt = '$6$rounds=7000$fishandchips$';
   }
 
   /**
@@ -146,5 +149,13 @@ class UserDB extends BaseDB
   public function deleteUser(int $id): void
   {
       $this->executeMutation('DELETE FROM users WHERE `id` = ?', 'i', [$id]);
+  }
+
+  /**
+   * Get the value of salt
+   */
+  public function getSalt(): string
+  {
+    return $this->salt;
   }
 }

@@ -6,12 +6,10 @@ require_once __DIR__ . '/../model/mailer.php';
 class UserController
 {
   private UserDB $userDB;
-  private string $salt;
 
   public function __construct()
   {
     $this->userDB = new UserDB();
-    $this->salt = '$6$rounds=7000$fishandchips$';
   }
 
   public function getSignUpPage(
@@ -284,7 +282,7 @@ class UserController
               $hash = md5(rand(0, 1000));
 
               // Add user to database
-              $this->userDB->addUser($name, $username, crypt($password, $this->salt), $hash, false);
+              $this->userDB->addUser($name, $username, crypt($password, $this->userDB->getSalt()), $hash, false);
 
               // Send verification mail
               $mailer = new Mailer();
@@ -323,7 +321,7 @@ class UserController
         }
         else if (!$user->getIsActive()) {
           throw new Exception('This account has not been activated yet. Check your email to active it.');
-        } else if (!$user->checkPassword(crypt($password, $this->salt))) {
+        } else if (!$user->checkPassword(crypt($password, $this->userDB->getSalt()))) {
           throw new Exception('Your password is incorrect.');
         } else {
           $_SESSION['login'] = serialize($user);
@@ -360,7 +358,7 @@ class UserController
           }
 
           // Update the database
-          $user->setPassword(crypt($newPassword, $this->salt));
+          $user->setPassword(crypt($newPassword, $this->userDB->getSalt()));
           $this->userDB->updateUser($user);
 
           // Send email
@@ -398,7 +396,7 @@ class UserController
   {
     if ($confirmEmail != $user->getUsername()) {
       return "You entered the wrong email address.";
-    } else if ($user->checkPassword(crypt($confirmPassword, $this->salt))) {
+    } else if ($user->checkPassword(crypt($confirmPassword, $this->userDB->getSalt()))) {
       $this->userDB->deleteUser($user->getId());
       unset($_SESSION["login"]);
       header('Location: /');
@@ -413,7 +411,7 @@ class UserController
     $updateFeedback = '';
     if (empty($confirmPassword)) {
       $updateFeedback = '<p class="warning"><i class="fa fa-warning"></i> Please enter your current password.</p>';
-    } else if (!$user->checkPassword(crypt($confirmPassword, $this->salt))) {
+    } else if (!$user->checkPassword(crypt($confirmPassword, $this->userDB->getSalt()))) {
       $updateFeedback = '<p class="error"><i class="fa fa-times-circle"></i> You entered the wrong current password.</p>';
     } else {
       $updateUser = false;
@@ -523,7 +521,7 @@ class UserController
     } else if ($pass != $confirmNewPass) {
       throw new Exception('<p class="error"><i class="fa fa-times-circle"></i> The confirmed new password does not match the new password.</p>;');
     } else {
-      $user->setPassword(crypt($pass, $this->salt));
+      $user->setPassword(crypt($pass, $this->userDB->getSalt()));
       return '<p class="success"><i class="fa fa-check"></i> Your password has been changed.</p>;';
     }
   }
@@ -537,7 +535,7 @@ class UserController
     $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
 
     if (!in_array($fileType, $allowTypes)) {
-      throw new Exception('<p class="error"><i class="fa fa-times-circle"></i> Sorry, only JPG, JPEG, PNG & GIF files are allowed.</p>;');
+      throw new Exception('<p class="error"><i class="fa fa-times-circle"></i> Only JPG, JPEG, PNG & GIF files are allowed.</p>;');
     } else if (file_exists($targetFilePath)) {
       throw new Exception("<p class='error'><i class='fa fa-times-circle'></i> $fileName already exists. Change the name and try again.</p>;");
     } else if (move_uploaded_file($fileArray["pic"]["tmp_name"], $targetFilePath)) {

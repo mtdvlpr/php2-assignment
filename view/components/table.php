@@ -32,7 +32,7 @@ class Table
       $name = $user->getName();
       $active = $user->getIsActive() ? 'Yes' : 'No';
       $registrationDate = date('d-m-Y', strtotime($user->getRegistrationDate()));
-      $role = match ($user->getRole()) {
+      $role = match($user->getRole()) {
         0 => 'User',
         1 => 'Admin',
         2 => 'Superadmin'

@@ -30,8 +30,8 @@ $selectOptions = new Field($field);
     <main>
       <section class="leftcolumn">
         <?php
-          $searchForm = new Form($form);
-          $searchForm->render();
+        $searchForm = new Form($form);
+        $searchForm->render();
         ?>
         <article>
           <h1 class='h3'>User List</h1>
@@ -44,9 +44,11 @@ $selectOptions = new Field($field);
           <h1 class='h3'>Update User</h1>
           <p>Empty fields will remain unchanged.</p>
           <form method="post" autocomplete="off" enctype="multipart/form-data">
-            <?php if (isset($_POST["update"]) && $_SESSION["login"]["role"] >= 1) {
-              $controller->updateProfile($_POST["usname"], $_POST["admin"], $_POST["newemail"], $_POST["name"], $_POST["newPass"], $_POST["confirm"], $_SESSION["login"]["profile_picture"], true);
-            } ?>
+            <?php
+            foreach (explode(';', $updateFeedback) as $line) {
+              echo $line;
+            }
+            ?>
             <section class="row">
               <section class="col-20">
                 <label for="adminpass">Admin Password <span>(required)</span></label>
@@ -75,7 +77,7 @@ $selectOptions = new Field($field);
             </section>
             <section class="row">
               <section class="col-20">
-                <label for="name2">Name</label>
+                <label for="name2">New Name</label>
               </section>
               <section class="col-60">
                 <input type="text" id="name2" name="name" placeholder="Francesco de Bernardo">
@@ -119,9 +121,11 @@ $selectOptions = new Field($field);
           <form method="post">
             <h2 class='h4'>Change Role</h2>
             <p>Admins lose their rights, users get rights.</p>
-            <?php if (isset($_POST["changeAdmin"])) {
-              $controller->changeAdmin($_POST["username"]);
-            } ?>
+            <?php
+            if ($roleFeedback != null) {
+              echo "<p$roleClass>$roleFeedback</p>";
+            }
+            ?>
             <section class="row">
               <section class="col-20">
                 <label for="adminmail">Username</label>
@@ -138,9 +142,11 @@ $selectOptions = new Field($field);
             <hr>
           </form>
           <h2 class='h4'>Add user</h2>
-          <?php if (isset($_POST["addUser"])) {
-            $controller->register(strtolower($_POST["email"]), $_POST["name"], $_POST["password"], $_POST["password"], true);
-          } ?>
+          <?php
+          if ($addFeedback != null) {
+            echo "<p$addClass>$addFeedback</p>";
+          }
+          ?>
           <form method="post">
             <section class="row">
               <section class="col-20">
@@ -173,9 +179,11 @@ $selectOptions = new Field($field);
           <hr>
           <h2 class='h4'>Remove user</h2>
           <form method="post" autocomplete="off">
-            <?php if (isset($_POST["removeUser"])) {
-              $controller->removeAccount($_POST["email"], $_POST["password"], true);
-            } ?>
+            <?php
+            if ($removeFeedback != null) {
+              echo "<p$removeClass>$removeFeedback</p>";
+            }
+            ?>
             <section class="row">
               <section class="col-20">
                 <label for="email">Username</label>

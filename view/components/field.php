@@ -89,9 +89,8 @@ class Field
         echo "<option value=''>Select Username</option>";
 
         foreach ($this->field->getComboList() as $user) {
-          $value = $user->getId();
-          $text = $user->getUsername();
-          echo "<option value='$value'>$text</option>";
+          $value = $user->getUsername();
+          echo "<option value='$value'>$value</option>";
         }
         break;
 
