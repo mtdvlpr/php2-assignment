@@ -207,6 +207,54 @@ class UserController
     ];
   }
 
+  public function getVerifyPage(
+    ?userModel $user,
+    string $email,
+    string $hash,
+    string $new,
+    bool $submitted
+  ): array
+  {
+    unset($_SESSION['login']);
+
+    if (!empty($email) && !empty($hash) && !empty($new)) {
+      if ($submitted) {
+        $searchUser = $this->userDB->getUser($email, $hash);
+        if ($searchUser != null) {
+          if ($new == "none") {
+            $searchUser->setIsActive(true);
+            $searchUser->setHash('');
+            $content = 'Your account has been activated, you can now log in.';
+          } else if (filter_var($new, FILTER_VALIDATE_EMAIL) && $this->userDB->getUser($new) == null) {
+            $searchUser->setUsername($new);
+            $content = 'Your email address has been changed. Log in using the new email.';
+          } else {
+            $content = 'Your new email address is invalid.';
+          }
+          try {
+            $this->userDB->updateUser($searchUser);
+          } catch (Exception $e) {
+            $content = 'Something went wrong while updating your account: ' . $e->getMessage();
+          }
+        } else {
+          $content = "We couldn't find your account, <a href='/signup'>try registering</a>.";
+        }
+      } else {
+        $content = '<form method="post"><input type="submit" name="verify" class="linkButton" value="Activate your account/email."></form>';
+      }
+    } else {
+      $content = "Something went wrong. Please go back to home.";
+    }
+
+    return [
+      "title" => "Verify Page",
+      "user" => null,
+      "asideArticles" => [],
+      "mainArticles" => [],
+      "verifyContent" => $content
+    ];
+  }
+
   public function getAccountsPage(
     userModel $user,
     bool $removePicture = false,
@@ -288,7 +336,7 @@ class UserController
               $mailer = new Mailer();
               $mailer->sendMail(
                 subject: "Account Verification",
-                body: "Dear $name,<br><br>Thank you for creating an account!<br><br><a href='http://www.643622.infhaarlem.nl/verify?email=$username&hash=$hash&new=none'>Verify your account</a><br><br>Kind regards,<br><br><br>The Movies For You team",
+                body: "Dear $name,<br><br>Thank you for creating an account!<br><br><a href='http://localhost:3000/verify?email=$username&hash=$hash&new=none'>Verify your account</a><br><br>Kind regards,<br><br><br>The Movies For You team",
                 address: $username
               );
 
@@ -485,14 +533,14 @@ class UserController
         $mailer = new Mailer();
         $mailer->sendMail(
           subject: "Email Address Changed",
-          body: "Dear user,<br><br>The email address linked to your account has been changed to: $newEmail.<br><br>If this was not you, please contact us: http://www.643622.infhaarlem.nl/contact<br><br>Kind regards,<br><br><br>The Movies For You team",
+          body: "Dear user,<br><br>The email address linked to your account has been changed to: $newEmail.<br><br>If this was not you, please contact us: http://localhost:3000/contact<br><br>Kind regards,<br><br><br>The Movies For You team",
           address: $oldUsername
         );
 
         // Send verification mail to new address
         $mailer->sendMail(
           subject: "New Email Verification",
-          body: "Dear user,<br><br>You want to change the email address linked to your account.<br><br>Click this link to activate your new email:<br>http://www.643622.infhaarlem.nl/verify?email=$oldUsername&hash=$hash&new=$newEmail<br><br>Kind regards,<br><br><br>The Movies For You team",
+          body: "Dear user,<br><br>You want to change the email address linked to your account.<br><br>Click this link to activate your new email:<br>http://localhost:3000/verify?email=$oldUsername&hash=$hash&new=$newEmail<br><br>Kind regards,<br><br><br>The Movies For You team",
           address: $newEmail
         );
 

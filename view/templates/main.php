@@ -26,6 +26,11 @@
     $nav->render($user);
     ?>
     <main>
+      <?php
+      if (isset($verifyContent)) {
+        echo "<h1 class='h2' style='margin-top: 50px'>$verifyContent</h1>";
+      }
+      ?>
       <aside>
         <?php
         foreach ($asideArticles as $articleModel) {

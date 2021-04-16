@@ -41,7 +41,7 @@ $selectOptions = new Field($field);
           ?>
         </article>
         <article class="form-container">
-          <h1 class='h3'>Update User</h1>
+          <h1 class='h3'>Update user</h1>
           <?php
           foreach (explode(';', $updateFeedback) as $line) {
             echo $line;
@@ -118,7 +118,7 @@ $selectOptions = new Field($field);
           <h1 class='h3'>Superadmin Actions</h1>
           <hr>
           <form method="post">
-            <h2 class='h4'>Change Role</h2>
+            <h2 class='h4'>Change role</h2>
             <?php
             if ($roleFeedback != null) {
               echo "<p$roleClass>$roleFeedback</p>";

@@ -19,11 +19,27 @@ aside {
   padding-right: 10px;
 }
 
-/* Clear floats after the columns */
-main::after {
-  content: '';
-  display: table;
-  clear: both;
+main {
+  .linkButton {
+    background: none;
+    border: none;
+    color: #06f;
+    text-decoration: underline;
+    cursor: pointer;
+    margin: 0 0 0 0;
+    font-size: 1em;
+
+    &:hover {
+      color: blue;
+    }
+  }
+
+  /* Clear floats after the columns */
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
 }
 
 /* Responsive content */
@@ -35,5 +51,13 @@ main::after {
 
   aside {
     display: none;
+    width: 100%;
+    padding: 0;
+  }
+
+  .accounts {
+    main > aside {
+      display: block;
+    }
   }
 }

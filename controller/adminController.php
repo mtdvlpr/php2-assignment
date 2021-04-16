@@ -197,7 +197,7 @@ class AdminController
       if ($user == null) {
         throw new Exception("$username doesn't exist.");
       } else if ($user->getRole() == 2) {
-        throw new Exception("You don't have the rights to do this.");
+        throw new Exception("You can't remove superadmin rights.");
       } else {
         $user->setRole($user->getRole() == 0 ? 1 : 0);
 

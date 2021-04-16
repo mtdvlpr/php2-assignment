@@ -748,11 +748,22 @@ aside {
   padding-left: 20px;
   padding-right: 10px; }
 
-/* Clear floats after the columns */
-main::after {
-  content: '';
-  display: table;
-  clear: both; }
+main {
+  /* Clear floats after the columns */ }
+  main .linkButton {
+    background: none;
+    border: none;
+    color: #06f;
+    text-decoration: underline;
+    cursor: pointer;
+    margin: 0 0 0 0;
+    font-size: 1em; }
+    main .linkButton:hover {
+      color: blue; }
+  main::after {
+    content: '';
+    display: table;
+    clear: both; }
 
 /* Responsive content */
 @media screen and (max-width: 900px) {
@@ -760,11 +771,9 @@ main::after {
     width: 100%;
     padding: 0; }
   aside {
-    display: none; } }
-
-@media screen and (max-width: 900px) {
-  .accounts main > aside {
-    display: block;
+    display: none;
     width: 100%;
-    padding: 0; } }
+    padding: 0; }
+  .accounts main > aside {
+    display: block; } }
 
