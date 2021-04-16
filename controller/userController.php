@@ -315,24 +315,24 @@ class UserController
   {
     if (!filter_var($username, FILTER_VALIDATE_EMAIL)) {
         throw new Exception("$username is not a valid email address.");
-      } else {
-        try {
-          $user = $this->userDB->getUser($username);
-          if ($user == null) {
-            throw new Exception("The user $username was not found.");
-          }
-          else if (!$user->getIsActive()) {
-            throw new Exception('This account has not been activated yet. Check your email to active it.');
-          } else if (!$user->checkPassword(crypt($password, $this->salt))) {
-            throw new Exception('Your password is incorrect.');
-          } else {
-            $_SESSION['login'] = serialize($user);
-            header('Location: /');
-          }
-        } catch (Exception $error) {
-          throw new Exception($error->getMessage());
+    } else {
+      try {
+        $user = $this->userDB->getUser($username);
+        if ($user == null) {
+          throw new Exception("The user $username was not found.");
         }
+        else if (!$user->getIsActive()) {
+          throw new Exception('This account has not been activated yet. Check your email to active it.');
+        } else if (!$user->checkPassword(crypt($password, $this->salt))) {
+          throw new Exception('Your password is incorrect.');
+        } else {
+          $_SESSION['login'] = serialize($user);
+          header('Location: /');
+        }
+      } catch (Exception $error) {
+        throw new Exception($error->getMessage());
       }
+    }
   }
 
   private function validateForgotRequest(string $email, string $confirm): string
