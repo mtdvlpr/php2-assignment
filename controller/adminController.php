@@ -32,8 +32,8 @@ class AdminController
     $addClass = ' class="success"';
     $removeFeedback = null;
     $removeClass = ' class="success"';
-    $roleFeedback = null;
-    $roleClass = ' class="success"';
+    $roleFeedback = 'Admins lose their rights, users get rights.';
+    $roleClass = '';
 
     // Add new user
     if ($newUser != null) {
@@ -66,6 +66,7 @@ class AdminController
       else {
         try {
           $roleFeedback = $this->changeRole($user->getRole(), $username);
+          $roleClass = ' class="success"';
         } catch (Exception $e) {
           $roleFeedback = $e->getMessage();
           $roleClass = ' class="error"';
@@ -148,7 +149,9 @@ class AdminController
       throw new Exception("Please fill in all fields.");
     } else if (!filter_var($username, FILTER_VALIDATE_EMAIL)) {
       throw new Exception("$username is not a valid username.");
-    } else if (preg_match('~[0-9]~', $name) === 1) {
+    } else if ($this->userDB->getUser($username) != null) {
+      throw new Exception("This username is already taken.");
+    }else if (preg_match('~[0-9]~', $name) === 1) {
       throw new Exception("$name is not a valid name.");
     } else if (strlen($password) < 8) {
       throw new Exception("The password should have a length of 8 or more.");
@@ -166,8 +169,8 @@ class AdminController
   {
     if ($user->getRole() < 2) {
       throw new Exception("You don't have the rights to do this.");
-    } else if (!$user->checkPassword($adminPassword)) {
-      throw new Exception("The entered password was wrong.");
+    } else if (!$user->checkPassword(crypt($adminPassword, $this->userDB->getSalt()))) {
+      throw new Exception("The admin password was wrong.");
     } else {
       $searchUser = $this->userDB->getUser($username);
 
@@ -200,7 +203,7 @@ class AdminController
 
         try {
           $this->userDB->updateUser($user);
-          return "$username is now a " . $user->getRole() == 0 ? "user." : "admin.";
+          return "$username is now a " . ($user->getRole() == 0 ? "user." : "admin.");
         } catch (Exception $e) {
           throw new Exception("Something went wrong while changing the role: " . $e->getMessage());
         }

@@ -214,9 +214,57 @@ class router
         } else if ($user->getRole() < 1) {
           require_once __DIR__ . '/../public/403.shtml';
         } else {
+          $searchMail = $_GET['searchMail'] ?? '';
+          $searchName = $_GET['searchName'] ?? '';
+          $regDate = $_GET['regDate'] ?? '';
+          $context = $this->adminController->getAdminPage($user, $searchMail, $searchName, $regDate);
+
+          if (isset($_POST['changeAdmin'])) {
+            $context = $this->adminController->getAdminPage(
+              $user,
+              $searchMail,
+              $searchName,
+              $regDate,
+              null,
+              $_POST['username']
+            );
+          } else if (isset($_POST['addUser'])) {
+            $newUser = new UserModel($_POST['name'], $_POST['email'], $_POST['password']);
+            $context = $this->adminController->getAdminPage($user, $searchMail, $searchName, $regDate, $newUser);
+          } else if (isset($_POST['removeUser'])) {
+            $context = $this->adminController->getAdminPage(
+              $user,
+              $searchMail,
+              $searchName,
+              $regDate,
+              null,
+              $_POST['email'],
+              $_POST['password']
+            );
+          } else if (isset($_POST['update'])) {
+            $updatedUser = new UserModel(
+              $_POST['name'],
+              $_POST['newemail'],
+              $_POST['newPass']
+            );
+
+            $context = $this->adminController->getAdminPage(
+              $user,
+              $searchMail,
+              $searchName,
+              $regDate,
+              null,
+              $_POST['usname'],
+              $_POST['admin'],
+              $updatedUser,
+              $_POST['confirm'],
+              $_FILES
+            );
+          }
+
           echo $templateEngine->render(
             'admin.php',
-            $this->adminController->getAdminPage($user, $_GET['searchMail'] ?? '', $_GET['searchName'] ?? '', $_GET['regDate'] ?? '')
+            $context
           );
         }
         break;

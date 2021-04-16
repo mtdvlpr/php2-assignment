@@ -42,13 +42,12 @@ $selectOptions = new Field($field);
         </article>
         <article class="form-container">
           <h1 class='h3'>Update User</h1>
-          <p>Empty fields will remain unchanged.</p>
+          <?php
+          foreach (explode(';', $updateFeedback) as $line) {
+            echo $line;
+          }
+          ?>
           <form method="post" autocomplete="off" enctype="multipart/form-data">
-            <?php
-            foreach (explode(';', $updateFeedback) as $line) {
-              echo $line;
-            }
-            ?>
             <section class="row">
               <section class="col-20">
                 <label for="adminpass">Admin Password <span>(required)</span></label>
@@ -120,7 +119,6 @@ $selectOptions = new Field($field);
           <hr>
           <form method="post">
             <h2 class='h4'>Change Role</h2>
-            <p>Admins lose their rights, users get rights.</p>
             <?php
             if ($roleFeedback != null) {
               echo "<p$roleClass>$roleFeedback</p>";
@@ -169,7 +167,7 @@ $selectOptions = new Field($field);
                 <label for="password">Password</label>
               </section>
               <section class="col-60">
-                <input type="password" id="password" name="password" placeholder="SecretPassword123!" required>
+                <input type="password" id="password" name="password" minlength='8' placeholder="SecretPassword123!" required>
               </section>
             </section>
             <section class="row">
@@ -178,12 +176,12 @@ $selectOptions = new Field($field);
           </form>
           <hr>
           <h2 class='h4'>Remove user</h2>
+          <?php
+          if ($removeFeedback != null) {
+            echo "<p$removeClass>$removeFeedback</p>";
+          }
+          ?>
           <form method="post" autocomplete="off">
-            <?php
-            if ($removeFeedback != null) {
-              echo "<p$removeClass>$removeFeedback</p>";
-            }
-            ?>
             <section class="row">
               <section class="col-20">
                 <label for="email">Username</label>
