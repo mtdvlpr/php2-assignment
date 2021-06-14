@@ -16,7 +16,7 @@ class paymentDB extends baseDB
   {
     $this->mollie = new MollieApiClient();
     $this->mollie->setApiKey("test_P96BGMN6kkFRyKadnkN4ANUNQ6yBGw");
-    $this->domain = '643622.infhaarlem.nl';
+    $this->domain = 'php2-assignment.heroku.com';
   }
 
   /**
