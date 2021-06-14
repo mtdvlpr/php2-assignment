@@ -1,0 +1,3 @@
+build:
+  docker:
+    web: phpdocker/php-fpm/Dockerfile
