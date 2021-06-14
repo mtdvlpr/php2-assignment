@@ -12,3 +12,5 @@ RUN apt-get update \
     && chmod +x /usr/local/bin/install-php-extensions && sync \
     && install-php-extensions gd xdebug \
     && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+
+CMD gunicorn --bind 0.0.0.0:$PORT wsgi
