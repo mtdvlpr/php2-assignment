@@ -11,7 +11,7 @@ class PDF extends Fpdf
 {
 
   public function __construct(
-    private string $title
+  private string $title
   )
   {
     parent::__construct(); // Initialize the PDF file

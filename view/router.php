@@ -4,6 +4,7 @@ require_once __DIR__ . '/templateEngine.php';
 
 // Controllers
 require_once __DIR__ . '/../controller/movieController.php';
+require_once __DIR__ . '/../controller/paymentController.php';
 require_once __DIR__ . '/../controller/userController.php';
 require_once __DIR__ . '/../controller/mainController.php';
 require_once __DIR__ . '/../controller/adminController.php';
@@ -12,6 +13,7 @@ require_once __DIR__ . '/../controller/adminController.php';
 require_once __DIR__ . '/../model/article.php';
 require_once __DIR__ . '/../model/form.php';
 require_once __DIR__ . '/../model/field.php';
+require_once __DIR__ . '/../model/donation.php';
 
 // Views
 require_once __DIR__ . '/components/field.php';
@@ -257,6 +259,48 @@ class router
             $context
           );
         }
+        break;
+
+      case '/donate':
+
+        if (isset($_POST['submit'])) {
+          $paymentController = new paymentController();
+
+          // Handle the form field input
+          $email = $_POST['email'] ?? $user->getUsername();
+          $name = $_POST['name'] ?? $user->getName();
+          $amount = $_POST['amount'];
+          $paymentMethod = $_POST['method'] ?? 'ideal';
+
+          $donation = new donationModel(1, new DateTime(), $amount, $name, $email);
+
+          $paymentController->createDonation($donation, $paymentMethod);
+        }
+
+        echo $templateEngine->render(
+          'main.php',
+          $this->mainController->getDonatePage($user)
+        );
+        break;
+
+      case (preg_match("/^\/donation\/(.*)/i", $this->activePath, $matches) ? true : false):
+        $data = $this->paymentController->getOrderById($matches[1]);
+
+        echo $templateEngine->render(
+          'donation.php',
+          [
+            "title" => "Donation",
+            "user" => $user,
+            "asideArticles" => [
+              ArticleModel::get('about'),
+              ArticleModel::get('collection')
+            ],
+            "orderId" => $matches[1],
+            "data" => $data
+          ]
+        );
+        break;
+
         break;
 
       default:

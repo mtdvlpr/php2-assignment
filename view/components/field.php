@@ -94,6 +94,17 @@ class Field
         }
         break;
 
+      case 'combo':
+        echo "
+        <select id='$id' name='$name' required>
+          <option value=''>Select Payment Method</option>
+          <option value='ideal'>iDEAL</option>
+          <option value='paypal'>PayPal</option>
+          <option value='creditcard'>VISA</option>
+        </select>
+        ";
+        break;
+
       case 'date':
         $today = date('Y-m-d');
         echo "<input type='$type' id='$id' name='$name' max='$today' placeholder='$placeholder'>";
@@ -101,6 +112,15 @@ class Field
 
       case 'password':
         echo "<input type='$type' id='$id' name='$name' minlength='8' placeholder='$placeholder'";
+        if ($isRequired) {
+          echo " required";
+        }
+        echo ">";
+        break;
+
+      case 'number':
+        echo "<input type='$type' id='$id' name='$name' placeholder='$placeholder' min='1' step='.01'";
+
         if ($isRequired) {
           echo " required";
         }

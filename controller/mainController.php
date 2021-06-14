@@ -51,6 +51,74 @@ class MainController
     ];
   }
 
+  public function getDonatePage(?UserModel $user) : array
+  {
+    $fields = [];
+
+    if ($user == null) {
+      array_push(
+        $fields,
+        new Field(
+          new FieldModel(
+            'Email',
+            'email',
+            'email',
+            'John.doe@example.com',
+            'email'
+          )
+        ),
+        new Field(
+          new FieldModel(
+            'Name',
+            'name',
+            'name',
+            'John Doe'
+          )
+        )
+      );
+    }
+
+    array_push(
+      $fields,
+      new Field(
+        new FieldModel(
+          'Amount',
+          'amount',
+          'amount',
+          '50.00',
+          'number'
+        )
+        ),
+        new Field(
+          new FieldModel(
+            'Payment method',
+            'method',
+            'method',
+            'Payment Method',
+            'combo'
+          )
+        )
+      );
+
+    return [
+      "title" => "Donate",
+      "user" => $user,
+      "asideArticles" => [
+        ArticleModel::get('about'),
+        ArticleModel::get('contact'),
+        ArticleModel::get('collection')
+      ],
+      "mainArticles" => [
+        new FormModel(
+          'Donate',
+          $fields,
+          'Donate',
+          false
+        )
+      ]
+    ];
+  }
+
   public function getContactPage(?UserModel $user) : array
   {
     return [
