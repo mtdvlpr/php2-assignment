@@ -12,7 +12,3 @@ RUN apt-get update \
     && chmod +x /usr/local/bin/install-php-extensions && sync \
     && install-php-extensions gd xdebug \
     && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
-
-COPY ../nginx/nginx.conf /etc/nginx/conf.d/default.conf.template
-
-CMD /bin/bash -c "envsubst '\$PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf" && nginx -g 'daemon off;'
