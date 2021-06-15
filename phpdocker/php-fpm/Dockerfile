@@ -1,13 +1,13 @@
 FROM phpdockerio/php80-fpm:latest
 WORKDIR "/web"
 
+RUN useradd -u 8877 myuser
+USER myuser
+
 # Fix debconf warnings upon build
 ARG DEBIAN_FRONTEND=noninteractive
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
-
-RUN useradd -m myuser
-USER myuser
 
 # Install selected extensions and other stuff
 RUN apt-get update \
