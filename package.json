@@ -8,8 +8,7 @@
     "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
     "lint:php": "./vendor/bin/phpmd ./controller/,./db/,./model/,./public/,./view/ ansi rulesets.xml",
-    "lint:phplint": "./vendor/bin/phplint",
-    "start": "webpack --mode production"
+    "lint:phplint": "./vendor/bin/phplint"
   },
   "repository": {
     "type": "git",

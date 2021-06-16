@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . "/../vendor/autoload.php";
+require_once __DIR__ . "/../model/donation.php";
 
 use Fpdf\Fpdf;
 use chillerlan\QRCode\QRCode;
@@ -44,6 +45,52 @@ class PDF extends Fpdf
     $this->SetY(-15);
     $this->SetFont('Arial', 'I', 8);
     $this->Cell(0, 10, 'Page ' . $this->PageNo() . '/{nb}', 0, 0, 'C');
+  }
+
+  public function makeInvoice(DonationModel $donation): void
+  {
+    // Set the font style
+    parent::SetFont('Arial', '', 12);
+
+    // New line
+    parent::Ln(30);
+
+    // Add text
+    $this->print('Dear user,');
+
+    // New line
+    parent::Ln();
+
+    // Add text
+    $this->print("This is your donation invoice: ");
+
+    // New line
+    parent::Ln();
+
+    // Show donation information
+    $this->print('Email: ' . $donation->getEmail());
+    $this->print('Name: ' . $donation->getName());
+    $this->print('Order Date: ' . $donation->getDonationDate()->format('d-m-Y'));
+    $this->print($donation->getAmount());
+
+    // New line
+    parent::Ln();
+
+    // Set the style and show description of qr code
+    parent::SetFont('Arial', '', 20);
+    $this->print('This qr code can be used to retrieve your donation receipt online.');
+
+    // Create a QR-code and set some attributes
+    $qrcode = new QRCode();
+    $filename = __DIR__ . '/../src/pdf/' . $donation->getId() . '.png';
+    $url = sprintf('http://128.199.61.77:3000/donation?donationid=%shash=%s', $donation->getId(), $donation->getHash());
+
+    // Create a QR-code image with the specified url and add it to the PDF
+    $qrcode->render($url, $filename);
+    parent::Image($filename);
+
+    // Remove the image
+    unlink($filename);
   }
 
   /**

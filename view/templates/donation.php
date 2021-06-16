@@ -44,6 +44,10 @@ $body = [
     "title" => "Order expired",
     "description" => "The donation #$orderId has expired, if you change your mind create a new donation."
   ],
+  "invalidURL" => [
+    "title" => "Invalid Request",
+    "description" => "Your url is invalid, go back home or try again."
+  ]
 ];
 ?>
 <!DOCTYPE html>
@@ -75,8 +79,8 @@ $body = [
       </aside>
       <section class="leftcolumn">
         <article>
-          <h1 class='h3'><?php echo $body[$data->getStatus()]['title']; ?></h1>
-          <p><?php echo $body[$data->getStatus()]['description']; ?></p>
+          <h1 class='h3'><?php echo $body[$status]['title']; ?></h1>
+          <p><?php echo $body[$status]['description']; ?></p>
         </article>
       </section>
     </main>

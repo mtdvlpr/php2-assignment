@@ -8,7 +8,8 @@ class DonationModel
     private float $amount,
     private string $name,
     private string $email,
-    private string $status = 'created'
+    private string $status = 'created',
+    private ?string $hash = null
   ) {
   }
 
@@ -106,5 +107,21 @@ class DonationModel
     public function setEmail(string $email): void
     {
         $this->email = $email;
+    }
+
+    /**
+     * Get the value of hash
+     */
+    public function getHash(): string
+    {
+        return $this->hash;
+    }
+
+    /**
+     * Set the value of hash
+     */
+    public function setHash(?string $hash): void
+    {
+        $this->hash = $hash;
     }
 }

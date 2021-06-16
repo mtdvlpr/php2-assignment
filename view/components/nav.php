@@ -23,6 +23,7 @@ class Nav
           <a href='/about'>About Us</a>
           <a href='/contact'>Contact Us</a>
           <a href='/collection'>Our Collection</a>
+          <a href='/donate'>Donate!</a>
           $dynamicMenu
           <a id='menu-icon' class='icon'><img src='/img/menu.svg' alt='Menu'></a>
       </nav>

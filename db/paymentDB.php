@@ -137,7 +137,8 @@ class PaymentDB extends baseDB
       `status`,
       `name`,
       email,
-      amount
+      amount,
+      `hash`
     FROM `donation`
     WHERE donation_id = ?";
 
@@ -148,7 +149,8 @@ class PaymentDB extends baseDB
       $status,
       $name,
       $email,
-      $amount
+      $amount,
+      $hash
     );
 
     // 2. Convert the data into our models
@@ -160,7 +162,50 @@ class PaymentDB extends baseDB
       $amount,
       $name,
       $email,
-      $status
+      $status,
+      $hash
+    );
+
+    // 3. Return the donation model
+    return $donation;
+  }
+
+  public function getDonationByIdAndHash(int $donationId, string $hash): DonationModel|null
+  {
+    // 1. Get the data from the database
+    $donationQuery = "SELECT
+      `status`,
+      `name`,
+      email,
+      amount,
+      `hash`
+    FROM `donation`
+    WHERE donation_id = ? AND `hash` = ?";
+
+    $this->executeQuery(
+      $donationQuery,
+      "ss",
+      [$donationId, $hash],
+      $status,
+      $name,
+      $email,
+      $amount,
+      $hash
+    );
+
+    if ($amount == null) {
+      return null;
+    }
+
+    // 2. Create the DonationModel
+    $donation = new DonationModel(
+      $donationId,
+      new DateTime(),
+      $amount,
+      $name,
+      $email,
+      $status,
+      $hash
     );
 
     // 3. Return the donation model
@@ -175,15 +220,19 @@ class PaymentDB extends baseDB
    */
   public function storeDonation(DonationModel $donation): string
   {
+
+    $hash = md5(rand(0, 1000));
+
     // 1. Create the mutation for storing the donation.
     $mutation = "INSERT INTO `donation` (
       amount,
       `status`,
       donation_date,
       `name`,
-      email
+      email,
+      `hash`
     )
-    VALUES (?, ?, now(), ?, ?)";
+    VALUES (?, ?, now(), ?, ?, ?)";
 
     // 2. Store the donation in the database
     $this->executeMutation(
@@ -193,7 +242,8 @@ class PaymentDB extends baseDB
         $donation->getAmount(),
         "created",
         $donation->getName(),
-        $donation->getEmail()
+        $donation->getEmail(),
+        $hash
       ]
     );
 

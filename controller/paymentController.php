@@ -28,6 +28,16 @@ class PaymentController
     $this->paymentDB->createMollieOrder($donation, $paymentMethod);
   }
 
+  public function validateDonation(int $donationId, string $hash): bool
+  {
+    try {
+      $donation = $this->paymentDB->getDonationByIdAndHash($donationId, $hash);
+      return $donation != null && !empty($donation);
+    } catch (Exception) {
+      return false;
+    }
+  }
+
   /**
    * Get an donation by the donationId
    *

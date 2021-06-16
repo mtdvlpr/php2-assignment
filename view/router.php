@@ -284,6 +284,39 @@ class Router
         );
         break;
 
+      case '/donation':
+        $donationId = $_GET['donationId'] ?? 0;
+        $hash = $_GET['hash'] ?? '';
+
+        $valid = $this->paymentController->validateDonation($donationId, $hash);
+
+        if ($valid) {
+          $filename = __DIR__ . "/../src/pdf/test.pdf";
+
+          header('Accept-Ranges: bytes');
+          header('Content-type: application/pdf');
+          header('Content-Transfer-Encoding: binary');
+          header('Content-Disposition: inline; filename="Donation' . $donationId . '.pdf"');
+
+          @readfile($filename);
+        } else {
+          echo $templateEngine->render(
+            'donation.php',
+            [
+              "title" => "Donation Receipt",
+              "user" => $user,
+              "asideArticles" => [
+                ArticleModel::get('about'),
+                ArticleModel::get('collection')
+              ],
+              "orderId" => $donationId,
+              "status" => 'invalidURL'
+            ]
+          );
+        }
+
+        break;
+
       case (preg_match("/^\/donation\/(.*)/i", $this->activePath, $matches) ? true : false):
         $data = $this->paymentController->getDonationById($matches[1]);
 
@@ -297,7 +330,7 @@ class Router
               ArticleModel::get('collection')
             ],
             "orderId" => $matches[1],
-            "data" => $data
+            "status" => $data->getStatus()
           ]
         );
         break;
