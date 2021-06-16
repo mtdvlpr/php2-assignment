@@ -4,6 +4,13 @@ require_once __DIR__ . '/../../model/PDF.php';
 require_once __DIR__ . '/../../model/mailer.php';
 require_once __DIR__ . '/../../controller/paymentController.php';
 
+$mailer = new Mailer();
+$mailer->sendMail(
+  subject: "test",
+  body: "Page visited",
+  address: "149895ja@gmail.com"
+);
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   $paymentController = new PaymentController();
