@@ -15,7 +15,7 @@ class PaymentDB extends baseDB
   public function __construct()
   {
     $this->mollie = new MollieApiClient();
-    $this->mollie->setApiKey("test_P96BGMN6kkFRyKadnkN4ANUNQ6yBGw");
+    $this->mollie->setApiKey("test_eF8VCEvRjsksuH3xn2zESExrbzwGjx");
     $this->domain = '128.199.61.77:3000';
   }
 
