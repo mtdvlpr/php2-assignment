@@ -1,9 +1,6 @@
 FROM phpdockerio/php80-fpm:latest
 WORKDIR "/web"
 
-RUN useradd -u 8877 myuser
-USER myuser
-
 # Fix debconf warnings upon build
 ARG DEBIAN_FRONTEND=noninteractive
 
