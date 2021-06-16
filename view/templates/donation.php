@@ -10,39 +10,39 @@ include_once __DIR__ . '/../components/movie.php';
 $body = [
   "paid" => [
     "title" => "Thank you",
-    "description" => "Your order #$orderId was successful, we look forward to seeing you at Haarlem Festival. Your tickets will be send to your E-mail address."
+    "description" => "Your donation #$orderId was successful, thank you very much! Your receipt will be send to your E-mail address."
   ],
   "authorized" => [
     "title" => "Thank you",
-    "description" => "Your order #$orderId was successful, we look forward to seeing you at Haarlem Festival. Your tickets will be send to your E-mail address."
+    "description" => "Your donation #$orderId was successful, thank you very much! Your receipt will be send to your E-mail address."
   ],
   "shipping" => [
     "title" => "Thank you",
-    "description" => "Your order #$orderId was successful, we look forward to seeing you at Haarlem Festival. Your tickets will be send to your E-mail address."
+    "description" => "Your donation #$orderId was successful, thank you very much! Your receipt will be send to your E-mail address."
   ],
   "completed" => [
     "title" => "Thank you",
-    "description" => "Your order #$orderId was successful, we look forward to seeing you at Haarlem Festival. Your tickets will be send to your E-mail address."
+    "description" => "Your donation #$orderId was successful, thank you very much! Your receipt will be send to your E-mail address."
   ],
   "created" => [
     "title" => "Processing...",
-    "description" => "We are still processing your order #$orderId. Check back later, if this takes longer then 15 minutes please contact support."
+    "description" => "We are still processing your donation #$orderId. Check back later, if this takes longer then 15 minutes please contact support."
   ],
   "pending" => [
     "title" => "Processing...",
-    "description" => "We are still processing your order #$orderId. Check back later, if this takes longer then 15 minutes please contact support."
+    "description" => "We are still processing your donation #$orderId. Check back later, if this takes longer then 15 minutes please contact support."
   ],
   "failed" => [
     "title" => "Oops...",
-    "description" => "Something went wrong wile processing your order #$orderId. Please try again, if this issue continues please contact support."
+    "description" => "Something went wrong wile processing your donation #$orderId. Please try again, if this issue continues please contact support."
   ],
   "canceled" => [
     "title" => "Cancelled",
-    "description" => "We are sad to see you have changed your mind. Your order #$orderId has been cancelled."
+    "description" => "We are sad to see you have changed your mind. Your donation #$orderId has been cancelled."
   ],
   "expired" => [
     "title" => "Order expired",
-    "description" => "The order #$orderId has expired, if you change your mind create a new order."
+    "description" => "The donation #$orderId has expired, if you change your mind create a new donation."
   ],
 ];
 ?>
