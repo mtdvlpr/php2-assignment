@@ -1,6 +1,6 @@
 <?php
 
-class donationModel
+class DonationModel
 {
   public function __construct(
     private int $id,

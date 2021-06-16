@@ -7,7 +7,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 require_once __DIR__ . "/baseDB.php";
 require_once __DIR__ . "/../model/donation.php";
 
-class paymentDB extends baseDB
+class PaymentDB extends baseDB
 {
   private MollieApiClient $mollie;
   private string $domain;
@@ -24,7 +24,7 @@ class paymentDB extends baseDB
    *
    * @return void
    */
-  public function createMollieOrder(donationModel $donation, string $paymentMethod): void
+  public function createMollieOrder(DonationModel $donation, string $paymentMethod): void
   {
     $donationId = $donation->getId();
     $mollieOrder = $this->mollie->orders->create(
@@ -128,9 +128,9 @@ class paymentDB extends baseDB
    * Get a donation from the database, based on the donationId provided.
    *
    * @param string $donationId
-   * @return donationModel
+   * @return DonationModel
    */
-  public function getDonationById(string $donationId): donationModel
+  public function getDonationById(string $donationId): DonationModel
   {
     // 1. Get the data from the database
     $donationQuery = "SELECT
@@ -153,8 +153,8 @@ class paymentDB extends baseDB
 
     // 2. Convert the data into our models
 
-    // 2.2 Create the donationModel
-    $donation = new donationModel(
+    // 2.2 Create the DonationModel
+    $donation = new DonationModel(
       $donationId,
       new DateTime(),
       $status,
@@ -170,10 +170,10 @@ class paymentDB extends baseDB
   /**
    * Store an donation to the database
    *
-   * @param donationModel $donation The donation to store
+   * @param DonationModel $donation The donation to store
    * @return string The ID of the donation
    */
-  public function storeDonation(donationModel $donation): string
+  public function storeDonation(DonationModel $donation): string
   {
     // 1. Create the mutation for storing the donation.
     $mutation = "INSERT INTO `donation` (

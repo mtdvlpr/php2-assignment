@@ -3,21 +3,21 @@ require_once __DIR__ . "/../db/paymentDB.php";
 
 class PaymentController
 {
-  private paymentDB $paymentDB;
+  private PaymentDB $paymentDB;
 
   public function __construct()
   {
-    $this->paymentDB = new paymentDB();
+    $this->paymentDB = new PaymentDB();
   }
 
   /**
    * This method handles the creation of the donation to the Mollie API.
    * It also stores the donation in the database.
    *
-   * @param donationModel $donation
+   * @param DonationModel $donation
    * @param string $paymentMethod (ideal, creditcard, paypal)
    */
-  public function createDonation(donationModel $donation, string $paymentMethod): void
+  public function createDonation(DonationModel $donation, string $paymentMethod): void
   {
     $donationId = $this->paymentDB->storeDonation($donation);
 
@@ -32,9 +32,9 @@ class PaymentController
    * Get an donation by the donationId
    *
    * @param string $donationId The ID of the donation
-   * @return donationModel The donation data
+   * @return DonationModel The donation data
    */
-  public function getDonationById(string $donationId): donationModel
+  public function getDonationById(string $donationId): DonationModel
   {
     return $this->paymentDB->getDonationById($donationId);
   }
@@ -61,7 +61,7 @@ class PaymentController
     $this->paymentDB->setOrderStatus($mollieId, $status);
   }
 
-  public function getDonationByMollieId(string $mollieId): donationModel
+  public function getDonationByMollieId(string $mollieId): DonationModel
   {
     $donationId = $this->paymentDB->getDonationIdByMollieId($mollieId);
     return $this->paymentDB->getDonationById($donationId);

@@ -21,7 +21,7 @@ require_once __DIR__ . '/components/field.php';
 /**
  * The router, this is responsible for showing the user the correct View.
  */
-class router
+class Router
 {
   private string $activePath;
   private MovieController $movieController;
@@ -273,9 +273,9 @@ class router
           $amount = $_POST['amount'];
           $paymentMethod = $_POST['method'] ?? 'ideal';
 
-          $donation = new donationModel(1, new DateTime(), $amount, $name, $email);
+          $donation = new DonationModel(1, new DateTime(), $amount, $name, $email);
 
-          $paymentController->createDonation($donation, $paymentMethod);
+          $this->paymentController->createDonation($donation, $paymentMethod);
         }
 
         echo $templateEngine->render(
@@ -285,7 +285,7 @@ class router
         break;
 
       case (preg_match("/^\/donation\/(.*)/i", $this->activePath, $matches) ? true : false):
-        $data = $this->paymentController->getOrderById($matches[1]);
+        $data = $this->paymentController->getDonationById($matches[1]);
 
         echo $templateEngine->render(
           'donation.php',
