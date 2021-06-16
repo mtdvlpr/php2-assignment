@@ -105,7 +105,7 @@ class PaymentDB extends baseDB
   {
     // 1. Create the mutation for updating the order status
     $mutation = "UPDATE `donation`
-    SET status = ?
+    SET `status` = ?
     WHERE mollie_id = ?";
 
     // 2. Execute the mutation

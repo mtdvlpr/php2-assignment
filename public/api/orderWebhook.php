@@ -7,17 +7,17 @@ require_once __DIR__ . '/../../controller/paymentController.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   $paymentController = new PaymentController();
-  $donationId = $_POST['id'] ?? '';
+  $mollieId = $_POST['id'] ?? '';
 
-  if (!empty($donationId))
+  if (!empty($mollieId))
   {
-    $status = $paymentController->getMollieOrderStatus($donationId);
-    $paymentController->setOrderStatus($donationId, $status);
+    $status = $paymentController->getMollieOrderStatus($mollieId);
+    $paymentController->setOrderStatus($mollieId, $status);
 
     if ($status == "paid")
     {
       // Get donation
-      $donation = $paymentController->getDonationByMollieId($donationId);
+      $donation = $paymentController->getDonationByMollieId($mollieId);
 
       // Create PDF
       $pdf = new PDF('Invoice for donation #' . $donation->getId());
