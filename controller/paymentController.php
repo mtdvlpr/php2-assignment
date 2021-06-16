@@ -34,7 +34,7 @@ class PaymentController
    * @param string $donationId The ID of the donation
    * @return DonationModel The donation data
    */
-  public function getDonationById(string $donationId): DonationModel
+  public function getDonationById(int $donationId): DonationModel
   {
     return $this->paymentDB->getDonationById($donationId);
   }

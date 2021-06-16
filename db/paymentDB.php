@@ -127,10 +127,10 @@ class PaymentDB extends baseDB
   /**
    * Get a donation from the database, based on the donationId provided.
    *
-   * @param string $donationId
+   * @param int $donationId
    * @return DonationModel
    */
-  public function getDonationById(string $donationId): DonationModel
+  public function getDonationById(int $donationId): DonationModel
   {
     // 1. Get the data from the database
     $donationQuery = "SELECT
@@ -204,7 +204,7 @@ class PaymentDB extends baseDB
     return $donationId;
   }
 
-  public function getDonationIdByMollieId(string $mollieId): string
+  public function getDonationIdByMollieId(string $mollieId): int
   {
     $query = "SELECT donation_id
     FROM `donation`
