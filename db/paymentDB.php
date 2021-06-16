@@ -157,10 +157,10 @@ class PaymentDB extends baseDB
     $donation = new DonationModel(
       $donationId,
       new DateTime(),
-      $status,
       $amount,
       $name,
-      $email
+      $email,
+      $status
     );
 
     // 3. Return the donation model
