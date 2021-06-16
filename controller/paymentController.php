@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . "/../db/paymentDB.php";
 
-class paymentController
+class PaymentController
 {
   private paymentDB $paymentDB;
 

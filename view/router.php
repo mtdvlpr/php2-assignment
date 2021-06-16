@@ -28,6 +28,7 @@ class router
   private UserController $userController;
   private MainController $mainController;
   private AdminController $adminController;
+  private PaymentController $paymentController;
 
   public function __construct()
   {
@@ -36,6 +37,7 @@ class router
     $this->userController = new UserController();
     $this->mainController = new MainController();
     $this->adminController = new AdminController();
+    $this->paymentController = new PaymentController();
   }
 
   /**
@@ -264,7 +266,6 @@ class router
       case '/donate':
 
         if (isset($_POST['submit'])) {
-          $paymentController = new paymentController();
 
           // Handle the form field input
           $email = $_POST['email'] ?? $user->getUsername();
