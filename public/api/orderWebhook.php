@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../vendor/autoload.php';
 require_once __DIR__ . '/../../model/PDF.php';
-require_once __DIR__ . '/../../model/Mailer.php';
+require_once __DIR__ . '/../../model/mailer.php';
 require_once __DIR__ . '/../../controller/paymentController.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
