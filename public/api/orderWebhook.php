@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../controller/paymentController.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-  $paymentController = new paymentController();
+  $paymentController = new PaymentController();
   $donationId = $_POST['id'] ?? '';
 
   if (!empty($donationId))
@@ -39,13 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
       //Mailer creation
       $mailer = new mailer();
-      $mailer->sendMail(
+      /*$mailer->sendMail(
         subject: "Haarlem Festival tickets",
         body: "In the attachment is your proof of donation!",
         address: $donation->getEmail(),
         pdfAttachmentPath: $dir . $name,
         pdfAttachmentName: "donation"
-      );
+      );*/
     }
   }
 }

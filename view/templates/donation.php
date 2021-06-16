@@ -65,7 +65,6 @@ $body = [
     $nav->render($user);
     ?>
     <main>
-      <h1><?php echo $body[$data->getStatus()]['title']; ?></h1>
       <aside>
         <?php
         foreach ($asideArticles as $articleModel) {
@@ -76,6 +75,7 @@ $body = [
       </aside>
       <section class="leftcolumn">
         <article>
+          <h1 class='h3'><?php echo $body[$data->getStatus()]['title']; ?></h1>
           <p><?php echo $body[$data->getStatus()]['description']; ?></p>
         </article>
       </section>
