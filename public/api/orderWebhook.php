@@ -9,10 +9,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   $paymentController = new PaymentController();
   $mollieId = $_POST['id'] ?? '';
 
+  $mailer = new Mailer();
+  $mailer->sendMail(
+    subject: "test",
+    body: "MollieID: " + $mollieId,
+    address: "149895ja@gmail.com"
+  );
+
   if (!empty($mollieId))
   {
     $status = $paymentController->getMollieOrderStatus($mollieId);
     $paymentController->setOrderStatus($mollieId, $status);
+
+    $mailer->sendMail(
+      subject: "test",
+      body: "Status: " + $status,
+      address: "149895ja@gmail.com"
+    );
 
     if ($status == "paid")
     {
@@ -38,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 
       //Mailer creation
-      $mailer = new mailer();
+      $mailer = new Mailer();
       /*$mailer->sendMail(
         subject: "Haarlem Festival tickets",
         body: "In the attachment is your proof of donation!",
