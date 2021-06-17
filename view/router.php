@@ -291,14 +291,12 @@ class Router
         $valid = $this->paymentController->validateDonation($donationId, $hash);
 
         if ($valid) {
-          $filename = __DIR__ . "/../src/pdf/test.pdf";
-
           header('Accept-Ranges: bytes');
           header('Content-type: application/pdf');
           header('Content-Transfer-Encoding: binary');
           header('Content-Disposition: inline; filename="Donation' . $donationId . '.pdf"');
 
-          @readfile($filename);
+          @readfile(__DIR__ . "/../src/pdf/donation" . $donationId . ".pdf");
         } else {
           echo $templateEngine->render(
             'donation.php',
