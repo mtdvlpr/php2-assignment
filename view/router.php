@@ -254,6 +254,8 @@ class Router
               $_POST['confirm'],
               $_FILES
             );
+          } else if (isset($_POST['exportUsers'])) {
+            $this->adminController->exportUsers($user, $_POST['format'] ?? 'csv', $_POST['role'] ?? 'true', $_POST['reg'] ?? 'true');
           }
 
           echo $templateEngine->render(
@@ -285,7 +287,7 @@ class Router
         break;
 
       case '/donation':
-        $donationId = $_GET['donationId'] ?? 0;
+        $donationId = $_GET['donation'] ?? 0;
         $hash = $_GET['hash'] ?? '';
 
         $valid = $this->paymentController->validateDonation($donationId, $hash);

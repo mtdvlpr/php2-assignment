@@ -303,6 +303,8 @@ class UserController
         throw new Exception("$username is not a valid email address.");
     } else if (preg_match('~[0-9]~', $name) === 1) {
       throw new Exception("$name is not a valid name.");
+    } else if (strlen($name) > 50) {
+      throw new Exception("Your name can't be more than 50 characters.");
     } else if (strlen($password) < 8) {
       throw new Exception("Your password should have a length of 8 or more.");
     } else if ($password != $confirm) {
@@ -555,6 +557,8 @@ class UserController
   {
     if (preg_match('~[0-9]~', $name) === 1) {
       throw new Exception("<p class='error'><i class='fa fa-times-circle'></i> $name is not a valid name.</p>;");
+    } else if (strlen($name) > 50) {
+      throw new Exception("<p class='error'><i class='fa fa-times-circle'></i> Your name can't be more than 50 characters.</p>;");
     } else {
       $user->setName($name);
       return '<p class="success"><i class="fa fa-check"></i> Your name has been changed successfully.</p>;';
@@ -576,7 +580,7 @@ class UserController
   private function validateProfilePicture(userModel $user, array $fileArray): string
   {
     $targetDir = "img/uploads/";
-    $fileName = basename($fileArray["pic"]["name"]);
+    $fileName = "user" . $user->getId() . "-" . basename($fileArray["pic"]["name"]);
     $targetFilePath = $targetDir . $fileName;
     $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
     $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
@@ -589,6 +593,28 @@ class UserController
       if ($user->getProfilePicture() !== "/img/fillerface.png") {
         unlink(__DIR__ . '/../public' . $user->getProfilePicture());
       }
+
+      $img = '';
+      switch ($fileType) {
+        case 'jpg':
+        case 'jpeg':
+          $img = imagecreatefromjpeg($targetFilePath);
+          break;
+
+        case 'gif':
+          $img = imagecreatefromgif($targetFilePath);
+          break;
+
+        default:
+          $img = imagecreatefrompng($targetFilePath);
+          break;
+      }
+
+      imagefilter($img, IMG_FILTER_GRAYSCALE);
+      imagefilter($img, IMG_FILTER_CONTRAST, -100);
+
+      imagepng($img, $targetFilePath);
+
 
       $user->setProfilePicture('/' . $targetFilePath);
       return '<p class="success"><i class="fa fa-check"></i> Your profile picture has been updated.</p>;';

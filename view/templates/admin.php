@@ -204,6 +204,51 @@ $selectOptions = new Field($field);
               <button type="submit" name="removeUser" class='submit'>Remove User</button>
             </section>
           </form>
+          <hr>
+          <h2 class='h4'>Export users</h2>
+          <form method="post">
+            <section class="row">
+              <section class="col-20">
+                <label>Role</label>
+              </section>
+              <section class="col-60">
+                <label for='includeRole'>
+                  <input type='radio' id='includeRole' name='role' value='true' checked> Include
+                </label>
+                <label for='excludeRole'>
+                  <input type='radio' id='excludeRole' name='role' value='false'> Exclude
+                </label>
+              </section>
+            </section>
+            <section class="row">
+              <section class="col-20">
+                <label>Reg. date</label>
+              </section>
+              <section class="col-60">
+                <label for='includeReg'>
+                  <input type='radio' id='includeReg' name='reg' value='true' checked> Include
+                </label>
+                <label for='excludeReg'>
+                  <input type='radio' id='excludeReg' name='reg' value='false'> Exclude
+                </label>
+              </section>
+            </section>
+            <section class="row">
+              <section class="col-20">
+                <label for="format">File type</label>
+              </section>
+              <section class="col-60">
+                <select id="format" name="format" required>
+                  <option value>Select a file type</option>
+                  <option value='csv'>CSV</option>
+                  <option value='excel'>Excel</option>
+                </select>
+              </section>
+            </section>
+            <section class="row">
+              <button type="submit" name="exportUsers" class='submit green'>Export users</button>
+            </section>
+          </form>
         </article>
       </aside>
     </main>

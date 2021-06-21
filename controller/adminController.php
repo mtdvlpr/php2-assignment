@@ -4,6 +4,14 @@ require_once __DIR__ . '/../model/user.php';
 require_once __DIR__ . '/../model/table.php';
 require_once __DIR__ . '/../model/field.php';
 
+use PhpOffice\PhpSpreadsheet\Helper\Sample;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
+require_once __DIR__ . '/../vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/IOFactory.php';
+require_once __DIR__ . '/../vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Spreadsheet.php';
+require_once __DIR__ . '/../vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Helper/Sample.php';
+
 class AdminController
 {
   private UserDB $userDB;
@@ -327,6 +335,7 @@ class AdminController
   {
     $targetDir = "img/uploads/";
     $fileName = basename($fileArray["pic"]["name"]);
+    $fileName = "user" . $user->getId() . "-" . basename($fileArray["pic"]["name"]);
     $targetFilePath = $targetDir . $fileName;
     $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
     $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
@@ -340,10 +349,173 @@ class AdminController
         unlink(__DIR__ . '/../public' . $user->getProfilePicture());
       }
 
+      $img = '';
+      switch ($fileType) {
+        case 'jpg':
+        case 'jpeg':
+          $img = imagecreatefromjpeg($targetFilePath);
+          break;
+
+        case 'gif':
+          $img = imagecreatefromgif($targetFilePath);
+          break;
+
+        default:
+          $img = imagecreatefrompng($targetFilePath);
+          break;
+      }
+
+      imagefilter($img, IMG_FILTER_GRAYSCALE);
+      imagefilter($img, IMG_FILTER_CONTRAST, -100);
+
+      imagepng($img, $targetFilePath);
+
       $user->setProfilePicture('/' . $targetFilePath);
       return "The user's profile picture has been updated.";
     } else {
       throw new Exception("There was an error while uploading the new profile picture.");
     }
+  }
+
+  public function exportUsers(UserModel $user, string $format, string $role, string $reg): void
+  {
+    $users = $this->userDB->getUsers($user->getRole());
+
+    if ($format == 'excel') {
+      $this->exportExcel($users, $role == 'true', $reg == 'true');
+    } else {
+      $this->exportCSV($users, $role == 'true', $reg == 'true');
+    }
+
+    exit;
+  }
+
+  private function exportCSV(array $users, bool $includeRole, bool $includeReg): void
+  {
+    $delimiter = ",";
+    $filename = "users_" . date('Y-m-d') . ".csv";
+
+    //create a file pointer
+    $f = fopen('php://memory', 'w');
+
+    //set column headers
+    $fields = array('ID', 'Username', 'Name', 'Status');
+
+    if ($includeRole) {
+      array_push($fields, 'Role');
+    }
+    if ($includeReg) {
+      array_push($fields, 'Registration date');
+    }
+
+    fputcsv($f, $fields, $delimiter);
+
+    //output each row of the data, format line as csv and write to file pointer
+    foreach ($users as $user) {
+      $status = ($user->getIsActive()) ? 'Active' : 'Inactive';
+      $registrationDate = date('d-m-Y', strtotime($user->getRegistrationDate()));
+      $role = match ($user->getRole()) {
+        0 => 'User',
+        1 => 'Admin',
+        2 => 'Superadmin'
+      };
+      $lineData = array($user->getId(), $user->getUsername(), $user->getName(), $status);
+
+      if ($includeRole) {
+        array_push($lineData, $role);
+      }
+      if ($includeReg) {
+        array_push($lineData, $registrationDate);
+      }
+
+      fputcsv($f, $lineData, $delimiter);
+    }
+
+    //move back to beginning of file
+    fseek($f, 0);
+
+    //set headers to download file rather than displayed
+    header('Content-Type: text/csv');
+    header('Content-Disposition: attachment; filename="' . $filename . '";');
+
+    //output all remaining data on a file pointer
+    fpassthru($f);
+  }
+
+  private function exportExcel(array$users, bool $includeRole, bool $includeReg): void
+  {
+    // Create new Spreadsheet object
+    $spreadsheet = new Spreadsheet();
+    $title = 'users_' . date('Y-m-d');
+
+    // Set document properties
+    $spreadsheet->getProperties()
+    ->setCreator('Movies For You')
+    ->setLastModifiedBy('Movies For You')
+    ->setTitle($title);
+
+    // Add headers
+    $spreadsheet->setActiveSheetIndex(0)
+      ->setCellValue('A1', 'ID')
+      ->setCellValue('B1', 'Username')
+      ->setCellValue('C1', 'Name')
+      ->setCellValue('D1', 'Status');
+
+      if ($includeRole) {
+        $spreadsheet->setActiveSheetIndex(0)->setCellValue('E1', 'Role');
+      }
+      if ($includeReg) {
+        $cell = $includeRole ? 'F1' : 'E1';
+        $spreadsheet->setActiveSheetIndex(0)->setCellValue($cell, 'Registration date');
+      }
+
+    $row = 2;
+    foreach ($users as $user) {
+      $status = ($user->getIsActive()) ? 'Active' : 'Inactive';
+      $registrationDate = date('d-m-Y', strtotime($user->getRegistrationDate()));
+      $role = match ($user->getRole()) {
+        0 => 'User',
+        1 => 'Admin',
+        2 => 'Superadmin'
+      };
+
+      $spreadsheet->setActiveSheetIndex(0)
+        ->setCellValue('A' . $row, $user->getId())
+        ->setCellValue('B' . $row, $user->getUsername())
+        ->setCellValue('C' . $row, $user->getName())
+        ->setCellValue('D' . $row, $status);
+
+      if ($includeRole) {
+        $spreadsheet->setActiveSheetIndex(0)->setCellValue('E' . $row, $role);
+      }
+      if ($includeReg) {
+        $cell = $includeRole ? 'F' : 'E';
+        $spreadsheet->setActiveSheetIndex(0)->setCellValue($cell . $row, $registrationDate);
+      }
+
+      $row++;
+    }
+
+    // Rename worksheet
+    $spreadsheet->getActiveSheet()->setTitle('Users');
+
+    // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+    $spreadsheet->setActiveSheetIndex(0);
+
+    // Redirect output to a client’s web browser (Xlsx)
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="'. $title .'.xlsx"');
+    header('Cache-Control: max-age=0');
+    // If you're serving to IE 9, then the following may be needed
+    header('Cache-Control: max-age=1');
+
+    // If you're serving to IE over SSL, then the following may be needed
+    header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+    header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // always modified
+    header('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+    header('Pragma: public'); // HTTP/1.0
+
+    $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+    $writer->save('php://output');
   }
 }
