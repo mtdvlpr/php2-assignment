@@ -559,6 +559,62 @@ table {
   table tr:hover {
     background-color: #ddd; }
 
+#twitter-feed h2 {
+  text-align: center; }
+
+#twitter-feed p {
+  text-align: center; }
+
+#twitter-feed .tweets {
+  height: 400px;
+  overflow-y: scroll; }
+  #twitter-feed .tweets .tweet {
+    margin: 1% auto;
+    text-align: left;
+    width: 95%;
+    padding-top: 1%;
+    display: grid;
+    grid-template-columns: 80px 60% auto;
+    grid-template-rows: 50px auto auto auto;
+    border-color: #1DA1F2;
+    border-style: solid;
+    border-radius: 20px; }
+    #twitter-feed .tweets .tweet .tweet-profile-pic {
+      display: inline-block;
+      border-radius: 50%;
+      grid-row: 1;
+      grid-column: 1;
+      margin-left: 10px; }
+    #twitter-feed .tweets .tweet .tweet-img {
+      grid-column: 2;
+      grid-row: 4;
+      margin-bottom: 10px;
+      max-height: 300px; }
+    #twitter-feed .tweets .tweet .usname {
+      display: inline-block;
+      font-weight: bold;
+      grid-row: 1;
+      grid-column: 2;
+      align-self: center;
+      text-align: left; }
+    #twitter-feed .tweets .tweet .tweet-text {
+      display: inline-block;
+      word-wrap: break-word;
+      width: 600px;
+      grid-row: 2;
+      grid-column: 2;
+      text-align: left; }
+    #twitter-feed .tweets .tweet span {
+      display: inline-block;
+      grid-row: 1;
+      grid-column: 3;
+      justify-self: end;
+      align-self: center;
+      margin-right: 10px; }
+    #twitter-feed .tweets .tweet:hover {
+      background-color: #f0f6ff;
+      cursor: pointer; }
+
 /* .form */
 .form-container {
   width: 100%;

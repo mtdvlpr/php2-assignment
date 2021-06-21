@@ -7,7 +7,7 @@ require_once __DIR__ . '/../../model/form.php';
 class Form
 {
   public function __construct(
-  private formModel $form
+  private FormModel $form
     )
   {
   }

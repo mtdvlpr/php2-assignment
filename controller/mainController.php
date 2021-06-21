@@ -1,6 +1,7 @@
 <?php
 // Models
 require_once __DIR__ . '/../model/article.php';
+require_once __DIR__ . '/../model/twitter.php';
 require_once __DIR__ . '/../model/form.php';
 require_once __DIR__ . '/../model/field.php';
 require_once __DIR__ . '/../model/user.php';
@@ -21,7 +22,8 @@ class MainController
       "user" => $user,
       "asideArticles" => [
         ArticleModel::get('about'),
-        ArticleModel::get('contact')
+        ArticleModel::get('contact'),
+        ArticleModel::get('collection')
       ],
       "mainArticles" => [
         new ArticleModel(
@@ -29,7 +31,7 @@ class MainController
           "How great that you're visiting our website! We want you to be able to enjoy the rich culture of the movie industry.",
           $user != null ? null : '<a href="/register">Create an account</a> to get a more complete experience. With an account you can do, see and interact more!'
         ),
-        ArticleModel::get('collection')
+        new TwitterFeedModel()
       ]
       ];
   }

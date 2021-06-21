@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "../vendor/abraham/twitteroauth/autoload.php";
+require_once __DIR__ . "/../vendor/abraham/twitteroauth/autoload.php";
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 
@@ -7,12 +7,12 @@ use Abraham\TwitterOAuth\TwitterOAuth;
  * Twitter feed model
  */
 
-class TwitterModel
+class TwitterFeedModel
 {
-  private static const CONSUMER_KEY = '';
-  private static const CONSUMER_SECRET = '';
-  private static const ACCESS_TOKEN = '';
-  private static const ACCESS_TOKEN_SECRET = '';
+  private const CONSUMER_KEY = 'W9D0lXy3NzsH7ou1QvBqhgokJ';
+  private const CONSUMER_SECRET = 'JPUrXQawLgakzeLb56vZzUJdpFEZ5JH0SqFvMK4bIsB525trKk';
+  private const ACCESS_TOKEN = '1405162948864118786-YYT1wguTpYSOOYwuaYTIoOffdQS0zI';
+  private const ACCESS_TOKEN_SECRET = 'zmzOuDJbRQLWccq7o4VLEnIKYdouBQBeG2XLK7KHZt640';
   private static ?TwitterOAuth $connection = null;
 
   public function __construct()

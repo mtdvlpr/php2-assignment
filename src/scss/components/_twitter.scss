@@ -1,0 +1,74 @@
+#twitter-feed {
+  h2 {
+    text-align: center;
+  }
+
+  p {
+    text-align: center;
+  }
+
+  .tweets {
+    height: 400px;
+    overflow-y: scroll;
+
+    .tweet {
+      margin: 1% auto;
+      text-align: left;
+      width: 95%;
+      padding-top: 1%;
+      display: grid;
+      grid-template-columns: 80px 60% auto;
+      grid-template-rows: 50px auto auto auto;
+      border-color: #1DA1F2;
+      border-style: solid;
+      border-radius: 20px;
+
+      .tweet-profile-pic {
+        display: inline-block;
+        border-radius: 50%;
+        grid-row: 1;
+        grid-column: 1;
+        margin-left: 10px;
+      }
+
+      .tweet-img {
+        grid-column: 2;
+        grid-row: 4;
+        margin-bottom: 10px;
+        max-height: 300px;
+      }
+
+      .usname {
+        display: inline-block;
+        font-weight: bold;
+        grid-row: 1;
+        grid-column: 2;
+        align-self: center;
+        text-align: left;
+      }
+
+      .tweet-text {
+        display: inline-block;
+        word-wrap: break-word;
+        width: 600px;
+        grid-row: 2;
+        grid-column: 2;
+        text-align: left;
+      }
+
+      span {
+        display: inline-block;
+        grid-row: 1;
+        grid-column: 3;
+        justify-self: end;
+        align-self: center;
+        margin-right: 10px;
+      }
+
+      &:hover {
+        background-color: #f0f6ff;
+        cursor: pointer;
+      }
+    }
+  }
+}

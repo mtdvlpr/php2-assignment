@@ -7,7 +7,7 @@ require_once __DIR__ . '/../../model/article.php';
 class Article
 {
   public function __construct(
-  private articleModel $article
+  private ArticleModel $article
     )
   {
   }
