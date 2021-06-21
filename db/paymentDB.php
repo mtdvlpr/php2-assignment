@@ -237,7 +237,7 @@ class PaymentDB extends baseDB
     // 2. Store the donation in the database
     $this->executeMutation(
       $mutation,
-      "ssss",
+      "sssss",
       [
         $donation->getAmount(),
         "created",
