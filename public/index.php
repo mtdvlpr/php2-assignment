@@ -36,10 +36,10 @@ $pdf->Output('F', $dir . $name);
 
 //Send email
 $mailer = new Mailer();
-$mailer->sendMail(
+/*$mailer->sendMail(
   subject: "Donation Invoice",
   body: "In the attachment is your proof of donation!",
   address: '149895ja@gmail.com',
   pdfAttachmentPath: $dir . $name,
   pdfAttachmentName: "donation"
-);
+);*/

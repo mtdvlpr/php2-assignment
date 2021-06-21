@@ -83,6 +83,8 @@ class PDF extends Fpdf
     // Create a QR-code and set some attributes
     $qrcode = new QRCode();
     $filename = __DIR__ . '/../src/pdf/' . $donation->getId() . '.png';
+    echo dirname($filename);
+    echo is_writable(dirname($filename)) ? 'true' : 'false';
     $url = sprintf('http://php2-assignment.tk:3000/donation?donationid=%s&hash=%s', $donation->getId(), $donation->getHash());
 
     // Create a QR-code image with the specified url and add it to the PDF
