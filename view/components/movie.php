@@ -7,7 +7,7 @@ require_once __DIR__ . '/../../model/movie.php';
 class Movie
 {
   public function __construct(
-  private MovieModel $movie
+  private ?MovieModel $movie
   )
   {
   }
@@ -16,15 +16,16 @@ class Movie
   {
     echo "<article>";
 
-    $title = $this->movie->getTitle();
-    $date = date("Y", strtotime($this->movie->getReleaseDate()));
-    $director = $this->movie->getDirector();
-    $category = $this->movie->getCategory();
-    $runtime = $this->movie->getRuntime();
-    $score = $this->movie->getScore();
-    $img = $this->movie->getImage();
+    if ($this->movie != null) {
+      $title = $this->movie->getTitle();
+      $date = date("Y", strtotime($this->movie->getReleaseDate()));
+      $director = $this->movie->getDirector();
+      $category = $this->movie->getCategory();
+      $runtime = $this->movie->getRuntime();
+      $score = $this->movie->getScore();
+      $img = $this->movie->getImage();
 
-    echo /*html*/"
+      echo /*html*/ "
       <h1 class='h4'>$title ($date)</h1>
       <img src='/$img' alt='$title'/>
       <p>Director: $director</p>
@@ -32,6 +33,9 @@ class Movie
       <p>Runtime: $runtime minutes</p>
       <p>Score: $score/10</p>
     ";
+    } else {
+      echo "<h1 class='h4'>The movie you requested could not be found.</h1>";
+    }
 
     echo "</article>";
   }

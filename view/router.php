@@ -8,6 +8,7 @@ require_once __DIR__ . '/../controller/paymentController.php';
 require_once __DIR__ . '/../controller/userController.php';
 require_once __DIR__ . '/../controller/mainController.php';
 require_once __DIR__ . '/../controller/adminController.php';
+require_once __DIR__ . '/../controller/apiController.php';
 
 // Models
 require_once __DIR__ . '/../model/article.php';
@@ -29,6 +30,7 @@ class Router
   private MainController $mainController;
   private AdminController $adminController;
   private PaymentController $paymentController;
+  private ApiController $apiController;
 
   public function __construct()
   {
@@ -38,6 +40,7 @@ class Router
     $this->mainController = new MainController();
     $this->adminController = new AdminController();
     $this->paymentController = new PaymentController();
+    $this->apiController = new ApiController();
   }
 
   /**
@@ -265,6 +268,7 @@ class Router
         }
         break;
 
+      // ─── DONATION ─────────────────────────────────────────────────────
       case '/donate':
 
         if (isset($_POST['submit'])) {
@@ -314,7 +318,6 @@ class Router
             ]
           );
         }
-
         break;
 
       case (preg_match("/^\/donation\/(.*)/i", $this->activePath, $matches) ? true : false):
@@ -335,6 +338,9 @@ class Router
         );
         break;
 
+      // ─── API ─────────────────────────────────────────────────────
+      case (preg_match("/^\/api\/(.*)/i", $this->activePath, $matches) ? true : false):
+        echo $this->apiController->getResponse($user, $matches[1]);
         break;
 
       default:

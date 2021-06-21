@@ -16,7 +16,7 @@ class MovieDB extends BaseDB
      *
      * @return array The result of the query in the form of an associative array
      */
-  public function getMovies(string $title = "", string $orderBy = "id"): array
+  public function getMovies(string $title = "", string $orderBy = "id", bool $asMovieObjects = true): array
   {
     if ($orderBy != 'title' && $orderBy != 'score') {
       $orderBy = 'id';
@@ -30,6 +30,10 @@ class MovieDB extends BaseDB
       );
 
     $movies = [];
+
+    if (!$asMovieObjects) {
+      return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
     foreach ($result->fetch_all(MYSQLI_ASSOC) as $row)
     {
@@ -53,9 +57,9 @@ class MovieDB extends BaseDB
      *
      * @param int $id the id of the movie
      *
-     * @return array The result of the query in the form of an associative array
+     * @return MovieModel|array The result of the query in the form of an associative array or MovieModel
      */
-  public function getMovieById(int $id): MovieModel
+  public function getMovieById(int $id, bool $asArray = false): MovieModel|array|null
   {
       $query = "SELECT id, title, release_date, director, category, runtime, score, `image` FROM movies WHERE id = ?";
 
@@ -72,6 +76,23 @@ class MovieDB extends BaseDB
         $score,
         $image
       );
+
+      if ($title == null) {
+        return null;
+      }
+
+      if ($asArray) {
+        return array(
+          'id' => $id,
+          'title' => $title,
+          'release_date' => $releaseDate,
+          'director' => $director,
+          'category' => $category,
+          'runtime' => $runtime,
+          'score' => $score,
+          'image' => $image
+        );
+      }
 
       return new MovieModel(
         $id,

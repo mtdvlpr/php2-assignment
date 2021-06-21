@@ -63,7 +63,7 @@ class MovieController
     $movie = $this->movieDB->getMovieById($id);
 
     return [
-      "title" => $movie->getTitle(),
+      "title" => $movie?->getTitle() ?? 'Movie not found',
       "user" => $user,
       "asideArticles" => [
         ArticleModel::get('about'),

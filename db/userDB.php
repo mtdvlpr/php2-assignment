@@ -20,7 +20,8 @@ class UserDB extends BaseDB
     int $role = 3,
     string $name = '',
     string $username = '',
-    string $registrationDate = ''
+    string $registrationDate = '',
+    bool $asUserObjects = true
   ): array
   {
     $query = 'SELECT id, `name`, username, `password`, is_active, `role`, profile_picture, registration_date
@@ -39,17 +40,21 @@ class UserDB extends BaseDB
 
     $users = [];
 
-    foreach ($result->fetch_all(MYSQLI_ASSOC) as $row) {
-      $users[] = new UserModel(
-        $row['name'],
-        $row['username'],
-        $row['password'],
-        $row['profile_picture'],
-        $row['role'],
-        $row['is_active'],
-        $row['registration_date'],
-        $row['id']
-      );
+    if ($asUserObjects) {
+      foreach ($result->fetch_all(MYSQLI_ASSOC) as $row) {
+        $users[] = new UserModel(
+          $row['name'],
+          $row['username'],
+          $row['password'],
+          $row['profile_picture'],
+          $row['role'],
+          $row['is_active'],
+          $row['registration_date'],
+          $row['id']
+        );
+      }
+    } else {
+      $users = $result->fetch_all(MYSQLI_ASSOC);
     }
 
     return $users;

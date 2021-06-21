@@ -43,7 +43,7 @@
       <section class="leftcolumn">
         <?php
         foreach ($mainArticles as $model) {
-          $class = str_replace('Model', '', get_class($model));
+          $class = str_replace('Model', '', $model != null ? get_class($model) : 'MovieModel');
 
           if (isset($_POST['refreshTweets']) && $class == 'TwitterFeed') {
             $_SESSION['tweets'] = $model->getTweets();
