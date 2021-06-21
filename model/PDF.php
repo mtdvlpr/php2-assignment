@@ -71,7 +71,7 @@ class PDF extends Fpdf
     $this->print('Email: ' . $donation->getEmail());
     $this->print('Name: ' . $donation->getName());
     $this->print('Order Date: ' . $donation->getDonationDate()->format('d-m-Y'));
-    $this->print($donation->getAmount());
+    $this->print('Amount: ' . $donation->getAmount());
 
     // New line
     parent::Ln();
@@ -90,7 +90,7 @@ class PDF extends Fpdf
     parent::Image($filename);
 
     // Remove the image
-    //unlink($filename);
+    unlink($filename);
   }
 
   /**
