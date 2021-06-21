@@ -16,7 +16,7 @@ class PaymentDB extends baseDB
   {
     $this->mollie = new MollieApiClient();
     $this->mollie->setApiKey("test_eF8VCEvRjsksuH3xn2zESExrbzwGjx");
-    $this->domain = '128.199.61.77:3000';
+    $this->domain = 'php2-assignment.tk:3000';
   }
 
   /**
