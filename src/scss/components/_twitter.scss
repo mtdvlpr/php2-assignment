@@ -7,6 +7,20 @@
     text-align: center;
   }
 
+  button {
+    background-color: #07f;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    margin: 5px 0;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #074ea0;
+    }
+  }
+
   .tweets {
     height: 400px;
     overflow-y: scroll;

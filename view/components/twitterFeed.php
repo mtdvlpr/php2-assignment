@@ -27,15 +27,13 @@ class TwitterFeed
     <article id='twitter-feed'>
       <h2 class='h4'>Get the latest twitter news!</h2>
       <p class='p'>The feed is automatically refreshed every 30 mins, but you can also manually refresh.</p>
-      <form method='post'><button class='twitter-btn' type='submit' name='refreshTweets'>Refresh tweets</button></form>
+      <form method='post'><button type='submit' name='refreshTweets'>Refresh tweets</button></form>
     <section class='tweets'>";
 
     foreach($tweets as $key => $value){
-      $tweetContent = explode("https",$value->text)[0];
+      $tweetContent = htmlspecialchars(explode("https",$value->text)[0]);
       $userName = $value->user->name;
-      $createdAt = explode('+',$value->created_at)[0];
-      $createdAt = DateTime::createFromFormat(' D M d H:i:s ', explode('+', $value->created_at)[0]);
-      $createdAt = date_format($createdAt, "d-m-y H:i");
+      $createdAt = date_format(DateTime::createFromFormat(' D M d H:i:s ', explode('+', $value->created_at)[0]), "d-m-y H:i");
       $profileImage = $value->user->profile_image_url_https;
       $contentImage = isset($value->entities->media) ? $value->entities->media[0]->media_url_https : null;
       $id = $value->id_str;
