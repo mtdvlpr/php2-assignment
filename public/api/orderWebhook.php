@@ -39,13 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
       //Send email
       $mailer = new Mailer();
-      /*$mailer->sendMail(
+      $mailer->sendMail(
         subject: "Donation Invoice",
         body: "In the attachment is your proof of donation!",
         address: $donation->getEmail(),
         pdfAttachmentPath: $dir . $name,
         pdfAttachmentName: "donation"
-      );*/
+      );
     }
   }
 }
