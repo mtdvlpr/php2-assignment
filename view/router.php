@@ -96,7 +96,7 @@ class Router
       case '/collection':
         echo $templateEngine->render(
           'main.php',
-          $this->movieController->getCollectionPage($user, $_GET['title'] ?? '', $_GET['orderby'] ?? 'id')
+          $this->movieController->getCollectionPage($user, $_GET['title'] ?? '', $_GET['orderby'] ?? 'id', isset($_POST['import']) ? $_FILES : null)
         );
         break;
 

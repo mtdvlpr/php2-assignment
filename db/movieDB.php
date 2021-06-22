@@ -105,4 +105,13 @@ class MovieDB extends BaseDB
         $image
       );
   }
+
+  public function addMovie(MovieModel $movie): void
+  {
+    $this->executeMutation(
+      'INSERT INTO movies (`title`, release_date, `director`, category, runtime, score, `image`) VALUES (?, ?, ?, ?, ?, ?, ?)',
+    'sssssss',
+    [$movie->getTitle(), $movie->getReleaseDate(), $movie->getDirector(), $movie->getCategory(), $movie->getRuntime(), $movie->getScore(), $movie->getImage()]
+  );
+  }
 }

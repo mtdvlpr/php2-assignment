@@ -34,9 +34,45 @@
       ?>
       <aside>
         <?php
+        $importForm = null;
         foreach ($asideArticles as $articleModel) {
-          $article = new Article($articleModel);
-          $article->render();
+          if ($articleModel instanceof FormModel) {
+            $importForm = $articleModel;
+          } else {
+            $article = new Article($articleModel);
+            $article->render();
+          }
+        }
+        if ($importForm != null && $user->getRole() > 0) {
+          echo /*html*/'
+            <article class="form-container responsive">
+              <h1 class="h4">Import movies</h1>';
+
+          if ($importMsg != null) {
+            $importMsg = match ($importClass) {
+              ' class="error"' => '<i class="fa fa-times-circle"></i> ' . $importMsg,
+              ' class="success"' => '<i class="fa fa-check"></i> ' . $importMsg,
+              default => $importMsg
+            };
+            echo "<p$importClass>$importMsg</p>";
+          }
+          echo /*html*/ '
+              <form method="post" enctype="multipart/form-data">
+                <section class="row">
+                  <section class="col-20">
+                    <label for="">Movies CSV file</label>
+                  </section>
+                  <section class="col-60">
+                    <input type="file" id="moviesFile" name="moviesFile" class="input-pic" required>
+                    <label for="moviesFile"><span>Choose a file...</span></label>
+                  </section>
+                </section>
+                <section class="row">
+                  <button type="submit" name="import" class="submit green">Import movies</button>
+                </section>
+              </form>
+            </article>
+          ';
         }
         ?>
       </aside>

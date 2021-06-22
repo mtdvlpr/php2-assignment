@@ -35,7 +35,7 @@ class MovieModel
    */
   public function getTitle(): string
   {
-    return $this->title;
+    return htmlspecialchars($this->title);
   }
 
   /**
@@ -51,7 +51,7 @@ class MovieModel
    */
   public function getDirector(): string
   {
-    return $this->director;
+    return htmlspecialchars($this->director);
   }
 
   /**
@@ -67,7 +67,7 @@ class MovieModel
    */
   public function getCategory(): string
   {
-    return $this->category;
+    return htmlspecialchars($this->category);
   }
 
   /**
@@ -131,7 +131,7 @@ class MovieModel
    */
   public function getImage(): string
   {
-    return $this->image;
+    return htmlspecialchars($this->image);
   }
 
   /**
