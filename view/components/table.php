@@ -29,7 +29,7 @@ class Table
     foreach ($this->table->getUsers() as $user) {
       $src = $user->getProfilePicture();
       $username = $user->getUsername();
-      $name = htmlspecialchars($user->getName());
+      $name = $user->getName();
       $active = $user->getIsActive() ? 'Yes' : 'No';
       $registrationDate = date('d-m-Y', strtotime($user->getRegistrationDate()));
       $role = match($user->getRole()) {

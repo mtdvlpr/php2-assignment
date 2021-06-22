@@ -169,7 +169,7 @@ class controller
                 $this->view->showMessage('Your email address has been changed. Log in using the new email.');
           }
         } else {
-            $this->view->showMessage("We couldn't find your account, <a href='/register'>try registering</a>.");
+            $this->view->showMessage("We couldn't find your account, <a href='/signup'>try registering</a>.");
         }
       } else {
           $this->view->showMessage('<form method="post"><input type="submit" name="verify" class="linkButton" value="Activate your account/email."></form>');

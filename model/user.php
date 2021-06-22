@@ -44,7 +44,7 @@ class UserModel
    */
   public function getName(): string
   {
-    return $this->name;
+    return htmlspecialchars($this->name);
   }
 
   /**
