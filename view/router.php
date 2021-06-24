@@ -86,9 +86,24 @@ class Router
         break;
 
       case '/contact':
+        $context = [];
+
+        if (isset($_POST['submit'])) {
+          $context = $this->mainController->getContactPage(
+            $user,
+            $_POST['email'] ?? null,
+            $_POST['name'] ?? null,
+            $_POST['subject'] ?? null,
+            $_POST['msg'] ?? null,
+            $_POST['g-recaptcha-response']
+          );
+        } else {
+          $context = $this->mainController->getContactPage($user);
+        }
+
         echo $templateEngine->render(
           'main.php',
-          $this->mainController->getContactPage($user)
+          $context
         );
         break;
 

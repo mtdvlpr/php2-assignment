@@ -21,6 +21,7 @@ class AdminController
     $this->userDB = new UserDB();
   }
 
+  // Get the /admin page
   public function getAdminPage(
     UserModel $user,
     string $searchMail = '',
@@ -82,6 +83,7 @@ class AdminController
       }
     }
 
+    // Return the page data in an array
     return [
       "user" => $user,
       "tableModel" => new TableModel($this->userDB->getUsers(3, $searchName, $searchMail, $regDate)),
@@ -151,6 +153,7 @@ class AdminController
     $name = $newUser->getName();
     $password = $newUser->getPassword();
 
+    // Validate the user
     if ($userRole < 2) {
       throw new Exception("You don't have the rights to do this.");
     } else if (empty($username) || empty($name) || empty($password)) {
@@ -175,6 +178,7 @@ class AdminController
 
   private function removeAccount(UserModel $user, string $username, string $adminPassword): string
   {
+    // Validate the user
     if ($user->getRole() < 2) {
       throw new Exception("You don't have the rights to do this.");
     } else if (!$user->checkPassword(crypt($adminPassword, $this->userDB->getSalt()))) {
@@ -333,6 +337,7 @@ class AdminController
 
   private function validateProfilePicture(userModel $user, array $fileArray): string
   {
+    // Get image info
     $targetDir = "img/uploads/";
     $fileName = basename($fileArray["pic"]["name"]);
     $fileName = "user" . $user->getId() . "-" . basename($fileArray["pic"]["name"]);
@@ -340,6 +345,7 @@ class AdminController
     $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
     $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
 
+    // Validate image
     if (!in_array($fileType, $allowTypes)) {
       throw new Exception('Only JPG, JPEG, PNG & GIF files are allowed.');
     } else if (file_exists($targetFilePath)) {
@@ -349,6 +355,7 @@ class AdminController
         unlink(__DIR__ . '/../public' . $user->getProfilePicture());
       }
 
+      // Convert image to image object
       $img = '';
       switch ($fileType) {
         case 'jpg':
@@ -365,6 +372,7 @@ class AdminController
           break;
       }
 
+      // Make picture black and white
       imagefilter($img, IMG_FILTER_GRAYSCALE);
       imagefilter($img, IMG_FILTER_CONTRAST, -100);
 

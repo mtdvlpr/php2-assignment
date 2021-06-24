@@ -20,13 +20,16 @@ class PaymentDB extends baseDB
   }
 
   /**
-   * Create a order entry in Mollie
+   * Create a mollie order
    *
-   * @return void
+   * @param DonationModel $donation The donation that's made
+   * @param string $paymentMethod The method of payment (iDEAL, PayPal, CreditCard)
    */
   public function createMollieOrder(DonationModel $donation, string $paymentMethod): void
   {
     $donationId = $donation->getId();
+
+    // Create the mollie order
     $mollieOrder = $this->mollie->orders->create(
       [
         "amount" => [
@@ -70,7 +73,7 @@ class PaymentDB extends baseDB
       ]
     );
 
-    // Store the Mollie order ID in our database.
+    // Store the Mollie order ID in the database.
     $this->setMollieOrderId($donation->getId(), $mollieOrder->id);
 
     // Redirect the user to the Mollie checkout
@@ -79,19 +82,19 @@ class PaymentDB extends baseDB
   }
 
   /**
-   * Set the mollie id of the order in mollie in our database.
+   * Set the mollie id of the order in mollie in the database.
    *
-   * @param string $donationId
-   * @param string $mollieId
+   * @param string $donationId The ID of the donation
+   * @param string $mollieId The ID of the mollie order
    */
   public function setMollieOrderId(string $donationId, string $mollieId): void
   {
-    // 1. Create the mutation for storing the mollieID
+    // Create the mutation for storing the mollieID
     $mutation = "UPDATE `donation`
     SET mollie_id = ?
     WHERE donation_id = ?";
 
-    // 2. Execute the mutation
+    // Execute the mutation
     $this->executeMutation($mutation, "ss", [$mollieId, $donationId]);
   }
 
@@ -103,12 +106,12 @@ class PaymentDB extends baseDB
    */
   public function setOrderStatus(string $mollieId, string $status): void
   {
-    // 1. Create the mutation for updating the order status
+    // Create the mutation for updating the order status
     $mutation = "UPDATE `donation`
     SET `status` = ?
     WHERE mollie_id = ?";
 
-    // 2. Execute the mutation
+    // Execute the mutation
     $this->executeMutation($mutation, "ss", [$status, $mollieId]);
   }
 
@@ -127,12 +130,12 @@ class PaymentDB extends baseDB
   /**
    * Get a donation from the database, based on the donationId provided.
    *
-   * @param int $donationId
-   * @return DonationModel
+   * @param int $donationId the id of the donation
+   * @return DonationModel The donation made
    */
   public function getDonationById(int $donationId): DonationModel
   {
-    // 1. Get the data from the database
+    // Get the data from the database
     $donationQuery = "SELECT
       `status`,
       `name`,
@@ -153,9 +156,8 @@ class PaymentDB extends baseDB
       $hash
     );
 
-    // 2. Convert the data into our models
 
-    // 2.2 Create the DonationModel
+    // Create the DonationModel
     $donation = new DonationModel(
       $donationId,
       new DateTime(),
@@ -166,13 +168,13 @@ class PaymentDB extends baseDB
       $hash
     );
 
-    // 3. Return the donation model
+    // Return the donation model
     return $donation;
   }
 
   public function getDonationByIdAndHash(int $donationId, string $hash): DonationModel|null
   {
-    // 1. Get the data from the database
+    // Get the data from the database
     $donationQuery = "SELECT
       `status`,
       `name`,
@@ -197,7 +199,7 @@ class PaymentDB extends baseDB
       return null;
     }
 
-    // 2. Create the DonationModel
+    // Create the DonationModel
     $donation = new DonationModel(
       $donationId,
       new DateTime(),
@@ -208,7 +210,7 @@ class PaymentDB extends baseDB
       $hash
     );
 
-    // 3. Return the donation model
+    // Return the donation model
     return $donation;
   }
 
@@ -223,7 +225,7 @@ class PaymentDB extends baseDB
 
     $hash = md5(rand(0, 1000));
 
-    // 1. Create the mutation for storing the donation.
+    // Create the mutation for storing the donation.
     $mutation = "INSERT INTO `donation` (
       amount,
       `status`,
@@ -234,7 +236,7 @@ class PaymentDB extends baseDB
     )
     VALUES (?, ?, now(), ?, ?, ?)";
 
-    // 2. Store the donation in the database
+    // Store the donation in the database
     $this->executeMutation(
       $mutation,
       "sssss",
@@ -247,10 +249,10 @@ class PaymentDB extends baseDB
       ]
     );
 
-    // 3. Save the ID of the donation
+    // Save the ID of the donation
     $donationId = connectionDB::getConnection()->insert_id;
 
-    // 5. Return the donation_id
+    // Return the donation_id
     return $donationId;
   }
 

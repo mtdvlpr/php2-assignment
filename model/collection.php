@@ -10,17 +10,17 @@ class CollectionModel
   {
   }
 
-    /**
-     * Get the value of movies
-     */
+  /**
+   * Get the value of movies
+   */
   public function getMovies(): array
   {
       return $this->movies;
   }
 
-    /**
-     * Set the value of movies
-     */
+  /**
+   * Set the value of movies
+   */
   public function setMovies(array $movies): void
   {
       $this->movies = $movies;

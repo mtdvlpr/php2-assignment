@@ -6,13 +6,19 @@ require_once __DIR__ . '/../model/form.php';
 require_once __DIR__ . '/../model/field.php';
 require_once __DIR__ . '/../model/user.php';
 
+// DB
+require_once __DIR__ . '/../db/contactDB.php';
+
 // Views
 require_once __DIR__ . '/../view/components/field.php';
 
 class MainController
 {
+  private ContactDB $contactDB;
+
   public function __construct()
   {
+    $this->contactDB = new ContactDB();
   }
 
   public function getHomepage(?userModel $user): array
@@ -121,8 +127,60 @@ class MainController
     ];
   }
 
-  public function getContactPage(?UserModel $user) : array
+  public function getContactPage(
+    ?UserModel $user,
+    ?string $email = null,
+    ?string $name = null,
+    ?string $subject = null,
+    ?string $msg = null,
+    ?string $captcha  = null
+  ) : array
   {
+    $content = null;
+    $class = ' class="error"';
+
+    if ($email != null) {
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $content = "$email is not a valid email address.";
+      } else if (isset($captcha) && !empty($captcha)) {
+
+        // Google secret API
+        $secretAPIkey = '6Lenh-MZAAAAAMv--kR6my39trkTaJIxR34ujQnI';
+
+        // reCAPTCHA response verification
+        $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secretAPIkey . '&response=' . $captcha);
+
+        // Decode JSON data
+        $response = json_decode($verifyResponse);
+        if ($response->success) {
+          try {
+
+            // Add message to database
+            $this->contactDB->addInformation($email, $name, $subject, $msg);
+
+            // Send contact mail
+            $mailer = new Mailer();
+            $mailer->sendMail(
+              subject: $subject,
+              body: "From $name ($email):<br><br>$msg",
+              address: 'php2.assignment@gmail.com'
+            );
+
+            // Show user feedback
+            $class = ' class="success"';
+            $content = "Your message has been sent successfully.";
+          } catch (Exception $error) {
+            $content = $error->getMessage();
+          }
+        } else {
+          $content = 'Robot verification failed, please try again.';
+        }
+      } else {
+        $content = "Please check the reCAPTCHA box.";
+      }
+    }
+
+
     return [
       "title" => "Home",
       "user" => $user,
@@ -170,7 +228,9 @@ class MainController
             )
           ],
           'send',
-          true
+          true,
+          $content,
+          $class
         )
       ]
     ];

@@ -13,6 +13,13 @@ class ArticleModel
   {
   }
 
+  /**
+   * Get a often recurring article bases on type
+   *
+   * @param string $type The type (contact, about, collection)
+   *
+   * @return Article The article to be returned
+   */
   public static function get(string $type): self
   {
     switch ($type) {

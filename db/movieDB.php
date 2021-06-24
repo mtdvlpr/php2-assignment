@@ -13,6 +13,7 @@ class MovieDB extends BaseDB
      *
      * @param string $title The title of the movie that is searched for
      * @param string $orderBy The field that the result should be ordered by
+     * @param bool $asMovieObjects Determine wether the return value should contain associative arrays or movie objects
      *
      * @return array The result of the query in the form of an associative array
      */
@@ -56,8 +57,9 @@ class MovieDB extends BaseDB
      * Select a specific movie based on it's id
      *
      * @param int $id the id of the movie
+     * @param bool $asArray Decide if the return value should be a movie model or associative array
      *
-     * @return MovieModel|array The result of the query in the form of an associative array or MovieModel
+     * @return MovieModel|array|null The result of the query in the form of an associative array or MovieModel or null if not found
      */
   public function getMovieById(int $id, bool $asArray = false): MovieModel|array|null
   {
@@ -106,6 +108,11 @@ class MovieDB extends BaseDB
       );
   }
 
+  /**
+   * Add a movie to the database
+   *
+   * @param MovieModel $movie The movie object
+   */
   public function addMovie(MovieModel $movie): void
   {
     $this->executeMutation(
