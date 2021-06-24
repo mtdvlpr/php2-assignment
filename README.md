@@ -70,14 +70,14 @@ For more information about the docker environment see [DOCKER.md](./DOCKER.md)
 This is the codebase for the PHP2 assignment, this section contains more information in regards to the codebase.
 
 ### Techniques
-For this assignment I several techniques, the main ones are listed here:
+For this assignment I used several techniques, the main ones are listed here:
 - TypeScript
 - SCSS
 - PHP 8
 
 ### Folder structure
 ```sh
-haarlem-festival-php/
+php2-assignment/
 ├── .vscode             # Files related to the behavior of VSCode
 ├── webpack.config.js   # The build config for the project
 ├── phpdocker           # Docker container configs
@@ -91,7 +91,6 @@ haarlem-festival-php/
   ├── index.php       # The main file of the application
   ├── api             # API endpoints for the application
   └── assets          # Static resources such as JS, CSS and images
-├──vendor             # Packages installed using composer.
 └── views             # The View layer of the MVC pattern.
   └── components      # Components for the views
 ```
