@@ -4,3 +4,4 @@ yarn.lock
 .vscode/snipsnap.code-snippets
 build/phplint.cache
 /vendor
+/README.txt
