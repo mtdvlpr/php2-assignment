@@ -164,10 +164,14 @@ class Router
         break;
 
       case '/forgot':
-        echo $templateEngine->render(
-          'main.php',
-          isset($_POST['submit']) ? $this->userController->getForgotPage($_POST['email'], $_POST['confirm']) : $this->userController->getForgotPage()
-        );
+        if ($user != null) {
+          header('Location: /');
+        } else {
+          echo $templateEngine->render(
+            'main.php',
+            isset($_POST['submit']) ? $this->userController->getForgotPage($_POST['email'], $_POST['confirm']) : $this->userController->getForgotPage()
+          );
+        }
         break;
 
       case '/account':

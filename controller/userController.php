@@ -337,7 +337,7 @@ class UserController
               $mailer = new Mailer();
               $mailer->sendMail(
                 subject: "Account Verification",
-                body: "Dear $name,<br><br>Thank you for creating an account!<br><br><a href='http://localhost:3000/verify?email=$username&hash=$hash&new=none'>Verify your account</a><br><br>Kind regards,<br><br><br>The Movies For You team",
+                body: "Dear $name,<br><br>Thank you for creating an account!<br><br><a href='http://php2-assignment.tk/verify?email=$username&hash=$hash&new=none'>Verify your account</a><br><br>Kind regards,<br><br><br>The Movies For You team",
                 address: $username
               );
 
@@ -529,19 +529,21 @@ class UserController
       $hash = md5(rand(0, 1000));
       $user->setHash($hash);
 
+      $this->userDB->updateUser($user);
+
       try {
         // Send notification mail to old address
         $mailer = new Mailer();
         $mailer->sendMail(
           subject: "Email Address Changed",
-          body: "Dear user,<br><br>The email address linked to your account has been changed to: $newEmail.<br><br>If this was not you, please contact us: http://localhost:3000/contact<br><br>Kind regards,<br><br><br>The Movies For You team",
+          body: "Dear user,<br><br>The email address linked to your account has been changed to: $newEmail.<br><br>If this was not you, please contact us: <a href='http://php2-assignment.tk/contact'>http://php2-assignment.tk/contact</a><br><br>Kind regards,<br><br><br>The Movies For You team",
           address: $oldUsername
         );
 
         // Send verification mail to new address
         $mailer->sendMail(
           subject: "New Email Verification",
-          body: "Dear user,<br><br>You want to change the email address linked to your account.<br><br>Click this link to activate your new email:<br>http://localhost:3000/verify?email=$oldUsername&hash=$hash&new=$newEmail<br><br>Kind regards,<br><br><br>The Movies For You team",
+          body: "Dear user,<br><br>You want to change the email address linked to your account.<br><br>Click this link to activate your new email:<br><a href='http://php2-assignment.tk/verify?email=$oldUsername&hash=$hash&new=$newEmail'>Activate my new email</a><br><br>Kind regards,<br><br><br>The Movies For You team",
           address: $newEmail
         );
 
