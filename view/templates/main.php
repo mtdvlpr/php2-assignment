@@ -43,7 +43,7 @@
             $article->render();
           }
         }
-        if ($importForm != null && $user->getRole() > 0) {
+        if ($importForm != null && $user != null && $user->getRole() > 0) {
           echo /*html*/'
             <article class="form-container responsive">
               <h1 class="h4">Import movies</h1>';

@@ -39,31 +39,37 @@ class MovieController
       }
     }
 
+    $asideArticles = [
+      ArticleModel::get('about'),
+      ArticleModel::get('contact')
+    ];
+
+    if ($user != null && $user->getRole() > 0) {
+      array_push($asideArticles, new FormModel(
+        'Import Movies',
+        [
+          new Field(
+            new FieldModel(
+              'Movies file',
+              'moviesFile',
+              'moviesFile',
+              'Choose a file...',
+              'file'
+            )
+          )
+        ],
+        'Import',
+        false
+      )
+    );
+    }
+
     return [
       "title" => "Our Collection",
       "user" => $user,
       "importMsg" => $msg,
       "importClass" => $class,
-      "asideArticles" => [
-        ArticleModel::get('about'),
-        ArticleModel::get('contact'),
-        new FormModel(
-          'Import Movies',
-          [
-            new Field(
-              new FieldModel(
-                'Movies file',
-                'moviesFile',
-                'moviesFile',
-                'Choose a file...',
-                'file'
-              )
-            )
-            ],
-          'Import',
-          false
-        )
-      ],
+      "asideArticles" => $asideArticles,
       "mainArticles" => [
         new FormModel(
           'Our Collection',
