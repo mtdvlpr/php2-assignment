@@ -1,0 +1,16 @@
+version: 2
+updates:
+  # Fetch and update latest `composer` packages
+  - package-ecosystem: composer
+    directory: '/'
+    schedule:
+      interval: daily
+      time: '00:00'
+    open-pull-requests-limit: 10
+    reviewers:
+      - mtdvlpr
+    assignees:
+      - mtdvlpr
+    commit-message:
+      prefix: chore
+      include: scope
