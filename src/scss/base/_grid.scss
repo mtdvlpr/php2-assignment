@@ -1,0 +1,18 @@
+@mixin column($span) {
+  min-width: 0;
+  width: 100%;
+  grid-column: span $span;
+}
+
+.grid {
+  --cols: 12;
+  column-gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), 1fr);
+
+  @for $i from 1 through 12 {
+    .col-#{$i} {
+      @include column(#{$i});
+    }
+  }
+}

@@ -1,0 +1,143 @@
+/* .form */
+.form-container {
+  width: 100%;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+  padding: 20px;
+  margin-top: 20px;
+  color: black;
+
+  /* Label column */
+  .col-20 {
+    float: left;
+    width: 20%;
+    margin-top: 6px;
+
+    label {
+      padding: 12px 12px 12px 0;
+      display: inline-block;
+
+      span {
+        font-size: 10px;
+      }
+    }
+  }
+
+  /* Textarea column */
+  .col-60 {
+    float: left;
+    width: 60%;
+    margin-top: 6px;
+  }
+
+  /* Clear floats after the columns */
+  .row::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+
+  input[type='text'],
+  input[type='password'],
+  input[type='email'],
+  input[type='date'],
+  input[type='number'],
+  textarea,
+  select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    background-color: white;
+
+    &:focus {
+      border: 1px solid #4d90fe;
+      outline: none;
+    }
+  }
+
+  textarea {
+    height: 200px;
+  }
+
+  .input-pic {
+    width: .1px;
+    height: .1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+
+    + label {
+      font-weight: bold;
+      color: black;
+      display: inline;
+    }
+
+    &:focus + label,
+    + label:hover {
+      color: #209cee;
+      cursor: pointer;
+    }
+  }
+
+  form > div > div {
+    margin: 0 auto;
+  }
+
+  .submit {
+    background-color: #4caf50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    margin-top: 1px;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+
+    &:hover {
+      background-color: #45a049;
+    }
+  }
+
+  &.responsive {
+    &,
+    .col-20,
+    .col-60 {
+      width: 100%;
+    }
+
+    .submit {
+      width: 100%;
+      margin-top: 20px;
+      background-color: red;
+
+      &:hover {
+        background-color: #d10000;
+      }
+
+      &.green {
+        background-color: #4caf50;
+
+        &:hover {
+          background-color: #45a049;
+        }
+      }
+    }
+  }
+}
+
+/* Responsive layout */
+@media screen and (max-width: 705px) {
+  .form-container,
+  .col-20,
+  .col-60,
+  .form-container .submit {
+    width: 100%;
+  }
+
+  .form-container .submit {
+    margin-top: 20px;
+  }
+}

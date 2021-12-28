@@ -1,0 +1,12 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<HTML
+  ><HEAD><TITLE>403 Forbidden</TITLE></HEAD
+  ><BODY>
+    <H1>ERROR 403: Oopsy daisy, someone's trying to be a bad bad boy >:(</H1>
+    <br />
+    You don't have permission to access 643622.infhaarlem.nl<!--#echo var="REQUEST_URI" -->
+    on this server.
+    <HR />
+    <I><!--#echo var="HTTP_HOST" --></I>
+  </BODY></HTML
+>

@@ -1,0 +1,13 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<HTML
+  ><HEAD><TITLE>401 Authorization Required</TITLE></HEAD
+  ><BODY>
+    <H1>ERROR 401: Oopsy daisy, someone has trouble typing :(</H1>
+    <br />
+    This server could not verify that you are authorized to access the document
+    requested. Either you supplied the wrong credentials (e.g., bad password),
+    or your browser doesn't understand how to supply the credentials required.
+    <HR />
+    <I><!--#echo var="HTTP_HOST" --></I>
+  </BODY></HTML
+>

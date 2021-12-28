@@ -1,0 +1,11 @@
+/node_modules/
+yarn.lock
+.env
+.vscode/snipsnap.code-snippets
+build/phplint.cache
+/vendor
+/README.txt
+/src/pdf/*
+.eslintcache
+.stylelintcache
+build/

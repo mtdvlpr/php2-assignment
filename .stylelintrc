@@ -1,0 +1,35 @@
+{
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-recommended",
+    "stylelint-config-recommended-scss"
+  ],
+  "customSyntax": "postcss-scss",
+  "rules": {
+    "length-zero-no-unit": true,
+    "max-empty-lines": 1,
+    "number-leading-zero": "never",
+    "indentation": 2,
+    "function-comma-space-after": "always",
+    "declaration-empty-line-before": null,
+    "color-hex-case": null,
+    "no-descending-specificity": null,
+    "at-rule-no-unknown": null,
+    "string-quotes": "single",
+    "no-duplicate-selectors": true,
+    "property-case": "lower",
+    "rule-empty-line-before": [
+      "always-multi-line",
+      {
+        "except": [
+          "first-nested",
+          "after-single-line-comment"
+        ]
+      }
+    ]
+  },
+  "ignoreFiles": [
+    "/public/assets/*.css",
+    "**/*.css"
+  ]
+}

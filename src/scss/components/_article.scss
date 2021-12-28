@@ -1,0 +1,45 @@
+article {
+  background-color: white;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.collection-article {
+  background-color: transparent;
+  padding: 0;
+
+  .movie {
+    display: inline-block;
+    width: 49.5%;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    min-height: 300px;
+
+    img {
+      max-width: 100%;
+      height: 200px;
+    }
+
+    &:hover {
+      background-color: #d0d0d0;
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  article,
+  form {
+    padding: 2%;
+    margin: 20px 10px 0;
+    width: calc(100% - 20px) !important;
+  }
+
+  .collection-article {
+    .movie {
+      width: 100%;
+    }
+  }
+}

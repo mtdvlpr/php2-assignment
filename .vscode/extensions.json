@@ -1,0 +1,27 @@
+{
+  "recommendations": [
+    "aaron-bond.better-comments",
+    "coenraads.bracket-pair-colorizer-2",
+    "streetsidesoftware.code-spell-checker",
+    "dbaeumer.vscode-eslint",
+    "capaj.vscode-exports-autocomplete",
+    "wix.vscode-import-cost",
+    "christian-kohler.path-intellisense",
+    "mrmlnc.vscode-scss",
+    "ecmel.vscode-html-css",
+    "snipsnapdev.snipsnap-vscode",
+    "visualstudioexptteam.vscodeintellicode",
+    "mikestead.dotenv",
+    "shelex.vscode-cy-helper",
+    "rifi2k.format-html-in-php",
+    "knisterpeter.vscode-commitizen",
+    "liamhammett.inline-parameters",
+    "felixfbecker.php-debug",
+    "neilbrayfield.php-docblocker",
+    "bmewburn.vscode-intelephense-client",
+    "ecodes.vscode-phpmd",
+    "niceyannick.php-html-in-string",
+    "editorconfig.editorconfig",
+    "stylelint.vscode-stylelint"
+  ]
+}

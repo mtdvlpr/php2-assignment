@@ -1,0 +1,32 @@
+{
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "editor.insertSpaces": true,
+  "editor.formatOnType": true,
+  "files.trimTrailingWhitespace": true,
+  "files.exclude": {
+    "/.git": true,
+    "**/native/": true
+  },
+  "search.exclude": {
+    "/node_modules": true,
+    "**/node_modules": true,
+    "**/node_modules/": true,
+    "**/node_modules/**": true,
+    "**/native/": true
+  },
+  "files.watcherExclude": {
+    "/node_modules/": true,
+    "**/node_modules": true,
+    "**/node_modules/": true,
+    "**/node_modules/**": true,
+    "**/native/": true
+  },
+  "files.insertFinalNewline": true,
+  "editor.trimAutoWhitespace": false,
+  "files.eol": "\n",
+  "cSpell.words": [
+    "Fpdf",
+    "chillerlan"
+  ]
+}

@@ -1,0 +1,63 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+
+.content {
+  padding-bottom: 150px;
+}
+
+/* Left column */
+.leftcolumn {
+  float: left;
+  width: 75%;
+  padding-left: 10px;
+}
+
+/* Right column */
+aside {
+  float: right;
+  width: 25%;
+  padding-left: 20px;
+  padding-right: 10px;
+}
+
+main {
+  .link-button {
+    background: none;
+    border: none;
+    color: #06f;
+    text-decoration: underline;
+    cursor: pointer;
+    margin: 0;
+    font-size: 1em;
+
+    &:hover {
+      color: blue;
+    }
+  }
+
+  /* Clear floats after the columns */
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+/* Responsive content */
+@media screen and (max-width: 900px) {
+  .leftcolumn {
+    width: 100%;
+    padding: 0;
+  }
+
+  aside {
+    display: none;
+    width: 100%;
+    padding: 0;
+  }
+
+  .accounts {
+    main > aside {
+      display: block;
+    }
+  }
+}
