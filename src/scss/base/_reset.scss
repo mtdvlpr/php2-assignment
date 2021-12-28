@@ -15,15 +15,15 @@
 html {
   font-family: var(--body-font);
   line-height: 1.15;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  text-size-adjust: 100%;
   -ms-overflow-style: scrollbar;
   -webkit-tap-highlight-color: transparent;
   scroll-behavior: smooth;
   height: 100%;
 }
 
-@-ms-viewport {
+@viewport {
   width: device-width;
 }
 
@@ -83,7 +83,7 @@ p {
 abbr[title],
 abbr[data-original-title] {
   text-decoration: underline;
-  -webkit-text-decoration: underline dotted;
+  text-decoration: underline dotted;
   cursor: help;
   border-bottom: 0;
 }
@@ -154,7 +154,7 @@ a {
   color: blue;
   text-decoration: none;
   background-color: transparent;
-  -webkit-text-decoration-skip: objects;
+  text-decoration-skip: objects;
 }
 
 a:hover {
@@ -258,7 +258,7 @@ button,
 html [type='button'],
 [type='reset'],
 [type='submit'] {
-  -webkit-appearance: button;
+  appearance: button;
 }
 
 button::-moz-focus-inner,
@@ -279,7 +279,7 @@ input[type='date'],
 input[type='time'],
 input[type='datetime-local'],
 input[type='month'] {
-  -webkit-appearance: listbox;
+  appearance: listbox;
 }
 
 textarea {
@@ -317,17 +317,17 @@ progress {
 
 [type='search'] {
   outline-offset: -2px;
-  -webkit-appearance: none;
+  appearance: none;
 }
 
 [type='search']::-webkit-search-cancel-button,
 [type='search']::-webkit-search-decoration {
-  -webkit-appearance: none;
+  appearance: none;
 }
 
 ::-webkit-file-upload-button {
   font: inherit;
-  -webkit-appearance: button;
+  appearance: button;
 }
 
 output {

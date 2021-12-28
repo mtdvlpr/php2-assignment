@@ -2,7 +2,7 @@
 nav {
   overflow: hidden;
   background-color: #209cee;
-  margin: 0 10px 0 10px;
+  margin: 0 10px;
   border-radius: 5px;
 
   a {
@@ -62,7 +62,7 @@ nav {
       position: absolute;
       background-color: #f9f9f9;
       min-width: 160px;
-      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .2);
+      box-shadow: 0 8px 16px 0 rgb(0 0 0 / 20%);
       z-index: 1;
       right: 0;
       left: auto;

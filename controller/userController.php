@@ -239,7 +239,7 @@ class UserController
           $content = "We couldn't find your account, <a href='/signup'>try registering</a>.";
         }
       } else {
-        $content = '<form method="post"><input type="submit" name="verify" class="linkButton" value="Activate your account/email."></form>';
+        $content = '<form method="post"><input type="submit" name="verify" class="link-button" value="Activate your account/email."></form>';
       }
     } else {
       $content = "Something went wrong. Please go back to home.";

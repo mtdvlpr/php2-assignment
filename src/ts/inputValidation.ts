@@ -19,7 +19,7 @@ function validateInputs(input: HTMLInputElement, confirm: HTMLInputElement) {
 }
 
 function validateName(input: HTMLInputElement) {
-  const pattern = new RegExp(/\d/)
+  const pattern = /\d/
   if (pattern.exec(input.value) == null) {
     input.setCustomValidity('')
     input.style.backgroundColor = 'white'
