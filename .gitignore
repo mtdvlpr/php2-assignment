@@ -6,3 +6,5 @@ build/phplint.cache
 /vendor
 /README.txt
 /src/pdf/*
+.eslintcache
+.stylelintcache
