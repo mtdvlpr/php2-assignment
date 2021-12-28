@@ -7,10 +7,10 @@
     "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
     "lint:js": "eslint --fix --cache --ext \".ts\" --ignore-path .gitignore .",
-    "lint:style": "stylelint \"**/*.{scss}\" --fix --cache --ignore-path .gitignore",
-    "lint:php": "./vendor/bin/phpmd ./controller/,./db/,./model/,./public/,./view/ ansi rulesets.xml",
+    "lint:style": "stylelint \"**/*.scss\" --fix --cache --ignore-path .gitignore",
+    "lint:php": "./vendor/bin/phpmd ./controller/,./db/,./model/,./public/,./view/ ansi phpmd.xml",
     "lint:phplint": "./vendor/bin/phplint",
-    "lint": "npm run lint:js && npm run lint:style npm run lint:php && npm run lint:phplint"
+    "lint": "npm run lint:js && npm run lint:style && npm run lint:phplint"
   },
   "repository": {
     "type": "git",
@@ -33,8 +33,8 @@
     "@babel/core": "^7.16.5",
     "@babel/eslint-parser": "^7.16.5",
     "@babel/preset-env": "^7.16.5",
-    "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "@typescript-eslint/parser": "^4.33.0",
+    "@typescript-eslint/eslint-plugin": "^5.8.1",
+    "@typescript-eslint/parser": "^5.8.1",
     "babel-loader": "^8.2.3",
     "css-loader": "^5.0.2",
     "eslint": "^7.32.0",
@@ -44,7 +44,7 @@
     "faker": "^5.5.3",
     "mini-css-extract-plugin": "^1.3.6",
     "node-sass": "^7.0.1",
-    "sass-loader": "^11.0.1",
+    "sass-loader": "^12.4.0",
     "style-loader": "^2.0.0",
     "stylelint": "13.12.0",
     "stylelint-8-point-grid": "1.0.0",

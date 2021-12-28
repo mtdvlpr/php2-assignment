@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ruleset name="code-style">
-<description>The code style for this assignment
-</description>
+<description>The code style for this assignment</description>
 <rule ref="Generic.Classes.DuplicateClassName"/>
 <rule ref="Generic.CodeAnalysis.EmptyStatement"/>
 <rule ref="Generic.CodeAnalysis.ForLoopWithTestFunctionCall"/>

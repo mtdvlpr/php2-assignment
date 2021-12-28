@@ -4,7 +4,7 @@ Array.prototype.forEach.call(inputs, (input: HTMLInputElement) => {
 
   if (label != null) {
     const labelVal = label.innerHTML
-    input.addEventListener('change', (e) => {
+    input.addEventListener('change', (_e) => {
       let fileName = ''
       fileName = input.value.split('\\').pop() ?? 'file'
       const span = label.querySelector('span')
