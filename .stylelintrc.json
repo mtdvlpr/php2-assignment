@@ -1,7 +1,8 @@
 {
   "extends": [
+    "stylelint-config-standard",
     "stylelint-config-recommended",
-    "stylelint-config-standard"
+    "stylelint-config-recommended-scss"
   ],
   "customSyntax": "postcss-scss",
   "rules": {
