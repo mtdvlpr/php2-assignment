@@ -4,14 +4,14 @@
 @import './base/typography';
 
 // Components
-@import './components/nav.scss';
-@import './components/message.scss';
-@import './components/table.scss';
-@import './components/twitter.scss';
-@import './components/form.scss';
-@import './components/article.scss';
-@import './components/footer.scss';
-@import './components/header.scss';
+@import './components/nav';
+@import './components/message';
+@import './components/table';
+@import './components/twitter';
+@import './components/form';
+@import './components/article';
+@import './components/footer';
+@import './components/header';
 
 // Pages
-@import './pages/mainPage.scss';
+@import './pages/mainPage';
