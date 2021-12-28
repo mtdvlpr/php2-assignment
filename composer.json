@@ -1,7 +1,7 @@
 {
   "require-dev": {
     "phpmd/phpmd" : "@stable",
-    "overtrue/phplint": "^2.3"
+    "overtrue/phplint": "^3.0"
   },
   "require": {
     "mollie/mollie-api-php": "^2.0",
@@ -9,7 +9,7 @@
     "chillerlan/php-qrcode": "^4.3",
     "phpmailer/phpmailer": "^6.3",
     "sentry/sdk": "^3.1",
-    "abraham/twitteroauth": "^2.0",
+    "abraham/twitteroauth": "^3.2",
     "phpoffice/phpspreadsheet": "^1.18"
   }
 }
