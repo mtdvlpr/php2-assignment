@@ -37,6 +37,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
+      - name: Setup PHP env
+        uses: php-actions/composer@v6
+
       - name: Install dependencies 👨🏻‍💻
         run: npm ci --prefer-offline --no-audit
 
