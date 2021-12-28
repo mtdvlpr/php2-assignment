@@ -9,15 +9,6 @@ if (getenv('ENV') != 'production') {
   $dotenv->load();
 }
 
-/* Exception class. */
-require_once __DIR__ . "/../vendor/phpmailer/phpmailer/src/Exception.php";
-
-/* The main PHPMailer class. */
-require_once __DIR__ . '/../vendor/phpmailer/phpmailer/src/PHPMailer.php';
-
-/* SMTP class, needed if you want to use SMTP. */
-require_once __DIR__ . '/../vendor/phpmailer/phpmailer/src/SMTP.php';
-
 /**
  * The mailer class which sends email, with the option of the subject, body and sender
  * An email address was previously created, which is where the emails are being sent from
@@ -65,7 +56,9 @@ class Mailer
 
       $mail->Send();
     } catch (Exception $e) {
-      throw new Exception("Something went wrong while sending the email: " . $mail->ErrorInfo);
+      throw new Exception("Something went wrong while sending the email: " . $e->errorMessage());
+    } catch (\Exception $e) {
+      throw new Exception("Something went wrong while sending the email: " . $e->getMessage());
     }
   }
 }
