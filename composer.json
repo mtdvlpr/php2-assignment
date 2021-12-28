@@ -1,7 +1,7 @@
 {
   "require-dev": {
     "phpmd/phpmd" : "@stable",
-    "overtrue/phplint": "^2.3"
+    "overtrue/phplint": "^3.0"
   },
   "require": {
     "mollie/mollie-api-php": "^2.0",
